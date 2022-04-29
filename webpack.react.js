@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist/renderer.js'),
+      directory: path.resolve(__dirname, 'build/renderer.js'),
     },
     //contentBase: path.join(),
     compress: true,
@@ -38,7 +38,7 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + '/dist',
+    path: __dirname + '/build',
     filename: 'renderer.js'
   },
   plugins: [

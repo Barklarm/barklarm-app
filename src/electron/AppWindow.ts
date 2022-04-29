@@ -1,4 +1,6 @@
 import { app, BrowserWindow } from 'electron';
+import isDev from 'electron-is-dev';
+import { store } from './Store';
 
 export class AppWindow {
   public readonly window: BrowserWindow;
@@ -9,16 +11,19 @@ export class AppWindow {
 
   createWindow(): BrowserWindow {
     const window = new BrowserWindow({
-      width: 300,
-      height: 600,
       show: false,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: true,
+        contextIsolation: false,
       }
     })
 
     // Load our index.html
-    window.loadURL(`file://${app.getAppPath()}/index.html`)
+    window.loadURL(
+      isDev
+        ? 'http://localhost:9000'
+        : `file://${app.getAppPath()}/index.html`,
+    );
     
     return window;
   }
