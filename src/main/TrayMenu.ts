@@ -1,9 +1,10 @@
 import { app, Tray, Menu, nativeImage } from 'electron';
 import { appManager } from './AppManager';
+import { join } from 'path';
 
 export class TrayMenu {
   public readonly tray: Tray;
-  private iconPath: string = '/assets/try_icon.png';
+  private iconPath: string = join(__dirname, '..','assets', 'try_icon.png');
 
 
   constructor() {
@@ -12,9 +13,8 @@ export class TrayMenu {
   }
 
   createNativeImage() {
-    const path = `${app.getAppPath()}${this.iconPath}`;
-    console.log(path);
-    const image = nativeImage.createFromPath(path);
+    console.log(this.iconPath);
+    const image = nativeImage.createFromPath(this.iconPath);
     image.setTemplateImage(true);
     return image;
   }
@@ -22,7 +22,7 @@ export class TrayMenu {
   createMenu(): Menu {
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: 'Tokei',
+        label: 'Show',
         type: 'normal',
         click: () => { 
           appManager.getWindow('AppWindow').window.show();
