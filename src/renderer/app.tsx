@@ -78,7 +78,7 @@ export const App = () => {
                 </Button>
                 <Button
                     variant="contained"
-                    onClick={() =>setObservables([...observables, {authToken: "", owner: "", repo: "", workflowId: ""}])}
+                    onClick={() =>setObservables([...observables, {type: "githubAction", authToken: "", owner: "", repo: "", workflowId: ""}])}
                 >
                     Add
                 </Button>
