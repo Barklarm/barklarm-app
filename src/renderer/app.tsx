@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import Stack from '@mui/material/Stack';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -8,17 +7,17 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
-import { IndeterminateCheckBox } from '@mui/icons-material';
 
 
 export const App = () => {
     const [observables, setObservables] = useState(window.electron.store.get("observables") || []);
     const deleteByIndex = (index: number) => {
-        setObservables(observables.filter((_: any, filterIndex:number) => {
-            
-            console.log("index to delete", index, "current index", filterIndex)
-            return filterIndex != index
-        }))
+        setObservables(observables.filter((_: any, currentIndex:number) => currentIndex != index))
+    }
+    const updateFieldWithValue  = (fieldName:string, index: number, value: any) => {
+        setObservables(observables.map((observable: any, currentIndex:number) => currentIndex != index
+            ? observable
+            : {...observable, [fieldName]: value}))
     }
     return <>
         <Stack 
@@ -31,13 +30,38 @@ export const App = () => {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         >
-                            <Typography>Observable {observable.name}</Typography>
+                            <Typography>#{index+1}:{observable.owner}/{observable.repo}/{observable.jobId}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Stack spacing={2}>
-                                <TextField id="outlined-basic" label="Name" variant="outlined" value={observable.name} />
-                                <TextField id="outlined-basic" label="Key" variant="outlined" value={observable.key} />
-                                <TextField id="outlined-basic" label="URL" variant="outlined" value={observable.url}/>
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="owner" 
+                                    variant="outlined" 
+                                    value={observable.owner} 
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue("owner", index, event.target.value)} 
+                                />
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="repo" 
+                                    variant="outlined" 
+                                    value={observable.repo} 
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue("repo", index, event.target.value)} 
+                                />
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="jobId" 
+                                    variant="outlined" 
+                                    value={observable.jobId} 
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue("jobId", index, event.target.value)} 
+                                />
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="authorization Token" 
+                                    variant="outlined" 
+                                    value={observable.authToken} 
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue("authToken", index, event.target.value)} 
+                                />
                                 <Stack spacing={2} direction="row" justifyContent="flex-end">
                                     <Button onClick={() => deleteByIndex(index)}> Delete </Button>
                                 </Stack>
@@ -54,9 +78,9 @@ export const App = () => {
                 </Button>
                 <Button
                     variant="contained"
-                    onClick={() =>setObservables([...observables, {key: "", url: "", name: ""}])}
+                    onClick={() =>setObservables([...observables, {authToken: "", owner: "", repo: "", jobId: ""}])}
                 >
-                    <SpeedDialIcon />
+                    Add
                 </Button>
             </Stack>
             
