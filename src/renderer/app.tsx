@@ -30,7 +30,7 @@ export const App = () => {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         >
-                            <Typography>#{index+1}:{observable.owner}/{observable.repo}/{observable.jobId}</Typography>
+                            <Typography>#{index+1}:{observable.owner}/{observable.repo}/{observable.workflowId}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Stack spacing={2}>
@@ -50,10 +50,10 @@ export const App = () => {
                                 />
                                 <TextField 
                                     id="outlined-basic" 
-                                    label="jobId" 
+                                    label="Workflow Name" 
                                     variant="outlined" 
-                                    value={observable.jobId} 
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue("jobId", index, event.target.value)} 
+                                    value={observable.workflowId} 
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue("workflowId", index, event.target.value)} 
                                 />
                                 <TextField 
                                     id="outlined-basic" 
@@ -78,7 +78,7 @@ export const App = () => {
                 </Button>
                 <Button
                     variant="contained"
-                    onClick={() =>setObservables([...observables, {authToken: "", owner: "", repo: "", jobId: ""}])}
+                    onClick={() =>setObservables([...observables, {authToken: "", owner: "", repo: "", workflowId: ""}])}
                 >
                     Add
                 </Button>

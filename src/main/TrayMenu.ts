@@ -13,7 +13,6 @@ export class TrayMenu {
   }
 
   createNativeImage() {
-    console.log(this.iconPath);
     const image = nativeImage.createFromPath(this.iconPath);
     image.setTemplateImage(true);
     return image;
