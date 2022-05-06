@@ -1,6 +1,7 @@
 import { GithubAction } from "./GithubAction"
 import { store } from "../../store"
 import { TrayMenu } from "../TrayMenu"
+import { NotificationManager } from "../NotificationManager"
 
 export type State = {
     name: string
@@ -23,11 +24,12 @@ export class ObserverManager {
     private globalState: State;
     private observersState: State[];
 
-    constructor(private tray: TrayMenu, private Notifications: any){
+    constructor(private tray: TrayMenu, private notifications: NotificationManager){
         setInterval(this.refreshState.bind(this), 60000);
     }
 
     public async refreshState(){
+        const oldStates = this.observersState || [];
         this.observersState = await Promise.all(this.observers.map(observer => observer.getState()))
         this.globalState = {
             name: "Global",
@@ -35,6 +37,7 @@ export class ObserverManager {
             isRunning: this.observersState.some((state: State) => state.isRunning),
             isSuccess: this.observersState.every((state: State) => state.isSuccess),
         }
+        this.notifications.updateNotifications(oldStates, this.observersState);
         this.tray.updateTrayImage(this.globalState)
         this.tray.updateObserverMenu(this.observersState)
     }

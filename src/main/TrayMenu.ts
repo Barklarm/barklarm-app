@@ -43,7 +43,7 @@ export class TrayMenu {
       return {
         label: observerState.name,
         type: 'normal',
-        icon: this.getIconForState(observerState)
+        icon:  nativeImage.createFromPath(this.getIconForState(observerState))
       }
     })
     this.tray.setContextMenu(Menu.buildFromTemplate([...observersStateMenuItems, {type: 'separator'}, ...this.defaultMenuItems]));
