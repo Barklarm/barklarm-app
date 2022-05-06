@@ -28,6 +28,7 @@ export class GithubAction implements Observer {
   }
 
   public async getState(): Promise<State> {
+    const name = `Github: ${this.owner}/${this.repo}/${this.workflowId}`
     try {
         const response = await this.octokit.request('GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs', {
           owner: this.owner,
@@ -36,16 +37,19 @@ export class GithubAction implements Observer {
         })
       if(response.status != 200 && response.data.total_count > 0)
         return {
+          name,
           isReachable: false,
         }
       const {conclusion} = response.data.workflow_runs[0]
       if (conclusion == null) {
         return {
+          name,
           isReachable: true,
           isRunning: true
         }
       }
       return {
+        name,
         isReachable: true,
         isRunning: false,
         isSuccess: conclusion === "success"
@@ -54,6 +58,7 @@ export class GithubAction implements Observer {
     } catch (error) {
       console.error(error);
       return {
+        name,
         isReachable: false,
       }
     }

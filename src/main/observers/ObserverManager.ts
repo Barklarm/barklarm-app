@@ -1,11 +1,13 @@
 import { GithubAction } from "./GithubAction"
 import { store } from "../../store"
+import { TrayMenu } from "../TrayMenu"
 
 export type State = {
+    name: string
     isReachable: boolean
     isRunning?: boolean
     isSuccess?: boolean 
-  }
+}
 
 export interface Observer {
     getState(): Promise<State>
@@ -18,22 +20,30 @@ export type ObserverConfiguration = {
 
 export class ObserverManager {
     private observers: Observer[];
+    private globalState: State;
+    private observersState: State[];
 
-    refershFromStore(){
+    constructor(private tray: TrayMenu, private Notifications: any){
+        setInterval(this.refreshState.bind(this), 60000);
+    }
+
+    public async refreshState(){
+        this.observersState = await Promise.all(this.observers.map(observer => observer.getState()))
+        this.globalState = {
+            name: "Global",
+            isReachable: this.observersState.some((state: State) => state.isReachable),
+            isRunning: this.observersState.some((state: State) => state.isRunning),
+            isSuccess: this.observersState.every((state: State) => state.isSuccess),
+        }
+        this.tray.updateTrayImage(this.globalState)
+        this.tray.updateObserverMenu(this.observersState)
+    }
+
+    public async refershObservers(){
         this.observers = (store.get("observables") as ObserverConfiguration[]).map((configuration: ObserverConfiguration) => {
             if(configuration.type === "githubAction")
                 return new GithubAction(configuration as any)
         })
-    }
-
-    public async getAggregatedState(): Promise<State> {
-        const aggregatedStates: State[] = await Promise.all(this.observers.map(observer => observer.getState()))
-        return {
-            isReachable: aggregatedStates.some((state: State) => state.isReachable),
-            isRunning: aggregatedStates.some((state: State) => state.isRunning),
-            isSuccess: aggregatedStates.every((state: State) => state.isSuccess),
-        }
+        this.refreshState()
     }
 }
-
-export const observerManager = new ObserverManager();

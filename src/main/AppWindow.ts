@@ -1,5 +1,4 @@
 import { BrowserWindow } from 'electron';
-import { join } from 'path';
 
 export class AppWindow {
   public readonly window: BrowserWindow;
@@ -12,13 +11,19 @@ export class AppWindow {
     const window = new BrowserWindow({
       show: false,
       webPreferences: {
-        nodeIntegration: false,
-        contextIsolation: true,
         preload: preload,
       }
     })
     window.loadURL(url);
-    window.webContents.openDevTools();
+    window.on('minimize',function(event: any){
+      event.preventDefault();
+      window.hide();
+    });
+    
+    window.on('close', function (event: any) {
+      event.preventDefault();
+      window.hide();
+    });
     return window;
   }
 }
