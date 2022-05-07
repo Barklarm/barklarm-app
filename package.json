@@ -68,8 +68,7 @@
             "repository": {
               "owner": "kanekotic",
               "name": "barklarm"
-            },
-            "prerelease": true
+            }
           }
         }
       ]
