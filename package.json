@@ -78,11 +78,11 @@
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.63",
     "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.63",
     "@electron-forge/maker-rpm": "^6.0.0-beta.63",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "@electron-forge/plugin-webpack": "6.0.0-beta.63",
-    "@electron-forge/maker-dmg": "^6.0.0-beta.63",
     "@electron-forge/publisher-github": "^6.0.0-beta.63",
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.3",
@@ -110,6 +110,7 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.6.4",
-    "octokit": "^1.7.1"
+    "octokit": "^1.7.1",
+    "update-electron-app": "^2.0.1"
   }
 }
