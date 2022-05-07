@@ -2,7 +2,7 @@
   "name": "barklarm",
   "productName": "barklarm",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Build Radiator supporting Github Actions",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
