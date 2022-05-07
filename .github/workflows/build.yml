@@ -19,5 +19,5 @@ jobs:
       run: yarn install
     - name: deploy
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
       run: yarn deploy
