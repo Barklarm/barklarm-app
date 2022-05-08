@@ -72,8 +72,10 @@ export const App = () => {
             <Stack spacing={2} direction="row" justifyContent="flex-end">
                 <Button 
                     variant="contained" 
-                    onClick={() => window.electron.store.set("observables", observables)}
-                > 
+                    onClick={() => {
+                        window.electron.store.set("observables", observables)
+                        window.electron.app.refreshObservers()
+                    }}> 
                     Save 
                 </Button>
                 <Button

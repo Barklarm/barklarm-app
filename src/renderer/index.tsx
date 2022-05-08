@@ -10,6 +10,9 @@ declare global {
           set: (key: string, val: any) => void;
           // any other methods you've defined...
         };
+        app: {
+          refreshObservers: () => void
+        }
       };
     }
   }

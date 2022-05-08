@@ -14,9 +14,9 @@ contextBridge.exposeInMainWorld('electron', {
   },
   app:{
     refreshObservers(){
-      ipcRenderer.send('electron-refrsh-observers');
+      ipcRenderer.send('electron-refresh-observers');
     }
-  }
+  },
   ipcRenderer: {
     sendMessage(channel: Channels, args: unknown[]) {
       ipcRenderer.send(channel, args);

@@ -1,4 +1,4 @@
-import { app } from 'electron';
+import { app, ipcMain } from 'electron';
 import { appManager } from './main/AppManager';
 import { TrayMenu } from './main/TrayMenu';
 import { AppWindow } from './main/AppWindow';
@@ -27,5 +27,8 @@ app.on('ready', () => {
   observerManager.refershObservers()
   appManager.setTray(tray);
   appManager.setWindow('AppWindow', new AppWindow(MAIN_WINDOW_WEBPACK_ENTRY, MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY));
+  ipcMain.on('electron-refresh-observers', () => {
+    observerManager.refershObservers()
+  });
 });
 
