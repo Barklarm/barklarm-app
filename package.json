@@ -17,12 +17,16 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "src/assets/favicon"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "barklarm"
+            "name": "barklarm",
+            "setupIcon": "src/assets/favicon.ico",
+            "loadingGif": "src/assets/installer.gif"
           }
         },
         {
