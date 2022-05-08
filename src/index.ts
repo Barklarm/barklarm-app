@@ -15,6 +15,11 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+if (process.platform === 'win32')
+{
+    app.setAppUserModelId(app.name)
+}
+
 app.on('ready', () => {
   const tray = new TrayMenu()
   const notification = new NotificationManager()
@@ -23,3 +28,4 @@ app.on('ready', () => {
   appManager.setTray(tray);
   appManager.setWindow('AppWindow', new AppWindow(MAIN_WINDOW_WEBPACK_ENTRY, MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY));
 });
+

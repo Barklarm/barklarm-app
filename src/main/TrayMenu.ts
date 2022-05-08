@@ -11,7 +11,7 @@ export class TrayMenu {
   private readonly FailIconPath: string = join(__dirname, '..','assets', 'fail_icon.png');
   private readonly defaultMenuItems: MenuItemConstructorOptions[] = [
     {
-      label: 'Show',
+      label: 'Configure',
       type: 'normal',
       click: () => { 
         appManager.getWindow('AppWindow').window.show();

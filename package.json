@@ -1,9 +1,10 @@
 {
   "name": "barklarm",
   "productName": "barklarm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build Radiator supporting Github Actions",
   "main": ".webpack/main",
+  "repository": "https://github.com/kanekotic/barklarm",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
