@@ -59,6 +59,7 @@ export const App = () => {
                                     id="outlined-basic" 
                                     label="authorization Token" 
                                     variant="outlined" 
+                                    type="password"
                                     value={observable.authToken} 
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue("authToken", index, event.target.value)} 
                                 />
