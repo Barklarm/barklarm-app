@@ -4,8 +4,8 @@ module.exports = {
       "osxSign": {
         "identity": `Developer ID Application: ${process.env.MAC_DEVELOPER_ID}`,
         "hardened-runtime": true,
-        "entitlements": "src/assets/entitlements.plist",
-        "entitlements-inherit": "src/assets/entitlements.plist",
+        "entitlements": "build/entitlements.plist",
+        "entitlements-inherit": "build/entitlements.plist",
         "signature-flags": "library"
       },
       "osxNotarize": {
