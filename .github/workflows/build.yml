@@ -48,4 +48,7 @@ jobs:
       - name: deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
+          MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
+          MAC_APPLE_ID_PWD: ${{ secrets.MAC_APPLE_ID_PWD }}
+          MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
         run: yarn deploy
