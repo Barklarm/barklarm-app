@@ -11,13 +11,30 @@ jobs:
           os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@master
-      with:
-        node-version: 14
-    - name: install dependencies
-      run: yarn install
-    - name: deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
-      run: yarn deploy
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+        with:
+          node-version: 14
+      - name: Codesign executable
+        if: matrix.os == 'macOS-latest'
+        env: 
+          MACOS_CERTIFICATE_APP: ${{ secrets.MACOS_CERTIFICATE_APP }}
+          MACOS_CERTIFICATE_APP_PWD: ${{ secrets.MACOS_CERTIFICATE_APP_PWD }}
+          MACOS_CERTIFICATE_INSTALLER: ${{ secrets.MACOS_CERTIFICATE_INSTALLER }}
+          MACOS_CERTIFICATE_INSTALLER_PWD: ${{ secrets.MACOS_CERTIFICATE_INSTALLER_PWD }}
+          MACOS_KEYCHAIN_PWD: ${{ secrets.MACOS_KEYCHAIN_PWD }}
+        run: |
+          security create-keychain -p "$MACOS_KEYCHAIN_PWD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$MACOS_KEYCHAIN_PWD" build.keychain
+          echo $MACOS_CERTIFICATE_APP | base64 —decode > certificate_app.p12
+          security import certificate_app.p12 -k build.keychain -P $MACOS_CERTIFICATE_APP_PWD -T /usr/bin/codesign
+          echo $MACOS_CERTIFICATE_INSTALLER | base64 —decode > certificate_installer.p12
+          security import certificate_installer.p12 -k build.keychain -P $MACOS_CERTIFICATE_INSTALLER_PWD -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$MACOS_KEYCHAIN_PWD" build.keychain
+      - name: install dependencies
+        run: yarn install
+      - name: deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
+        run: yarn deploy
