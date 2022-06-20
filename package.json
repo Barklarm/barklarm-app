@@ -1,7 +1,7 @@
 {
   "name": "barklarm",
   "productName": "barklarm",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Build Radiator supporting Github Actions",
   "main": ".webpack/main",
   "repository": "https://github.com/kanekotic/barklarm",
