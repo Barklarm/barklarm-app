@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "pehota",
+      "name": "Dimitar Apostolov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10498221?v=4",
+      "profile": "https://github.com/pehota",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "barklarm",
+  "projectOwner": "kanekotic",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
