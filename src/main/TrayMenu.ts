@@ -1,7 +1,7 @@
 import { app, Tray, Menu, nativeImage, MenuItemConstructorOptions } from 'electron';
 import { appManager } from './AppManager';
 import { join } from 'path';
-import { State } from './observers/ObserverManager';
+import { State } from "../types/State";
 
 export class TrayMenu {
   public readonly tray: Tray;

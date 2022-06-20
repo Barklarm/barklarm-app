@@ -1,13 +1,8 @@
 import { Octokit } from "octokit";
-import { Observer, State, ObserverConfiguration } from "./ObserverManager";
-
-export type GithubActionConfiguration = ObserverConfiguration & {
-  authToken: string;
-  owner: string;
-  repo: string;
-  workflowId: string;
-  alias?: string;
-};
+import { Observer } from "../../types/Observer";
+import { State } from "../../types/State";
+import { GithubActionConfiguration } from "../../types/GithubActionConfiguration";
+import { Status } from "../../types/Status";
 
 export class GithubAction implements Observer {
   private octokit: Octokit;
@@ -44,21 +39,24 @@ export class GithubAction implements Observer {
           workflow_id: this.workflowId,
         }
       );
-      if (response.status != 200 && response.data.total_count > 0)
+      if (response.status != 200 || response.data.total_count == 0)
         return {
           name,
+          status: Status.NA,
           isReachable: false,
         };
       const { conclusion } = response.data.workflow_runs[0];
       if (conclusion == null) {
         return {
           name,
+          status: Status.CHECKING,
           isReachable: true,
           isRunning: true,
         };
       }
       return {
         name,
+        status: conclusion === "success" ? Status.SUCCESS : Status.FAILURE,
         isReachable: true,
         isRunning: false,
         isSuccess: conclusion === "success",
@@ -67,6 +65,7 @@ export class GithubAction implements Observer {
       console.error(error);
       return {
         name,
+        status: Status.NA,
         isReachable: false,
       };
     }

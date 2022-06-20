@@ -1,6 +1,6 @@
 import { Notification, nativeImage } from 'electron';
 import { join } from 'path';
-import { State } from "./observers/ObserverManager";
+import { State } from "../types/State";
 
 export class NotificationManager {
     private readonly okIconPath: string = join(__dirname, '..','assets', 'ok_icon_big.png');
