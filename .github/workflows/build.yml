@@ -15,9 +15,6 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 14
-      - name: "test"
-        run:
-          "yarn test"
       - name: Codesign executable
         if: matrix.os == 'macOS-latest'
         env: 
@@ -48,6 +45,8 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
       - name: install dependencies
         run: yarn install
+      - name: test
+        run: yarn test
       - name: deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
