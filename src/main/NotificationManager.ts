@@ -1,5 +1,6 @@
 import { Notification, nativeImage } from 'electron';
 import { join } from 'path';
+import { Status } from '../types/Status';
 import { State } from "../types/State";
 
 export class NotificationManager {
@@ -8,11 +9,11 @@ export class NotificationManager {
 
     public updateNotifications(old: State[], actual: State[]){
         actual.forEach(current => {
-            const previous = old.find(oldState => oldState.name === current.name) || { isSuccess: true } as any
-            if (!current.isSuccess && previous.isSuccess){
+            const previous = old.find(oldState => oldState.name === current.name) || { status: Status.SUCCESS } as any
+            if (previous.status === Status.SUCCESS  && current.status === Status.FAILURE){
                return new Notification({ title: "Fail", body: `${current.name} failed`, icon: nativeImage.createFromPath(this.FailIconPath)}).show()
             }
-            if (current.isSuccess && !previous.isSuccess){
+            if (previous.status !== Status.FAILURE && current.status === Status.SUCCESS){
                return new Notification({ title: "Fix", body: `${current.name} fixed`, icon: nativeImage.createFromPath(this.okIconPath)}).show()
             }
         })

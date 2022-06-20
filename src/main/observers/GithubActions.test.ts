@@ -51,7 +51,6 @@ describe('Github Action', () => {
             expect(result).toEqual({
                 name: config.alias,
                 status: Status.NA,
-                isReachable: false,
             })
         });
         it('shoulds return NA status if request return no data', async () => {
@@ -65,7 +64,6 @@ describe('Github Action', () => {
             expect(result).toEqual({
                 name: config.alias,
                 status: Status.NA,
-                isReachable: false,
             })
         });
         it('shoulds return CHECKING status if no conclusion yet', async () => {
@@ -84,8 +82,6 @@ describe('Github Action', () => {
             expect(result).toEqual({
                 name: config.alias,
                 status: Status.CHECKING,
-                isReachable: true,
-                isRunning: true,
             })
         });
         it('shoulds return SUCCESS status if conclusion is equal to success', async () => {
@@ -104,9 +100,6 @@ describe('Github Action', () => {
             expect(result).toEqual({
                 name: config.alias,
                 status: Status.SUCCESS,
-                isReachable: true,
-                isRunning: false,
-                isSuccess: true
             })
         });
         it('shoulds return FAILURE status if conclusion is diferent to success', async () => {
@@ -125,9 +118,6 @@ describe('Github Action', () => {
             expect(result).toEqual({
                 name: config.alias,
                 status: Status.FAILURE,
-                isReachable: true,
-                isRunning: false,
-                isSuccess: false
             })
         });
         it('shoulds return NA status if exception thrown', async () => {
@@ -136,7 +126,6 @@ describe('Github Action', () => {
             expect(result).toEqual({
                 name: config.alias,
                 status: Status.NA,
-                isReachable: false,
             })
         });
         

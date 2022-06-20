@@ -1,6 +1,4 @@
-import { GithubActionConfiguration } from "../../types/GithubActionConfiguration";
 import { GithubAction } from "./GithubAction";
-import { faker } from '@faker-js/faker';
 import { Status } from "../../types/Status";
 import { ObserverManager } from "./ObserverManager";
 import { TrayMenu } from "../TrayMenu";
@@ -80,18 +78,12 @@ describe('ObserverManager', () => {
                     getState: () => Promise.resolve({
                         name: "awesome",
                         status: Status.SUCCESS,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 },
                 {
                     getState: () => Promise.resolve({
                         name: "awesome2",
                         status: Status.SUCCESS,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 }
             ];
@@ -100,9 +92,6 @@ describe('ObserverManager', () => {
             const expectedGlobalState: State = {
                 name: "Global",
                 status: Status.SUCCESS,
-                isReachable: true,
-                isRunning: false,
-                isSuccess: true,
             }
             await observerManager.refreshState()
             expect(notificationManagerMock.updateNotifications).toBeCalledWith(
@@ -117,27 +106,18 @@ describe('ObserverManager', () => {
                     getState: () => Promise.resolve({
                         name: "awesome",
                         status: Status.SUCCESS,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 },
                 {
                     getState: () => Promise.resolve({
                         name: "awesome",
                         status: Status.NA,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 },
                 {
                     getState: () => Promise.resolve({
                         name: "awesome2",
                         status: Status.FAILURE,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 }
             ];
@@ -146,9 +126,6 @@ describe('ObserverManager', () => {
             const expectedGlobalState: State = {
                 name: "Global",
                 status: Status.FAILURE,
-                isReachable: true,
-                isRunning: false,
-                isSuccess: true,
             }
             await observerManager.refreshState()
             expect(notificationManagerMock.updateNotifications).toBeCalledWith(
@@ -163,27 +140,18 @@ describe('ObserverManager', () => {
                     getState: () => Promise.resolve({
                         name: "awesome",
                         status: Status.SUCCESS,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 },
                 {
                     getState: () => Promise.resolve({
                         name: "awesome",
                         status: Status.CHECKING,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 },
                 {
                     getState: () => Promise.resolve({
                         name: "awesome2",
                         status: Status.NA,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 }
             ];
@@ -192,9 +160,6 @@ describe('ObserverManager', () => {
             const expectedGlobalState: State = {
                 name: "Global",
                 status: Status.NA,
-                isReachable: true,
-                isRunning: false,
-                isSuccess: true,
             }
             await observerManager.refreshState()
             expect(notificationManagerMock.updateNotifications).toBeCalledWith(
@@ -209,18 +174,12 @@ describe('ObserverManager', () => {
                     getState: () => Promise.resolve({
                         name: "awesome",
                         status: Status.SUCCESS,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 },
                 {
                     getState: () => Promise.resolve({
                         name: "awesome2",
                         status: Status.CHECKING,
-                        isReachable: true,
-                        isRunning: false,
-                        isSuccess: true,
                     })
                 }
             ];
@@ -229,9 +188,6 @@ describe('ObserverManager', () => {
             const expectedGlobalState: State = {
                 name: "Global",
                 status: Status.CHECKING,
-                isReachable: true,
-                isRunning: false,
-                isSuccess: true,
             }
             await observerManager.refreshState()
             expect(notificationManagerMock.updateNotifications).toBeCalledWith(

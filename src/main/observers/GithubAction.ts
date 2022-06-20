@@ -43,30 +43,23 @@ export class GithubAction implements Observer {
         return {
           name,
           status: Status.NA,
-          isReachable: false,
         };
       const { conclusion } = response.data.workflow_runs[0];
       if (conclusion == null) {
         return {
           name,
           status: Status.CHECKING,
-          isReachable: true,
-          isRunning: true,
         };
       }
       return {
         name,
         status: conclusion === "success" ? Status.SUCCESS : Status.FAILURE,
-        isReachable: true,
-        isRunning: false,
-        isSuccess: conclusion === "success",
       };
     } catch (error) {
       console.error(error);
       return {
         name,
         status: Status.NA,
-        isReachable: false,
       };
     }
   }

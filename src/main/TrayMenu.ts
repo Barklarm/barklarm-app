@@ -2,13 +2,11 @@ import { app, Tray, Menu, nativeImage, MenuItemConstructorOptions } from 'electr
 import { appManager } from './AppManager';
 import { join } from 'path';
 import { State } from "../types/State";
+import { Status } from '../types/Status';
+import { MapType } from '../types/MapType';
 
 export class TrayMenu {
   public readonly tray: Tray;
-  private readonly naIconPath: string = join(__dirname, '..','assets', 'na_icon.png');
-  private readonly runningIconPath: string = join(__dirname, '..','assets', 'running_icon.png');
-  private readonly okIconPath: string = join(__dirname, '..','assets', 'ok_icon.png');
-  private readonly FailIconPath: string = join(__dirname, '..','assets', 'fail_icon.png');
   private readonly defaultMenuItems: MenuItemConstructorOptions[] = [
     {
       label: 'Configure',
@@ -26,6 +24,12 @@ export class TrayMenu {
       }
     }
   ]
+  private readonly statusToImagePathMap: MapType = {
+    [Status.SUCCESS]: join(__dirname, '..','assets', 'ok_icon.png'),
+    [Status.FAILURE]: join(__dirname, '..','assets', 'fail_icon.png'),
+    [Status.CHECKING]: join(__dirname, '..','assets', 'running_icon.png'),
+    [Status.NA]: join(__dirname, '..','assets', 'na_icon.png'),
+  }
 
   constructor() {
     this.tray = new Tray(this.createNativeImage());
@@ -50,18 +54,11 @@ export class TrayMenu {
   }
 
   private getIconForState(state: State){
-      let iconPath = this.okIconPath;
-      if(!state.isReachable)
-        iconPath = this.naIconPath
-      else if(state.isRunning)
-        iconPath = this.runningIconPath
-      else if(!state.isSuccess)
-        iconPath = this.FailIconPath
-      return iconPath
+      return this.statusToImagePathMap[state.status]
   }
 
   private createNativeImage() {
-    const image = nativeImage.createFromPath(this.naIconPath);
+    const image = nativeImage.createFromPath(this.statusToImagePathMap[Status.NA]);
     image.setTemplateImage(true);
     return image;
   }

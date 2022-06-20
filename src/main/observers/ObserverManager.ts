@@ -32,9 +32,6 @@ export class ObserverManager {
         this.globalState = {
             name: "Global",
             status: this.calculateGlobalStatus(this.observersState),
-            isReachable: this.observersState.some((state: State) => state.isReachable),
-            isRunning: this.observersState.some((state: State) => state.isRunning),
-            isSuccess: this.observersState.every((state: State) => state.isSuccess),
         }
         
         this.notifications.updateNotifications(oldStates, this.observersState);

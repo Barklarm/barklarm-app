@@ -1,7 +1,5 @@
-import { AppWindow } from './AppWindow';
+import { ManagerTypes } from '../types/ManagerTypes';
 import { TrayMenu } from './TrayMenu';
-
-export type ManagerTypes = AppWindow;
 
 class AppManager {
   private trayMenu!: TrayMenu;
