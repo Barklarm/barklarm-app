@@ -6,12 +6,28 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { GithubAction } from "./components/GithubAction";
+import { CCTray } from "./components/CCTray";
 import TextField from "@mui/material/TextField";
 
+
+const observersComponentBuilderMap: any = {
+  "githubAction": (observable: any, index:number, updateFieldWithValue: any) => <GithubAction observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>,
+  "ccTray": (observable: any, index:number, updateFieldWithValue: any) => <CCTray observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>
+}
 export const App = () => {
   const [observables, setObservables] = useState(
     window.electron.store.get("observables") || []
   );
+  const getComponent = (observable: any, index:number, updateFieldWithValue: any): any => {
+    try {
+      return observersComponentBuilderMap[observable.type](observable,index,updateFieldWithValue)
+    } catch (_) {
+      return (<></>)
+    }
+  }
   const deleteByIndex = (index: number) => {
     setObservables(
       observables.filter(
@@ -49,47 +65,20 @@ export const App = () => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2}>
-                <TextField
-                  id="outlined-basic"
-                  label="owner"
-                  variant="outlined"
-                  value={observable.owner}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    updateFieldWithValue("owner", index, event.target.value)
-                  }
-                />
-                <TextField
-                  id="outlined-basic"
-                  label="repo"
-                  variant="outlined"
-                  value={observable.repo}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    updateFieldWithValue("repo", index, event.target.value)
-                  }
-                />
-                <TextField
-                  id="outlined-basic"
-                  label="Workflow Name"
-                  variant="outlined"
-                  value={observable.workflowId}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    updateFieldWithValue(
-                      "workflowId",
-                      index,
-                      event.target.value
-                    )
-                  }
-                />
-                <TextField
-                  id="outlined-basic"
-                  label="authorization Token"
-                  variant="outlined"
-                  type="password"
-                  value={observable.authToken}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    updateFieldWithValue("authToken", index, event.target.value)
-                  }
-                />
+              <Select
+                value={observable.type}
+                label="Observer Type"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
+                  updateFieldWithValue("type", index, event.target.value)
+                }
+              >
+                <MenuItem value={"githubAction"}>Github Acton</MenuItem>
+                <MenuItem value={"ccTray"}>CCTray</MenuItem>
+              </Select>
+              {
+                getComponent(observable,index,updateFieldWithValue)
+              }
+                
                 <TextField
                   id="outlined-basic"
                   label="alias"
@@ -123,11 +112,7 @@ export const App = () => {
               setObservables([
                 ...observables,
                 {
-                  type: "githubAction",
-                  authToken: "",
-                  owner: "",
-                  repo: "",
-                  workflowId: "",
+                  type: "",
                 },
               ])
             }

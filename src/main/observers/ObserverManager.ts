@@ -1,4 +1,5 @@
 import { GithubAction } from "./GithubAction"
+import { CCTray } from "./CCTray"
 import { store } from "../../store"
 import { TrayMenu } from "../TrayMenu"
 import { NotificationManager } from "../NotificationManager"
@@ -43,6 +44,8 @@ export class ObserverManager {
         this.observers = (store.get("observables") as ObserverConfiguration[]).map((configuration: ObserverConfiguration) => {
             if(configuration.type === "githubAction")
                 return new GithubAction(configuration as any)
+            if(configuration.type === "ccTray")
+                return new CCTray(configuration as any)
         })
         this.refreshState()
     }

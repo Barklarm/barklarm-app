@@ -2,7 +2,8 @@ import { State } from "../../types/State";
 import { Observer } from "../../types/Observer";
 import { CCTrayConfiguration } from "../../types/CCTrayConfiguration";
 import { Status } from "../../types/Status";
-import { XMLParser } from "fast-xml-parser"
+import { XMLParser } from "fast-xml-parser";
+import fetch from 'electron-fetch';
 
 export class CCTray implements Observer {
     private readonly url: string;
@@ -37,6 +38,7 @@ export class CCTray implements Observer {
                 status: Status.NA,
             };
         const projects = this.parser.parse(await response.text()).Projects;
+        
         const project = projects.Project
         if(project.activity !== "Sleeping")
             return {

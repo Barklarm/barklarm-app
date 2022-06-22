@@ -3,22 +3,18 @@ import { faker } from '@faker-js/faker';
 import { Status } from "../../types/Status";
 import { CCTrayConfiguration } from "../../types/CCTrayConfiguration";
 
+const fetchtMock = jest.fn();
+jest.mock('electron-fetch', () => {
+    return {
+        __esModule: true,
+        default: (...all: any) => fetchtMock(...all)
+    };
+})
+
 describe('CCTray', () => {
     describe('getState', () => {
-
-        let originalFetch: any;
         let config: CCTrayConfiguration;
         let observer: CCTray;
-        const fetchtMock = jest.fn();  
-
-        beforeAll(() => {
-            originalFetch = global.fetch
-            global.fetch = fetchtMock
-        });
-
-        afterAll(() => {
-            global.fetch = originalFetch
-        });
 
         beforeEach(() => {
             fetchtMock.mockClear()
