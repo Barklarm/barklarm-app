@@ -6,5 +6,5 @@ export type GithubActionConfiguration = ObserverConfiguration & {
   owner: string;
   repo: string;
   workflowId: string;
-  alias?: string;
 };
+
