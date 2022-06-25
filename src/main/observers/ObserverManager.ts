@@ -7,6 +7,7 @@ import { State } from "../../types/State"
 import { Observer } from "../../types/Observer"
 import { ObserverConfiguration } from "../../types/ObserverConfiguration"
 import { Status } from "../../types/Status"
+import { DatadogMonitor } from "./DatadogMonitor"
 
 export class ObserverManager {
     private observers: Observer[];
@@ -46,6 +47,8 @@ export class ObserverManager {
                 return new GithubAction(configuration as any)
             if(configuration.type === "ccTray")
                 return new CCTray(configuration as any)
+            if(configuration.type === "datadogMonitor")
+                return new DatadogMonitor(configuration as any)
         })
         this.refreshState()
     }

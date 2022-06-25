@@ -46,7 +46,6 @@ describe('Datadog', () => {
             getMonitorMock.mockClear()
             config = {
                 type: "datadogMonitor",
-                authToken: faker.random.word(),
                 site: faker.internet.url(),
                 apiKey: faker.random.word(),
                 appKey: faker.random.word(),

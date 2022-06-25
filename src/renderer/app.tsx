@@ -8,14 +8,16 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import TextField from "@mui/material/TextField";
 import { GithubAction } from "./components/GithubAction";
 import { CCTray } from "./components/CCTray";
-import TextField from "@mui/material/TextField";
+import { DatadogMonitor } from "./components/DatadogMonitor";
 
 
 const observersComponentBuilderMap: any = {
   "githubAction": (observable: any, index:number, updateFieldWithValue: any) => <GithubAction observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>,
-  "ccTray": (observable: any, index:number, updateFieldWithValue: any) => <CCTray observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>
+  "ccTray": (observable: any, index:number, updateFieldWithValue: any) => <CCTray observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>,
+  "datadogMonitor": (observable: any, index:number, updateFieldWithValue: any) => <DatadogMonitor observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>
 }
 export const App = () => {
   const [observables, setObservables] = useState(
@@ -74,6 +76,7 @@ export const App = () => {
               >
                 <MenuItem value={"githubAction"}>Github Acton</MenuItem>
                 <MenuItem value={"ccTray"}>CCTray</MenuItem>
+                <MenuItem value={"datadogMonitor"}>Datadog Monitor</MenuItem>
               </Select>
               {
                 getComponent(observable,index,updateFieldWithValue)
