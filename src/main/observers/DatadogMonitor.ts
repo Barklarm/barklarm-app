@@ -12,7 +12,7 @@ export class DatadogMonitor implements Observer {
     private readonly monitorId: number;
     private readonly apiInstance: v1.MonitorsApi;
     constructor({ alias, site, apiKey, appKey, monitorId }: DetadogMonitorConfiguration) {
-        this.alias = alias
+        this.alias = alias || `Datadog: ${monitorId}`
         this.monitorId = monitorId
         const configuration : client.Configuration = client.createConfiguration({
             baseServer: new ServerConfiguration("https://{subdomain}.{site}", {

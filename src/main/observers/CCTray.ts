@@ -18,7 +18,7 @@ export class CCTray implements Observer {
 
     constructor({ url, alias } : CCTrayConfiguration) {
         this.url = url;
-        this.alias = alias;
+        this.alias = alias || `CCTray: ${url}`;
         this.parser = new XMLParser({
             ignoreAttributes: false,
             attributeNamePrefix : "",

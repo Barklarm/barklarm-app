@@ -25,11 +25,10 @@ export class GithubAction implements Observer {
     this.owner = owner;
     this.repo = repo;
     this.workflowId = workflowId;
-    this.alias = alias;
+    this.alias = alias || `Github: ${this.owner}/${this.repo}/${this.workflowId}`;
   }
 
   public async getState(): Promise<State> {
-    const name = this.resolveAlias();
     try {
       const response = await this.octokit.request(
         "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs",
@@ -41,33 +40,27 @@ export class GithubAction implements Observer {
       );
       if (response.status != 200 || response.data.total_count == 0)
         return {
-          name,
+          name: this.alias,
           status: Status.NA,
         };
       const { conclusion } = response.data.workflow_runs[0];
       if (conclusion == null) {
         return {
-          name,
+          name: this.alias,
           status: Status.CHECKING,
         };
       }
       return {
-        name,
+        name: this.alias,
         status: conclusion === "success" ? Status.SUCCESS : Status.FAILURE,
       };
     } catch (error) {
       console.error(error);
       return {
-        name,
+        name: this.alias,
         status: Status.NA,
       };
     }
-  }
-
-  private resolveAlias() {
-    return (
-      this.alias ?? `Github: ${this.owner}/${this.repo}/${this.workflowId}`
-    );
   }
 }
 
