@@ -46,8 +46,13 @@ export class ObserverManager {
 
   public async refershObservers() {
     this.observers = (store.get('observables') as ObserverConfiguration[]).map((configuration: ObserverConfiguration) =>
-      this.ObserversBuildersMap[configuration.type](configuration)
-    );
+    {
+      try {
+         return this.ObserversBuildersMap[configuration.type](configuration) 
+      } catch (error) {
+          console.error(error);
+      }   
+    });
     this.refreshState();
   }
 }
