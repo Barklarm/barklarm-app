@@ -25,7 +25,7 @@ const appFolder = dirname(process.execPath);
 const exeName = basename(process.execPath);
 if (process.platform === 'win32') {
   app.setAppUserModelId(app.name);
-  const updateExePath = resolve(appFolder, '..', 'Update.exe');
+  updateExePath = resolve(appFolder, '..', 'Update.exe');
 }
 
 app.setLoginItemSettings({
