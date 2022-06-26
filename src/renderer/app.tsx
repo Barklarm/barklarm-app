@@ -12,12 +12,18 @@ import TextField from "@mui/material/TextField";
 import { GithubAction } from "./components/GithubAction";
 import { CCTray } from "./components/CCTray";
 import { DatadogMonitor } from "./components/DatadogMonitor";
+import { MapType } from "../types/MapType";
 
 
-const observersComponentBuilderMap: any = {
+const observersComponentBuilderMap: MapType<(observable: any, index:number, updateFieldWithValue: any) => JSX.Element> = {
   "githubAction": (observable: any, index:number, updateFieldWithValue: any) => <GithubAction observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>,
   "ccTray": (observable: any, index:number, updateFieldWithValue: any) => <CCTray observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>,
   "datadogMonitor": (observable: any, index:number, updateFieldWithValue: any) => <DatadogMonitor observable={observable} index={index} updateFieldWithValue={updateFieldWithValue}/>
+}
+const observersTitleBuilderMap: MapType<(observable: any) => string> = {
+  "githubAction": (observable: any) => `Github: ${observable.alias || `${observable.owner}/${observable.repo}/${observable.workflowId}`}`,
+  "ccTray": (observable: any) => `CCTray: ${observable.alias || observable.url}`,
+  "datadogMonitor": (observable: any) => `Datadog: ${observable.alias || `${observable.site}/${observable.monitorId}`}`,
 }
 export const App = () => {
   const [observables, setObservables] = useState(
@@ -30,6 +36,14 @@ export const App = () => {
       return (<></>)
     }
   }
+  const getTitle = (observable: any): string => {
+    try {
+      return observersTitleBuilderMap[observable.type](observable)
+    } catch (_) {
+      return ("Unkown")
+    }
+  }
+
   const deleteByIndex = (index: number) => {
     setObservables(
       observables.filter(
@@ -61,8 +75,7 @@ export const App = () => {
               id="panel1a-header"
             >
               <Typography>
-                #{index + 1}:{observable.owner}/{observable.repo}/
-                {observable.workflowId}
+                {getTitle(observable)}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

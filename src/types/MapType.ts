@@ -1,3 +1,3 @@
-export type MapType = {
-  [id: string]: string;
-};
+export type MapType<T> = { 
+  [id: string]: T; 
+}

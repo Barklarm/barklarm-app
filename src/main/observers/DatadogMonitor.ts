@@ -4,13 +4,21 @@ import { DetadogMonitorConfiguration } from "../../types/DetadogMonitorConfigura
 import { client, v1 } from "@datadog/datadog-api-client";
 import { Status } from "../../types/Status";
 import { ServerConfiguration } from "@datadog/datadog-api-client/dist/packages/datadog-api-client-common";
-import { OK, WARN, ALERT } from "@datadog/datadog-api-client/dist/packages/datadog-api-client-v1/models/MonitorOverallStates";
-
+import { OK, WARN, ALERT, IGNORED, NO_DATA, SKIPPED, UNKNOWN } from "@datadog/datadog-api-client/dist/packages/datadog-api-client-v1/models/MonitorOverallStates";
 
 export class DatadogMonitor implements Observer {
     private readonly alias: string;
     private readonly monitorId: number;
     private readonly apiInstance: v1.MonitorsApi;
+    private readonly overalStateMap : any = {
+        [OK]: Status.SUCCESS,
+        [ALERT]: Status.FAILURE,
+        [WARN]: Status.FAILURE,
+        [IGNORED]: Status.NA,
+        [NO_DATA]: Status.NA,
+        [SKIPPED]: Status.NA,
+        [UNKNOWN]: Status.NA,
+    }
     constructor({ alias, site, apiKey, appKey, monitorId }: DetadogMonitorConfiguration) {
         this.alias = alias || `Datadog: ${monitorId}`
         this.monitorId = monitorId
@@ -31,19 +39,9 @@ export class DatadogMonitor implements Observer {
             const data: v1.Monitor = await this.apiInstance.getMonitor({
                 monitorId: this.monitorId,
             })
-            if(data.overallState === OK )
-                return {
-                    name: this.alias,
-                    status: Status.SUCCESS,
-                };
-            if(data.overallState === ALERT || data.overallState === WARN)
-                return {
-                    name: this.alias,
-                    status: Status.FAILURE,
-                };
             return {
                 name: this.alias,
-                status: Status.NA,
+                status: this.overalStateMap[data.overallState],
             };
         } catch (error) {
             console.error(error)

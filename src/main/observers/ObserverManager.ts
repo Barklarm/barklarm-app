@@ -8,11 +8,17 @@ import { Observer } from "../../types/Observer"
 import { ObserverConfiguration } from "../../types/ObserverConfiguration"
 import { Status } from "../../types/Status"
 import { DatadogMonitor } from "./DatadogMonitor"
+import { MapType } from "../../types/MapType"
 
 export class ObserverManager {
     private observers: Observer[];
     private globalState: State;
     private observersState: State[];
+    private readonly ObserversBuildersMap: MapType<(config: any) => Observer> = {
+        "githubAction": (configuration: any) => new GithubAction(configuration as any),
+        "ccTray": (configuration: any) => new CCTray(configuration as any),
+        "datadogMonitor": (configuration: any) => new DatadogMonitor(configuration as any),
+    }
 
     constructor(private tray: TrayMenu, private notifications: NotificationManager, enableRefresh: boolean = true){
         enableRefresh && setInterval(this.refreshState.bind(this), 60000);
@@ -42,14 +48,9 @@ export class ObserverManager {
     }
 
     public async refershObservers(){
-        this.observers = (store.get("observables") as ObserverConfiguration[]).map((configuration: ObserverConfiguration) => {
-            if(configuration.type === "githubAction")
-                return new GithubAction(configuration as any)
-            if(configuration.type === "ccTray")
-                return new CCTray(configuration as any)
-            if(configuration.type === "datadogMonitor")
-                return new DatadogMonitor(configuration as any)
-        })
+        this.observers = (store.get("observables") as ObserverConfiguration[]).map(
+            (configuration: ObserverConfiguration) => this.ObserversBuildersMap[configuration.type](configuration)
+            )
         this.refreshState()
     }
 }

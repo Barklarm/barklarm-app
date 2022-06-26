@@ -24,7 +24,7 @@ export class TrayMenu {
       }
     }
   ]
-  private readonly statusToImagePathMap: MapType = {
+  private readonly statusToImagePathMap: MapType<string> = {
     [Status.SUCCESS]: join(__dirname, '..','assets', 'ok_icon.png'),
     [Status.FAILURE]: join(__dirname, '..','assets', 'fail_icon.png'),
     [Status.CHECKING]: join(__dirname, '..','assets', 'running_icon.png'),
