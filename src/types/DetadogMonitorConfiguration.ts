@@ -1,5 +1,4 @@
-import { ObserverConfiguration } from "./ObserverConfiguration";
-
+import { ObserverConfiguration } from './ObserverConfiguration';
 
 export type DetadogMonitorConfiguration = ObserverConfiguration & {
   site: string;

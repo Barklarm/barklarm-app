@@ -1,152 +1,151 @@
-import { DatadogMonitor } from "./DatadogMonitor";
+import { DatadogMonitor } from './DatadogMonitor';
 import { faker } from '@faker-js/faker';
-import { Status } from "../../types/Status";
-import { DetadogMonitorConfiguration } from "../../types/DetadogMonitorConfiguration";
-import { v1 } from "@datadog/datadog-api-client";
-import { ServerConfiguration } from "@datadog/datadog-api-client/dist/packages/datadog-api-client-common";
-
+import { Status } from '../../types/Status';
+import { DetadogMonitorConfiguration } from '../../types/DetadogMonitorConfiguration';
+import { v1 } from '@datadog/datadog-api-client';
+import { ServerConfiguration } from '@datadog/datadog-api-client/dist/packages/datadog-api-client-common';
 
 const createConfigurationMock = jest.fn();
 const getMonitorMock = jest.fn();
 const MonitorApiMock = {
-    getMonitor: getMonitorMock
+  getMonitor: getMonitorMock,
 };
 const serverConfigurationMock = {
-    some: faker.random.word()
-}
+  some: faker.random.word(),
+};
 
 jest.mock('@datadog/datadog-api-client', () => {
-    return {
-        __esModule: true,
-        client: {
-            createConfiguration: (...all: any) => createConfigurationMock(...all)
-        },
-        v1: {
-            MonitorsApi: jest.fn().mockImplementation(() => MonitorApiMock)
-        }
-    };
-})
+  return {
+    __esModule: true,
+    client: {
+      createConfiguration: (...all: any) => createConfigurationMock(...all),
+    },
+    v1: {
+      MonitorsApi: jest.fn().mockImplementation(() => MonitorApiMock),
+    },
+  };
+});
 
-jest.mock("@datadog/datadog-api-client/dist/packages/datadog-api-client-common", () =>{
-    return {
-        ServerConfiguration: jest.fn().mockImplementation(() => serverConfigurationMock)
-    }
-})
+jest.mock('@datadog/datadog-api-client/dist/packages/datadog-api-client-common', () => {
+  return {
+    ServerConfiguration: jest.fn().mockImplementation(() => serverConfigurationMock),
+  };
+});
 
 describe('Datadog', () => {
-    describe('getState', () => {
-        const configurationMockReturn = {
-            value: faker.random.alpha()
-        }
-        let config: DetadogMonitorConfiguration;
-        let observer: DatadogMonitor;
+  describe('getState', () => {
+    const configurationMockReturn = {
+      value: faker.random.alpha(),
+    };
+    let config: DetadogMonitorConfiguration;
+    let observer: DatadogMonitor;
 
-        beforeEach(() => {
-            createConfigurationMock.mockClear()
-            getMonitorMock.mockClear()
-            config = {
-                type: "datadogMonitor",
-                site: faker.internet.url(),
-                apiKey: faker.random.word(),
-                appKey: faker.random.word(),
-                monitorId: faker.datatype.number(),
-                alias: faker.random.word(),
-            }
-            
-            createConfigurationMock.mockReturnValue(configurationMockReturn)
-            observer = new DatadogMonitor(config)
-        });
+    beforeEach(() => {
+      createConfigurationMock.mockClear();
+      getMonitorMock.mockClear();
+      config = {
+        type: 'datadogMonitor',
+        site: faker.internet.url(),
+        apiKey: faker.random.word(),
+        appKey: faker.random.word(),
+        monitorId: faker.datatype.number(),
+        alias: faker.random.word(),
+      };
 
-        it('should initialize api instance in constructor', () => {
-            expect(ServerConfiguration).toBeCalledWith("https://{subdomain}.{site}", {
-                site: config.site,
-                subdomain: "api",
-                })
-            expect(createConfigurationMock).toBeCalledWith({
-                baseServer: serverConfigurationMock,
-                authMethods: {
-                    apiKeyAuth: config.apiKey,
-                    appKeyAuth: config.appKey
-                }
-            })
-            
-            expect((v1 as any).MonitorsApi).toBeCalledWith(configurationMockReturn)
-            expect((observer as any).apiInstance).toEqual(MonitorApiMock)
-        });
-        
-        it('shoulds return NA status if request return diferent value than 200', async () => {
-            getMonitorMock.mockRejectedValue("kaboom")
-            const result = await observer.getState()
-            expect(result).toEqual({
-                name: config.alias,
-                status: Status.NA,
-            })
-        });
-        
-        it('shoulds return NA status if response overall_state is Unknown', async () => {
-            getMonitorMock.mockResolvedValue({
-                overallState: "Unknown"
-            })
-            const result = await observer.getState()
-            expect(result).toEqual({
-                name: config.alias,
-                status: Status.NA,
-            })
-        });
-        
-        it('shoulds return FAILURE status if response overall_state is Alert', async () => {
-            getMonitorMock.mockResolvedValue({
-                overallState: "Alert"
-            })
-            const result = await observer.getState()
-            expect(result).toEqual({
-                name: config.alias,
-                status: Status.FAILURE,
-            })
-        });
-        
-        it('shoulds return FAILURE status if response overall_state is Warn', async () => {
-            getMonitorMock.mockResolvedValue({
-                overallState: "Warn"
-            })
-            const result = await observer.getState()
-            expect(result).toEqual({
-                name: config.alias,
-                status: Status.FAILURE,
-            })
-        });
-        
-        it('shoulds return NA status if response overall_state is No Data', async () => {
-            getMonitorMock.mockResolvedValue({
-                overallState: "No Data"
-            })
-            const result = await observer.getState()
-            expect(result).toEqual({
-                name: config.alias,
-                status: Status.NA,
-            })
-        });
-        
-        it('shoulds return NA status if response overall_state is Skipped', async () => {
-            getMonitorMock.mockResolvedValue({
-                overallState: "Skipped"
-            })
-            const result = await observer.getState()
-            expect(result).toEqual({
-                name: config.alias,
-                status: Status.NA,
-            })
-        });
-        
-        it('shoulds return SUCCESS status if response overall_state is OK', async () => {
-            getMonitorMock.mockResolvedValue({
-                overallState: "OK"
-            })
-            const result = await observer.getState()
-            expect(result).toEqual({
-                name: config.alias,
-                status: Status.SUCCESS,
-            })
-        });
+      createConfigurationMock.mockReturnValue(configurationMockReturn);
+      observer = new DatadogMonitor(config);
     });
+
+    it('should initialize api instance in constructor', () => {
+      expect(ServerConfiguration).toBeCalledWith('https://{subdomain}.{site}', {
+        site: config.site,
+        subdomain: 'api',
+      });
+      expect(createConfigurationMock).toBeCalledWith({
+        baseServer: serverConfigurationMock,
+        authMethods: {
+          apiKeyAuth: config.apiKey,
+          appKeyAuth: config.appKey,
+        },
+      });
+
+      expect((v1 as any).MonitorsApi).toBeCalledWith(configurationMockReturn);
+      expect((observer as any).apiInstance).toEqual(MonitorApiMock);
+    });
+
+    it('shoulds return NA status if request return diferent value than 200', async () => {
+      getMonitorMock.mockRejectedValue('kaboom');
+      const result = await observer.getState();
+      expect(result).toEqual({
+        name: config.alias,
+        status: Status.NA,
+      });
+    });
+
+    it('shoulds return NA status if response overall_state is Unknown', async () => {
+      getMonitorMock.mockResolvedValue({
+        overallState: 'Unknown',
+      });
+      const result = await observer.getState();
+      expect(result).toEqual({
+        name: config.alias,
+        status: Status.NA,
+      });
+    });
+
+    it('shoulds return FAILURE status if response overall_state is Alert', async () => {
+      getMonitorMock.mockResolvedValue({
+        overallState: 'Alert',
+      });
+      const result = await observer.getState();
+      expect(result).toEqual({
+        name: config.alias,
+        status: Status.FAILURE,
+      });
+    });
+
+    it('shoulds return FAILURE status if response overall_state is Warn', async () => {
+      getMonitorMock.mockResolvedValue({
+        overallState: 'Warn',
+      });
+      const result = await observer.getState();
+      expect(result).toEqual({
+        name: config.alias,
+        status: Status.FAILURE,
+      });
+    });
+
+    it('shoulds return NA status if response overall_state is No Data', async () => {
+      getMonitorMock.mockResolvedValue({
+        overallState: 'No Data',
+      });
+      const result = await observer.getState();
+      expect(result).toEqual({
+        name: config.alias,
+        status: Status.NA,
+      });
+    });
+
+    it('shoulds return NA status if response overall_state is Skipped', async () => {
+      getMonitorMock.mockResolvedValue({
+        overallState: 'Skipped',
+      });
+      const result = await observer.getState();
+      expect(result).toEqual({
+        name: config.alias,
+        status: Status.NA,
+      });
+    });
+
+    it('shoulds return SUCCESS status if response overall_state is OK', async () => {
+      getMonitorMock.mockResolvedValue({
+        overallState: 'OK',
+      });
+      const result = await observer.getState();
+      expect(result).toEqual({
+        name: config.alias,
+        status: Status.SUCCESS,
+      });
+    });
+  });
 });

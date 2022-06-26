@@ -1,5 +1,4 @@
-
 export type ObserverConfiguration = {
-    type: string;
-    alias?: string;
+  type: string;
+  alias?: string;
 };

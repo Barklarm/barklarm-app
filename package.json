@@ -12,7 +12,10 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "deploy": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint:check": "eslint src --ext .ts,.tsx --max-warnings=0",
+    "lint:fix": "eslint src --ext .ts,.tsx --max-warnings=0 --fix",
+    "format:fix": "yarn prettier --write src",
+    "format:check": "yarn prettier --check src"
   },
   "keywords": [],
   "author": "alvaro.perez",
@@ -63,6 +66,7 @@
     "electron-fetch": "^1.7.4",
     "fast-xml-parser": "^4.0.8",
     "octokit": "^1.7.1",
+    "prettier": "^2.7.1",
     "update-electron-app": "^2.0.1"
   }
 }

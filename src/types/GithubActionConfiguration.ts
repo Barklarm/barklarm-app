@@ -1,5 +1,4 @@
-import { ObserverConfiguration } from "./ObserverConfiguration";
-
+import { ObserverConfiguration } from './ObserverConfiguration';
 
 export type GithubActionConfiguration = ObserverConfiguration & {
   authToken: string;
@@ -7,4 +6,3 @@ export type GithubActionConfiguration = ObserverConfiguration & {
   repo: string;
   workflowId: string;
 };
-

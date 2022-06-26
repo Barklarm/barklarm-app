@@ -22,11 +22,11 @@ class AppManager {
     if (element) {
       return element;
     }
-    throw new Error(`[AppManager] - Element with name ${name} doesn't exist!`)
+    throw new Error(`[AppManager] - Element with name ${name} doesn't exist!`);
   }
 
   deleteWindow(name: string): void {
-    this.windowManager.delete(name)
+    this.windowManager.delete(name);
   }
 }
 

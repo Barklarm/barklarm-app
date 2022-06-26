@@ -1,6 +1,6 @@
 export enum Status {
-    SUCCESS,
-    FAILURE,
-    CHECKING,
-    NA
-  }
+  SUCCESS,
+  FAILURE,
+  CHECKING,
+  NA,
+}

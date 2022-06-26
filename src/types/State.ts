@@ -1,6 +1,6 @@
-import { Status } from "./Status";
+import { Status } from './Status';
 
 export type State = {
-    name: string;
-    status: Status;
+  name: string;
+  status: Status;
 };

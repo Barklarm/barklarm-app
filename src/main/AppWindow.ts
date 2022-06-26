@@ -3,7 +3,7 @@ import { join } from 'path';
 
 export class AppWindow {
   public readonly window: BrowserWindow;
-  private readonly IconPath: string = join(__dirname, '..','assets', 'icon.png');
+  private readonly IconPath: string = join(__dirname, '..', 'assets', 'icon.png');
 
   constructor(url: string, preload: string) {
     this.window = this.createWindow(url, preload);
@@ -11,20 +11,20 @@ export class AppWindow {
 
   createWindow(url: string, preload: string): BrowserWindow {
     const window = new BrowserWindow({
-      title: "Barklarm - Configuration",
+      title: 'Barklarm - Configuration',
       icon: nativeImage.createFromPath(this.IconPath),
       show: false,
       webPreferences: {
         preload: preload,
-      }
-    })
-    window.setMenu(null)
+      },
+    });
+    window.setMenu(null);
     window.loadURL(url);
-    window.on('minimize',function(event: any){
+    window.on('minimize', function (event: any) {
       event.preventDefault();
       window.hide();
     });
-    
+
     window.on('close', function (event: any) {
       event.preventDefault();
       window.hide();

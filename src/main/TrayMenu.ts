@@ -1,7 +1,7 @@
 import { app, Tray, Menu, nativeImage, MenuItemConstructorOptions } from 'electron';
 import { appManager } from './AppManager';
 import { join } from 'path';
-import { State } from "../types/State";
+import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { MapType } from '../types/MapType';
 
@@ -11,50 +11,52 @@ export class TrayMenu {
     {
       label: 'Configure',
       type: 'normal',
-      click: () => { 
+      click: () => {
         appManager.getWindow('AppWindow').window.show();
-      }
+      },
     },
     {
       label: 'Quit',
       type: 'normal',
       click: () => {
         appManager.getWindow('AppWindow').window.destroy();
-        app.quit()
-      }
-    }
-  ]
+        app.quit();
+      },
+    },
+  ];
   private readonly statusToImagePathMap: MapType<string> = {
-    [Status.SUCCESS]: join(__dirname, '..','assets', 'ok_icon.png'),
-    [Status.FAILURE]: join(__dirname, '..','assets', 'fail_icon.png'),
-    [Status.CHECKING]: join(__dirname, '..','assets', 'running_icon.png'),
-    [Status.NA]: join(__dirname, '..','assets', 'na_icon.png'),
-  }
+    [Status.SUCCESS]: join(__dirname, '..', 'assets', 'ok_icon.png'),
+    [Status.FAILURE]: join(__dirname, '..', 'assets', 'fail_icon.png'),
+    [Status.CHECKING]: join(__dirname, '..', 'assets', 'running_icon.png'),
+    [Status.NA]: join(__dirname, '..', 'assets', 'na_icon.png'),
+  };
 
   constructor() {
     this.tray = new Tray(this.createNativeImage());
     this.tray.setContextMenu(this.createMenu());
   }
-  
-  public updateTrayImage(state: State){
+
+  public updateTrayImage(state: State) {
     const image = nativeImage.createFromPath(this.getIconForState(state));
     image.setTemplateImage(true);
-    this.tray.setImage(image)
+    this.tray.setImage(image);
   }
 
-  public updateObserverMenu(observersState: State[]){
-    const observersStateMenuItems: MenuItemConstructorOptions[] = observersState.map(observerState => {
+  public updateObserverMenu(observersState: State[]) {
+    const observersStateMenuItems: MenuItemConstructorOptions[] = observersState.map((observerState) => {
       return {
         label: observerState.name,
         type: 'normal',
-        icon:  nativeImage.createFromPath(this.getIconForState(observerState))
-      }
-    })
-    this.tray.setContextMenu(Menu.buildFromTemplate([...observersStateMenuItems, {type: 'separator'}, ...this.defaultMenuItems]));
+        icon: nativeImage.createFromPath(this.getIconForState(observerState)),
+      };
+    });
+    this.tray.setContextMenu(
+      Menu.buildFromTemplate([...observersStateMenuItems, { type: 'separator' }, ...this.defaultMenuItems])
+    );
   }
 
-  private getIconForState(state: State){
-      return this.statusToImagePathMap[state.status]
+  private getIconForState(state: State) {
+    return this.statusToImagePathMap[state.status];
   }
 
   private createNativeImage() {
