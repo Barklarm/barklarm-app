@@ -37,6 +37,7 @@ export class ObserverManager {
     this.globalState = {
       name: 'Global',
       status: this.calculateGlobalStatus(this.observersState),
+      link: '',
     };
 
     this.notifications.updateNotifications(oldStates, this.observersState);
@@ -45,14 +46,15 @@ export class ObserverManager {
   }
 
   public async refershObservers() {
-    this.observers = (store.get('observables') as ObserverConfiguration[]).map((configuration: ObserverConfiguration) =>
-    {
-      try {
-         return this.ObserversBuildersMap[configuration.type](configuration) 
-      } catch (error) {
+    this.observers = (store.get('observables') as ObserverConfiguration[]).map(
+      (configuration: ObserverConfiguration) => {
+        try {
+          return this.ObserversBuildersMap[configuration.type](configuration);
+        } catch (error) {
           console.error(error);
-      }   
-    });
+        }
+      }
+    );
     this.refreshState();
   }
 }

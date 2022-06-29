@@ -38,10 +38,12 @@ describe('CCTray', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: config.url,
       });
     });
 
     it('shoulds return NA status if request return xml with last build status unkown and activity equal to Sleeping', async () => {
+      const expectUrl = faker.internet.url();
       const expectedResponseText = ` <Projects>
             <Project
                 name="SvnTest"
@@ -50,7 +52,7 @@ describe('CCTray', () => {
                 lastBuildLabel="8"
                 lastBuildTime="2005-09-28T10:30:34.6362160+01:00"
                 nextBuildTime="2005-10-04T14:31:52.4509248+01:00"
-                webUrl="http://mrtickle/ccnet/"/>
+                webUrl="${expectUrl}"/>
         </Projects>`;
       fetchtMock.mockResolvedValue({
         text: () => Promise.resolve(expectedResponseText),
@@ -63,10 +65,12 @@ describe('CCTray', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: expectUrl,
       });
     });
 
     it('shoulds return CHECKING status if request return xml with activity equal to Building', async () => {
+      const expectUrl = faker.internet.url();
       const expectedResponseText = ` <Projects>
             <Project
                 name="SvnTest"
@@ -75,7 +79,7 @@ describe('CCTray', () => {
                 lastBuildLabel="8"
                 lastBuildTime="2005-09-28T10:30:34.6362160+01:00"
                 nextBuildTime="2005-10-04T14:31:52.4509248+01:00"
-                webUrl="http://mrtickle/ccnet/"/>
+                webUrl="${expectUrl}"/>
         </Projects>`;
       fetchtMock.mockResolvedValue({
         text: () => Promise.resolve(expectedResponseText),
@@ -88,10 +92,12 @@ describe('CCTray', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.CHECKING,
+        link: expectUrl,
       });
     });
 
     it('shoulds return CHECKING status if request return xml with activity equal to CheckingModifications', async () => {
+      const expectUrl = faker.internet.url();
       const expectedResponseText = ` <Projects>
             <Project
                 name="SvnTest"
@@ -100,7 +106,7 @@ describe('CCTray', () => {
                 lastBuildLabel="8"
                 lastBuildTime="2005-09-28T10:30:34.6362160+01:00"
                 nextBuildTime="2005-10-04T14:31:52.4509248+01:00"
-                webUrl="http://mrtickle/ccnet/"/>
+                webUrl="${expectUrl}"/>
         </Projects>`;
       fetchtMock.mockResolvedValue({
         text: () => Promise.resolve(expectedResponseText),
@@ -113,10 +119,12 @@ describe('CCTray', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.CHECKING,
+        link: expectUrl,
       });
     });
 
     it('shoulds return SUCCESS status if request return xml with last build status Success and activity equal to Sleeping', async () => {
+      const expectUrl = faker.internet.url();
       const expectedResponseText = ` <Projects>
             <Project
                 name="SvnTest"
@@ -125,7 +133,7 @@ describe('CCTray', () => {
                 lastBuildLabel="8"
                 lastBuildTime="2005-09-28T10:30:34.6362160+01:00"
                 nextBuildTime="2005-10-04T14:31:52.4509248+01:00"
-                webUrl="http://mrtickle/ccnet/"/>
+                webUrl="${expectUrl}"/>
         </Projects>`;
       fetchtMock.mockResolvedValue({
         text: () => Promise.resolve(expectedResponseText),
@@ -138,9 +146,11 @@ describe('CCTray', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.SUCCESS,
+        link: expectUrl,
       });
     });
     it('shoulds return Failure status if request return xml with last build status Failure and activity equal to Sleeping', async () => {
+      const expectUrl = faker.internet.url();
       const expectedResponseText = ` <Projects>
             <Project
                 name="SvnTest"
@@ -149,7 +159,7 @@ describe('CCTray', () => {
                 lastBuildLabel="8"
                 lastBuildTime="2005-09-28T10:30:34.6362160+01:00"
                 nextBuildTime="2005-10-04T14:31:52.4509248+01:00"
-                webUrl="http://mrtickle/ccnet/"/>
+                webUrl="${expectUrl}"/>
         </Projects>`;
       fetchtMock.mockResolvedValue({
         text: () => Promise.resolve(expectedResponseText),
@@ -162,9 +172,11 @@ describe('CCTray', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.FAILURE,
+        link: expectUrl,
       });
     });
     it('shoulds return Failure status if request return xml with last build status Exception and activity equal to Sleeping', async () => {
+      const expectUrl = faker.internet.url();
       const expectedResponseText = ` <Projects>
             <Project
                 name="SvnTest"
@@ -173,7 +185,7 @@ describe('CCTray', () => {
                 lastBuildLabel="8"
                 lastBuildTime="2005-09-28T10:30:34.6362160+01:00"
                 nextBuildTime="2005-10-04T14:31:52.4509248+01:00"
-                webUrl="http://mrtickle/ccnet/"/>
+                webUrl="${expectUrl}"/>
         </Projects>`;
       fetchtMock.mockResolvedValue({
         text: () => Promise.resolve(expectedResponseText),
@@ -186,6 +198,7 @@ describe('CCTray', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.FAILURE,
+        link: expectUrl,
       });
     });
   });

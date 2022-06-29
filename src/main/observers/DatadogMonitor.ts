@@ -16,8 +16,10 @@ import {
 
 export class DatadogMonitor implements Observer {
   private readonly alias: string;
+  private readonly site: string;
   private readonly monitorId: number;
   private readonly apiInstance: v1.MonitorsApi;
+
   private readonly overalStateMap: any = {
     [OK]: Status.SUCCESS,
     [ALERT]: Status.FAILURE,
@@ -29,6 +31,7 @@ export class DatadogMonitor implements Observer {
   };
   constructor({ alias, site, apiKey, appKey, monitorId }: DetadogMonitorConfiguration) {
     this.alias = alias || `Datadog: ${monitorId}`;
+    this.site = site;
     this.monitorId = monitorId;
     const configuration: client.Configuration = client.createConfiguration({
       baseServer: new ServerConfiguration('https://{subdomain}.{site}', {
@@ -43,6 +46,7 @@ export class DatadogMonitor implements Observer {
     this.apiInstance = new v1.MonitorsApi(configuration);
   }
   public async getState(): Promise<State> {
+    const link = `https://app.${this.site}/monitors/${this.monitorId}`;
     try {
       const data: v1.Monitor = await this.apiInstance.getMonitor({
         monitorId: this.monitorId,
@@ -50,12 +54,14 @@ export class DatadogMonitor implements Observer {
       return {
         name: this.alias,
         status: this.overalStateMap[data.overallState],
+        link,
       };
     } catch (error) {
       console.error(error);
       return {
         name: this.alias,
         status: Status.NA,
+        link,
       };
     }
   }

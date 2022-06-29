@@ -37,6 +37,7 @@ describe('Datadog', () => {
     const configurationMockReturn = {
       value: faker.random.alpha(),
     };
+    let expectLink: string;
     let config: DetadogMonitorConfiguration;
     let observer: DatadogMonitor;
 
@@ -51,6 +52,7 @@ describe('Datadog', () => {
         monitorId: faker.datatype.number(),
         alias: faker.random.word(),
       };
+      expectLink = `https://app.${config.site}/monitors/${config.monitorId}`;
 
       createConfigurationMock.mockReturnValue(configurationMockReturn);
       observer = new DatadogMonitor(config);
@@ -79,6 +81,7 @@ describe('Datadog', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: expectLink,
       });
     });
 
@@ -90,6 +93,7 @@ describe('Datadog', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: expectLink,
       });
     });
 
@@ -101,6 +105,7 @@ describe('Datadog', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.FAILURE,
+        link: expectLink,
       });
     });
 
@@ -112,6 +117,7 @@ describe('Datadog', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.FAILURE,
+        link: expectLink,
       });
     });
 
@@ -123,6 +129,7 @@ describe('Datadog', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: expectLink,
       });
     });
 
@@ -134,6 +141,7 @@ describe('Datadog', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: expectLink,
       });
     });
 
@@ -145,6 +153,7 @@ describe('Datadog', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.SUCCESS,
+        link: expectLink,
       });
     });
   });

@@ -1,4 +1,4 @@
-import { app, Tray, Menu, nativeImage, MenuItemConstructorOptions } from 'electron';
+import { app, Tray, Menu, nativeImage, MenuItemConstructorOptions, shell } from 'electron';
 import { appManager } from './AppManager';
 import { join } from 'path';
 import { State } from '../types/State';
@@ -46,7 +46,7 @@ export class TrayMenu {
     const observersStateMenuItems: MenuItemConstructorOptions[] = observersState.map((observerState) => {
       return {
         label: observerState.name,
-        type: 'normal',
+        submenu: [{ label: 'Link', click: () => shell.openExternal(observerState.link) }],
         icon: nativeImage.createFromPath(this.getIconForState(observerState)),
       };
     });

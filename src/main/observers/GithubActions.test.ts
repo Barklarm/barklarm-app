@@ -47,6 +47,7 @@ describe('Github Action', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: `https://github.com/${config.owner}/${config.repo}/actions/`,
       });
     });
     it('shoulds return NA status if request return no data', async () => {
@@ -60,9 +61,11 @@ describe('Github Action', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: `https://github.com/${config.owner}/${config.repo}/actions/`,
       });
     });
     it('shoulds return CHECKING status if no conclusion yet', async () => {
+      const expectedUrl = faker.internet.url();
       requestMock.mockReturnValue({
         status: 200,
         data: {
@@ -70,6 +73,7 @@ describe('Github Action', () => {
           workflow_runs: [
             {
               conclusion: null,
+              html_url: expectedUrl,
             },
           ],
         },
@@ -78,9 +82,11 @@ describe('Github Action', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.CHECKING,
+        link: expectedUrl,
       });
     });
     it('shoulds return SUCCESS status if conclusion is equal to success', async () => {
+      const expectedUrl = faker.internet.url();
       requestMock.mockReturnValue({
         status: 200,
         data: {
@@ -88,6 +94,7 @@ describe('Github Action', () => {
           workflow_runs: [
             {
               conclusion: 'success',
+              html_url: expectedUrl,
             },
           ],
         },
@@ -96,9 +103,11 @@ describe('Github Action', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.SUCCESS,
+        link: expectedUrl,
       });
     });
     it('shoulds return FAILURE status if conclusion is diferent to success', async () => {
+      const expectedUrl = faker.internet.url();
       requestMock.mockReturnValue({
         status: 200,
         data: {
@@ -106,6 +115,7 @@ describe('Github Action', () => {
           workflow_runs: [
             {
               conclusion: faker.random.word(),
+              html_url: expectedUrl,
             },
           ],
         },
@@ -114,6 +124,7 @@ describe('Github Action', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.FAILURE,
+        link: expectedUrl,
       });
     });
     it('shoulds return NA status if exception thrown', async () => {
@@ -122,10 +133,12 @@ describe('Github Action', () => {
       expect(result).toEqual({
         name: config.alias,
         status: Status.NA,
+        link: `https://github.com/${config.owner}/${config.repo}/actions/`,
       });
     });
 
     it('shoulds owner/repo/workflowId if no alias', async () => {
+      const expectedUrl = faker.internet.url();
       requestMock.mockReturnValue({
         status: 200,
         data: {
@@ -133,6 +146,7 @@ describe('Github Action', () => {
           workflow_runs: [
             {
               conclusion: 'success',
+              html_url: expectedUrl,
             },
           ],
         },

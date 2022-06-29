@@ -11,6 +11,7 @@ export class GithubAction implements Observer {
   private workflowId: string;
 
   private alias: string;
+  private baseLink: string;
 
   constructor({ authToken, owner, repo, workflowId, alias }: GithubActionConfiguration) {
     this.octokit = new Octokit({
@@ -20,6 +21,7 @@ export class GithubAction implements Observer {
     this.repo = repo;
     this.workflowId = workflowId;
     this.alias = alias || `Github: ${this.owner}/${this.repo}/${this.workflowId}`;
+    this.baseLink = `https://github.com/${owner}/${repo}/actions/`;
   }
 
   public async getState(): Promise<State> {
@@ -33,23 +35,28 @@ export class GithubAction implements Observer {
         return {
           name: this.alias,
           status: Status.NA,
+          link: this.baseLink,
         };
-      const { conclusion } = response.data.workflow_runs[0];
+
+      const { conclusion, html_url } = response.data.workflow_runs[0];
       if (conclusion == null) {
         return {
           name: this.alias,
           status: Status.CHECKING,
+          link: html_url,
         };
       }
       return {
         name: this.alias,
         status: conclusion === 'success' ? Status.SUCCESS : Status.FAILURE,
+        link: html_url,
       };
     } catch (error) {
       console.error(error);
       return {
         name: this.alias,
         status: Status.NA,
+        link: this.baseLink,
       };
     }
   }

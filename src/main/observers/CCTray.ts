@@ -34,18 +34,21 @@ export class CCTray implements Observer {
       return {
         name: this.alias,
         status: Status.NA,
+        link: this.url,
       };
     const projects = this.parser.parse(await response.text()).Projects;
 
-    const project = projects.Project;
-    if (project.activity !== 'Sleeping')
+    const { activity, lastBuildStatus, webUrl } = projects.Project;
+    if (activity !== 'Sleeping')
       return {
         name: this.alias,
         status: Status.CHECKING,
+        link: webUrl,
       };
     return {
       name: this.alias,
-      status: this.statusMap[project.lastBuildStatus],
+      status: this.statusMap[lastBuildStatus],
+      link: webUrl,
     };
   }
 }

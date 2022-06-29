@@ -14,7 +14,7 @@
     "deploy": "electron-forge publish",
     "tsc:check": "tsc --noEmit --skipLibCheck",
     "lint:check": "eslint src --ext .ts,.tsx --max-warnings=0",
-    "lint:fix": "eslint src --ext .ts,.tsx --max-warnings=0 --fix",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format:fix": "yarn prettier --write src",
     "format:check": "yarn prettier --check src",
     "lint-staged": "lint-staged",

@@ -76,6 +76,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome',
               status: Status.SUCCESS,
+              link: '',
             }),
         },
         {
@@ -83,6 +84,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome2',
               status: Status.SUCCESS,
+              link: '',
             }),
         },
       ];
@@ -91,6 +93,7 @@ describe('ObserverManager', () => {
       const expectedGlobalState: State = {
         name: 'Global',
         status: Status.SUCCESS,
+        link: '',
       };
       await observerManager.refreshState();
       expect(notificationManagerMock.updateNotifications).toBeCalledWith([], expectedObserversState);
@@ -104,6 +107,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome',
               status: Status.SUCCESS,
+              link: '',
             }),
         },
         {
@@ -111,6 +115,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome',
               status: Status.NA,
+              link: '',
             }),
         },
         {
@@ -118,6 +123,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome2',
               status: Status.FAILURE,
+              link: '',
             }),
         },
       ];
@@ -130,6 +136,7 @@ describe('ObserverManager', () => {
       const expectedGlobalState: State = {
         name: 'Global',
         status: Status.FAILURE,
+        link: '',
       };
       await observerManager.refreshState();
       expect(notificationManagerMock.updateNotifications).toBeCalledWith([], expectedObserversState);
@@ -143,6 +150,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome',
               status: Status.SUCCESS,
+              link: '',
             }),
         },
         {
@@ -150,6 +158,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome',
               status: Status.CHECKING,
+              link: '',
             }),
         },
         {
@@ -157,6 +166,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome2',
               status: Status.NA,
+              link: '',
             }),
         },
       ];
@@ -169,6 +179,7 @@ describe('ObserverManager', () => {
       const expectedGlobalState: State = {
         name: 'Global',
         status: Status.NA,
+        link: '',
       };
       await observerManager.refreshState();
       expect(notificationManagerMock.updateNotifications).toBeCalledWith([], expectedObserversState);
@@ -182,6 +193,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome',
               status: Status.SUCCESS,
+              link: '',
             }),
         },
         {
@@ -189,6 +201,7 @@ describe('ObserverManager', () => {
             Promise.resolve({
               name: 'awesome2',
               status: Status.CHECKING,
+              link: '',
             }),
         },
       ];
@@ -197,6 +210,7 @@ describe('ObserverManager', () => {
       const expectedGlobalState: State = {
         name: 'Global',
         status: Status.CHECKING,
+        link: '',
       };
       await observerManager.refreshState();
       expect(notificationManagerMock.updateNotifications).toBeCalledWith([], expectedObserversState);
