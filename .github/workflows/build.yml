@@ -15,7 +15,13 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 14
-      - name: Codesign executable
+      - name: Windows Codesign executable
+        if: matrix.os == 'windows-latest'
+        run: |
+          New-Item -ItemType directory -Path certificate
+          Set-Content -Path certificate\certificate.txt -Value '${{ secrets.WINDOWS_PFX }}'
+          certutil -decode certificate\certificate.txt certificate\certificate.pfx
+      - name: OSX Codesign executable
         if: matrix.os == 'macOS-latest'
         env: 
           MACOS_CERTIFICATE_APP: ${{ secrets.MACOS_CERTIFICATE_APP }}
@@ -53,4 +59,5 @@ jobs:
           MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
           MAC_APPLE_ID_PWD: ${{ secrets.MAC_APPLE_ID_PWD }}
           MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
+          WINDOWS_PFX_SECRET: ${{ secrets.WINDOWS_PFX_SECRET }}
         run: yarn deploy
