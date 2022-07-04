@@ -93,7 +93,9 @@ export const Observers = () => {
                   }
                 />
                 <Stack spacing={2} direction="row" justifyContent="flex-end">
-                  <Button onClick={() => deleteByIndex(index)}> Delete </Button>
+                  <Button variant="contained" onClick={() => deleteByIndex(index)}>
+                    Delete
+                  </Button>
                 </Stack>
               </Stack>
             </AccordionDetails>
