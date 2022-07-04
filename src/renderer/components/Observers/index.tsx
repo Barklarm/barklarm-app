@@ -30,7 +30,7 @@ const observersComponentBuilderMap: MapType<
 const observersTitleBuilderMap: MapType<(observable: any) => string> = {
   githubAction: (observable: any) =>
     `Github: ${observable.alias || `${observable.owner}/${observable.repo}/${observable.workflowId}`}`,
-  ccTray: (observable: any) => `CCTray: ${observable.alias || observable.url}`,
+  ccTray: (observable: any) => `CCTray: ${observable.alias || observable.name || observable.url}`,
   datadogMonitor: (observable: any) => `Datadog: ${observable.alias || `${observable.site}/${observable.monitorId}`}`,
 };
 export const Observers = () => {
