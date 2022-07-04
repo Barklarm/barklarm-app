@@ -1,130 +1,172 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import { GithubAction } from './components/GithubAction';
-import { CCTray } from './components/CCTray';
-import { DatadogMonitor } from './components/DatadogMonitor';
-import { MapType } from '../types/MapType';
+import * as React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import { Navigator } from './components/Navigator';
+import { Observers } from './components/Observers';
+import './app.css';
 
-const observersComponentBuilderMap: MapType<
-  (observable: any, index: number, updateFieldWithValue: any) => JSX.Element
-> = {
-  githubAction: (observable: any, index: number, updateFieldWithValue: any) => (
-    <GithubAction observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
-  ),
-  ccTray: (observable: any, index: number, updateFieldWithValue: any) => (
-    <CCTray observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
-  ),
-  datadogMonitor: (observable: any, index: number, updateFieldWithValue: any) => (
-    <DatadogMonitor observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
-  ),
+let theme = createTheme({
+  palette: {
+    primary: {
+      light: '#f5eff7',
+      main: '#61456d',
+      dark: '#483151',
+    },
+  },
+  typography: {
+    h5: {
+      fontWeight: 500,
+      fontSize: 26,
+      letterSpacing: 0.5,
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  components: {
+    MuiTab: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+  },
+  mixins: {
+    toolbar: {
+      minHeight: 48,
+    },
+  },
+});
+
+theme = {
+  ...theme,
+  components: {
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#281C2D',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: theme.palette.primary.main,
+          textTransform: 'none',
+          '&:hover, &:focus': {
+            backgroundColor: theme.palette.primary.dark,
+          },
+        },
+        contained: {
+          boxShadow: 'none',
+          '&:active': {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          marginLeft: theme.spacing(1),
+        },
+        indicator: {
+          height: 3,
+          borderTopLeftRadius: 3,
+          borderTopRightRadius: 3,
+          backgroundColor: theme.palette.common.white,
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          margin: '0 16px',
+          minWidth: 0,
+          padding: 0,
+          [theme.breakpoints.up('md')]: {
+            padding: 0,
+            minWidth: 0,
+          },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          padding: theme.spacing(1),
+        },
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          borderRadius: 4,
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgb(255,255,255,0.15)',
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            color: '#4fc3f7',
+          },
+        },
+      },
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        primary: {
+          fontSize: 14,
+          fontWeight: theme.typography.fontWeightMedium,
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+          minWidth: 'auto',
+          marginRight: theme.spacing(2),
+          '& svg': {
+            fontSize: 20,
+          },
+        },
+      },
+    },
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          width: 32,
+          height: 32,
+        },
+      },
+    },
+  },
 };
-const observersTitleBuilderMap: MapType<(observable: any) => string> = {
-  githubAction: (observable: any) =>
-    `Github: ${observable.alias || `${observable.owner}/${observable.repo}/${observable.workflowId}`}`,
-  ccTray: (observable: any) => `CCTray: ${observable.alias || observable.url}`,
-  datadogMonitor: (observable: any) => `Datadog: ${observable.alias || `${observable.site}/${observable.monitorId}`}`,
-};
+
+const drawerWidth = 256;
+
 export const App = () => {
-  const [observables, setObservables] = useState(window.electron.store.get('observables') || []);
-  const getComponent = (observable: any, index: number, updateFieldWithValue: any): any => {
-    try {
-      return observersComponentBuilderMap[observable.type](observable, index, updateFieldWithValue);
-    } catch (_) {
-      return <></>;
-    }
-  };
-  const getTitle = (observable: any): string => {
-    try {
-      return observersTitleBuilderMap[observable.type](observable);
-    } catch (_) {
-      return 'Unkown';
-    }
-  };
-
-  const deleteByIndex = (index: number) => {
-    setObservables(observables.filter((_: any, currentIndex: number) => currentIndex != index));
-  };
-  const updateFieldWithValue = (fieldName: string, index: number, value: any) => {
-    setObservables(
-      observables.map((observable: any, currentIndex: number) =>
-        currentIndex != index ? observable : { ...observable, [fieldName]: value }
-      )
-    );
-  };
   return (
-    <>
-      <Stack spacing={2}>
-        {observables.map((observable: any, index: number) => (
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-              <Typography>{getTitle(observable)}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Stack spacing={2}>
-                <Select
-                  value={observable.type}
-                  label="Observer Type"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    updateFieldWithValue('type', index, event.target.value)
-                  }
-                >
-                  <MenuItem value={'githubAction'}>Github Acton</MenuItem>
-                  <MenuItem value={'ccTray'}>CCTray</MenuItem>
-                  <MenuItem value={'datadogMonitor'}>Datadog Monitor</MenuItem>
-                </Select>
-                {getComponent(observable, index, updateFieldWithValue)}
-
-                <TextField
-                  id="outlined-basic"
-                  label="alias"
-                  variant="outlined"
-                  value={observable.alias}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    updateFieldWithValue('alias', index, event.target.value)
-                  }
-                />
-                <Stack spacing={2} direction="row" justifyContent="flex-end">
-                  <Button onClick={() => deleteByIndex(index)}> Delete </Button>
-                </Stack>
-              </Stack>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-
-        <Stack spacing={2} direction="row" justifyContent="flex-end">
-          <Button
-            variant="contained"
-            onClick={() => {
-              window.electron.store.set('observables', observables);
-              window.electron.app.refreshObservers();
-            }}
-          >
-            Save
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() =>
-              setObservables([
-                ...observables,
-                {
-                  type: '',
-                },
-              ])
-            }
-          >
-            Add
-          </Button>
-        </Stack>
-      </Stack>
-    </>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+        <Box component="nav" sx={{ width: drawerWidth }}>
+          <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+        </Box>
+        <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#f5eff7' }}>
+          <Observers />
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 };

@@ -18,7 +18,7 @@ declare global {
 }
 
 function render() {
-  ReactDOM.render(<App />, document.body);
+  ReactDOM.render(<App />, document.getElementById('root'));
 }
 
 render();
