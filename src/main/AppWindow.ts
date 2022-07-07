@@ -1,4 +1,4 @@
-import { BrowserWindow, nativeImage } from 'electron';
+import { app, BrowserWindow, nativeImage } from 'electron';
 import { join } from 'path';
 
 export class AppWindow {
@@ -20,6 +20,7 @@ export class AppWindow {
     });
     window.setMenu(null);
     window.loadURL(url);
+    if (!app.isPackaged) window.webContents.openDevTools();
     window.on('minimize', function (event: any) {
       event.preventDefault();
       window.hide();
