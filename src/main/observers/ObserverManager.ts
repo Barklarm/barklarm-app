@@ -9,6 +9,7 @@ import { ObserverConfiguration } from '../../types/ObserverConfiguration';
 import { Status } from '../../types/Status';
 import { DatadogMonitor } from './DatadogMonitor';
 import { MapType } from '../../types/MapType';
+import { Sentry } from './Sentry';
 
 export class ObserverManager {
   private observers: Observer[];
@@ -18,6 +19,7 @@ export class ObserverManager {
     githubAction: (configuration: any) => new GithubAction(configuration as any),
     ccTray: (configuration: any) => new CCTray(configuration as any),
     datadogMonitor: (configuration: any) => new DatadogMonitor(configuration as any),
+    sentry: (configuration: any) => new Sentry(configuration as any),
   };
 
   constructor(private tray: TrayMenu, private notifications: NotificationManager, enableRefresh = true) {

@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import { GithubAction } from '../GithubAction';
 import { CCTray } from '../CCTray';
 import { DatadogMonitor } from '../DatadogMonitor';
+import { Sentry } from '../Sentry';
 import { MapType } from '../../../types/MapType';
 import Box from '@mui/material/Box';
 import LinkIcon from '@mui/icons-material/Link';
@@ -29,12 +30,16 @@ const observersComponentBuilderMap: MapType<
   datadogMonitor: (observable: any, index: number, updateFieldWithValue: any) => (
     <DatadogMonitor observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
   ),
+  sentry: (observable: any, index: number, updateFieldWithValue: any) => (
+    <Sentry observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
+  ),
 };
 const observersTitleBuilderMap: MapType<(observable: any) => string> = {
   githubAction: (observable: any) =>
     `Github: ${observable.alias || `${observable.owner}/${observable.repo}/${observable.workflowId}`}`,
   ccTray: (observable: any) => `CCTray: ${observable.alias || observable.name || observable.url}`,
   datadogMonitor: (observable: any) => `Datadog: ${observable.alias || `${observable.site}/${observable.monitorId}`}`,
+  sentry: (observable: any) => `Sentry: ${observable.alias || `${observable.organization}/${observable.project}`}`,
 };
 type strategy = {
   canApply: (text: string) => boolean;
@@ -43,6 +48,7 @@ type strategy = {
 const githubRegex = /https:\/\/github.com\/(.+)\/(.+)\/actions\/workflows\/(.+)/;
 const ccTrayRegex = /cc.xml/;
 const datadogRegex = /https:\/\/app.(.*datadog.*)\/monitors\/(.+)/;
+const sentryRegex = /https:\/\/sentry.io\/organizations\/(.+)\/projects\/(.+)\//;
 
 const observersfromLinkParser: strategy[] = [
   {
@@ -72,6 +78,17 @@ const observersfromLinkParser: strategy[] = [
         type: 'datadogMonitor',
         site: match[1],
         monitorId: match[2],
+      };
+    },
+  },
+  {
+    canApply: (text: string) => sentryRegex.test(text),
+    apply: (text: string) => {
+      const match = text.match(sentryRegex);
+      return {
+        type: 'sentry',
+        organization: match[1],
+        project: match[2],
       };
     },
   },
@@ -203,6 +220,7 @@ export const Observers = () => {
                       <MenuItem value={'githubAction'}>Github Action</MenuItem>
                       <MenuItem value={'ccTray'}>CCTray</MenuItem>
                       <MenuItem value={'datadogMonitor'}>Datadog Monitor</MenuItem>
+                      <MenuItem value={'sentry'}>Sentry</MenuItem>
                     </Select>
                     {getComponent(observable, index, updateFieldWithValue)}
 
