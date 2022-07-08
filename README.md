@@ -5,7 +5,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/2722ae6ccb495529d393/maintainability)](https://codeclimate.com/github/kanekotic/barklarm/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2722ae6ccb495529d393/test_coverage)](https://codeclimate.com/github/kanekotic/barklarm/test_coverage)
 ![GitHub](https://img.shields.io/github/license/kanekotic/barklarm)
-
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/kanekotic/endomondo-unofficial-api/graphs/commit-activity)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/kanekotic/)
 
