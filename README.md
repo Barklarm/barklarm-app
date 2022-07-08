@@ -1,7 +1,13 @@
 # ![barklarm_normal](https://user-images.githubusercontent.com/3071208/167244374-da18da7a-f52a-4f25-aa9e-c71476647c9c.png)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kanekotic/barklarm/Build%20%26%20Publish)
+![GitHub all releases](https://img.shields.io/github/downloads/kanekotic/barklarm/total)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![Maintainability](https://api.codeclimate.com/v1/badges/2722ae6ccb495529d393/maintainability)](https://codeclimate.com/github/kanekotic/barklarm/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2722ae6ccb495529d393/test_coverage)](https://codeclimate.com/github/kanekotic/barklarm/test_coverage)
+![GitHub](https://img.shields.io/github/license/kanekotic/barklarm)
+
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/kanekotic/endomondo-unofficial-api/graphs/commit-activity)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/kanekotic/)
 
 ## Motivation
 
