@@ -24,13 +24,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cache-
       - name: Windows Codesign executable
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-latest' || github.event.head_commit.message.startsWith('v')
         run: |
           New-Item -ItemType directory -Path certificate
           Set-Content -Path certificate\certificate.txt -Value '${{ secrets.WINDOWS_PFX }}'
           certutil -decode certificate\certificate.txt certificate\certificate.pfx
       - name: OSX Codesign executable
-        if: matrix.os == 'macOS-latest'
+        if: matrix.os == 'macOS-latest' || github.event.head_commit.message.startsWith('v')
         env: 
           MACOS_CERTIFICATE_APP: ${{ secrets.MACOS_CERTIFICATE_APP }}
           MACOS_CERTIFICATE_APP_PWD: ${{ secrets.MACOS_CERTIFICATE_APP_PWD }}
@@ -61,7 +61,10 @@ jobs:
         run: yarn install
       - name: test
         run: yarn test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
       - name: deploy
+        if: github.event.head_commit.message.startsWith('v')
         env:
           GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
           MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
