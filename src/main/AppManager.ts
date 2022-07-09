@@ -3,7 +3,7 @@ import { TrayMenu } from './TrayMenu';
 
 class AppManager {
   private trayMenu!: TrayMenu;
-  private windowManager: Map<string, ManagerTypes> = new Map();
+  private window: ManagerTypes;
 
   setTray(tray: TrayMenu): void {
     this.trayMenu = tray;
@@ -13,20 +13,12 @@ class AppManager {
     return this.trayMenu;
   }
 
-  setWindow(name: string, element: ManagerTypes): void {
-    this.windowManager.set(name, element);
+  setWindow(element: ManagerTypes): void {
+    this.window = element;
   }
 
-  getWindow(name: string): ManagerTypes {
-    const element = this.windowManager.get(name);
-    if (element) {
-      return element;
-    }
-    throw new Error(`[AppManager] - Element with name ${name} doesn't exist!`);
-  }
-
-  deleteWindow(name: string): void {
-    this.windowManager.delete(name);
+  getWindow(): ManagerTypes {
+    return this.window;
   }
 }
 

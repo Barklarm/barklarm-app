@@ -40,7 +40,7 @@ app.on('ready', () => {
   const observerManager = new ObserverManager(tray, notification);
   observerManager.refershObservers();
   appManager.setTray(tray);
-  appManager.setWindow('AppWindow', new AppWindow(MAIN_WINDOW_WEBPACK_ENTRY, MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY));
+  appManager.setWindow(new AppWindow(MAIN_WINDOW_WEBPACK_ENTRY, MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY));
   ipcMain.on('electron-refresh-observers', () => {
     observerManager.refershObservers();
   });

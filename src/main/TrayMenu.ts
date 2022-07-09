@@ -12,14 +12,14 @@ export class TrayMenu {
       label: 'Configure',
       type: 'normal',
       click: () => {
-        appManager.getWindow('AppWindow').window.show();
+        appManager.getWindow().window.show();
       },
     },
     {
       label: 'Quit',
       type: 'normal',
       click: () => {
-        appManager.getWindow('AppWindow').window.destroy();
+        appManager.getWindow().window.destroy();
         app.quit();
       },
     },
