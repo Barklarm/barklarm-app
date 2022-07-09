@@ -6,7 +6,8 @@
   "main": ".webpack/main",
   "repository": "https://github.com/kanekotic/barklarm",
   "scripts": {
-    "test": "jest --passWithNoTests --coverage --collectCoverageFrom=src/**/*.{ts,tsx}",
+    "test": "jest --passWithNoTests",
+    "test:cov": "jest --passWithNoTests --coverage --collectCoverageFrom=src/**/*.{ts,tsx}",
     "test:dev": "jest --watch",
     "start": "electron-forge start",
     "package": "electron-forge package",

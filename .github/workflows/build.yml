@@ -60,7 +60,7 @@ jobs:
       - name: install dependencies
         run: yarn install
       - name: test
-        run: yarn test
+        run: yarn test:cov
       - name: Publish coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:

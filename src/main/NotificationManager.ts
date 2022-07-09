@@ -8,7 +8,7 @@ export class NotificationManager {
   private readonly notificationMap: MapType<(name: State) => NotificationConstructorOptions> = {
     [Status.FAILURE]: (state: State) => ({
       title: 'Fail',
-      body: `${state.name} failed`,
+      body: `${state.name} Failed`,
       icon: nativeImage.createFromPath(join(__dirname, '..', 'assets', 'fail_icon_big.png')),
     }),
     [Status.SUCCESS]: (state: State) => ({
