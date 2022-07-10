@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 export const Sentry = ({ observable, index, updateFieldWithValue }: any) => (
   <>
     <TextField
-      id="outlined-basic"
       label="organization"
       variant="outlined"
       value={observable.organization}
@@ -13,7 +12,6 @@ export const Sentry = ({ observable, index, updateFieldWithValue }: any) => (
       }
     />
     <TextField
-      id="outlined-basic"
       label="project"
       variant="outlined"
       value={observable.project}
@@ -22,7 +20,6 @@ export const Sentry = ({ observable, index, updateFieldWithValue }: any) => (
       }
     />
     <TextField
-      id="outlined-basic"
       label="authorization Token"
       variant="outlined"
       type="password"
