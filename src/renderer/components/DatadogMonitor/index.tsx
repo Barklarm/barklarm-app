@@ -17,7 +17,6 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue }: any)
       <MenuItem value={'dddog-gov.com'}>US1-FED</MenuItem>
     </Select>
     <TextField
-      id="outlined-basic"
       label="Monitor ID"
       variant="outlined"
       value={observable.monitorId}
@@ -26,7 +25,6 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue }: any)
       }
     />
     <TextField
-      id="outlined-basic"
       label="Api Key"
       variant="outlined"
       type="password"
@@ -36,7 +34,6 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue }: any)
       }
     />
     <TextField
-      id="outlined-basic"
       label="App Key"
       variant="outlined"
       type="password"
