@@ -5,31 +5,33 @@ import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { MapType } from '../types/MapType';
 
+export const defaultMenuItems: MenuItemConstructorOptions[] = [
+  {
+    label: 'Configure',
+    type: 'normal',
+    click: () => {
+      appManager.getWindow().window.show();
+    },
+  },
+  {
+    label: 'Quit',
+    type: 'normal',
+    click: () => {
+      appManager.getWindow().window.destroy();
+      app.quit();
+    },
+  },
+];
+
+export const statusToImagePathMap: MapType<string> = {
+  [Status.SUCCESS]: join(__dirname, '..', 'assets', 'ok_icon.png'),
+  [Status.FAILURE]: join(__dirname, '..', 'assets', 'fail_icon.png'),
+  [Status.CHECKING]: join(__dirname, '..', 'assets', 'running_icon.png'),
+  [Status.NA]: join(__dirname, '..', 'assets', 'na_icon.png'),
+};
+
 export class TrayMenu {
   public readonly tray: Tray;
-  private readonly defaultMenuItems: MenuItemConstructorOptions[] = [
-    {
-      label: 'Configure',
-      type: 'normal',
-      click: () => {
-        appManager.getWindow().window.show();
-      },
-    },
-    {
-      label: 'Quit',
-      type: 'normal',
-      click: () => {
-        appManager.getWindow().window.destroy();
-        app.quit();
-      },
-    },
-  ];
-  private readonly statusToImagePathMap: MapType<string> = {
-    [Status.SUCCESS]: join(__dirname, '..', 'assets', 'ok_icon.png'),
-    [Status.FAILURE]: join(__dirname, '..', 'assets', 'fail_icon.png'),
-    [Status.CHECKING]: join(__dirname, '..', 'assets', 'running_icon.png'),
-    [Status.NA]: join(__dirname, '..', 'assets', 'na_icon.png'),
-  };
 
   constructor() {
     this.tray = new Tray(this.createNativeImage());
@@ -51,22 +53,22 @@ export class TrayMenu {
       };
     });
     this.tray.setContextMenu(
-      Menu.buildFromTemplate([...observersStateMenuItems, { type: 'separator' }, ...this.defaultMenuItems])
+      Menu.buildFromTemplate([...observersStateMenuItems, { type: 'separator' }, ...defaultMenuItems])
     );
   }
 
   private getIconForState(state: State) {
-    return this.statusToImagePathMap[state.status];
+    return statusToImagePathMap[state.status];
   }
 
   private createNativeImage() {
-    const image = nativeImage.createFromPath(this.statusToImagePathMap[Status.NA]);
+    const image = nativeImage.createFromPath(statusToImagePathMap[Status.NA]);
     image.setTemplateImage(true);
     return image;
   }
 
   private createMenu(): Menu {
-    const contextMenu = Menu.buildFromTemplate(this.defaultMenuItems);
+    const contextMenu = Menu.buildFromTemplate(defaultMenuItems);
     return contextMenu;
   }
 }
