@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Accordion from '@mui/material/Accordion';
@@ -9,92 +9,16 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import { GithubAction } from '../GithubAction';
-import { CCTray } from '../CCTray';
-import { DatadogMonitor } from '../DatadogMonitor';
-import { Sentry } from '../Sentry';
-import { MapType } from '../../../types/MapType';
 import Box from '@mui/material/Box';
 import LinkIcon from '@mui/icons-material/Link';
 import Backdrop from '@mui/material/Backdrop';
+import { observersComponentBuilderMap } from './helpers/observersComponentBuilderMap';
+import { observersTitleBuilderMap } from './helpers/observersTitleBuilderMap';
+import { observersfromLinkParser } from './helpers/observersfromLinkParser';
 
-const observersComponentBuilderMap: MapType<
-  (observable: any, index: number, updateFieldWithValue: any) => JSX.Element
-> = {
-  githubAction: (observable: any, index: number, updateFieldWithValue: any) => (
-    <GithubAction observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
-  ),
-  ccTray: (observable: any, index: number, updateFieldWithValue: any) => (
-    <CCTray observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
-  ),
-  datadogMonitor: (observable: any, index: number, updateFieldWithValue: any) => (
-    <DatadogMonitor observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
-  ),
-  sentry: (observable: any, index: number, updateFieldWithValue: any) => (
-    <Sentry observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
-  ),
-};
-const observersTitleBuilderMap: MapType<(observable: any) => string> = {
-  githubAction: (observable: any) =>
-    `Github: ${observable.alias || `${observable.owner}/${observable.repo}/${observable.workflowId}`}`,
-  ccTray: (observable: any) => `CCTray: ${observable.alias || observable.name || observable.url}`,
-  datadogMonitor: (observable: any) => `Datadog: ${observable.alias || `${observable.site}/${observable.monitorId}`}`,
-  sentry: (observable: any) => `Sentry: ${observable.alias || `${observable.organization}/${observable.project}`}`,
-};
-type strategy = {
-  canApply: (text: string) => boolean;
-  apply: (text: string) => any;
-};
-const githubRegex = /https:\/\/github.com\/(.+)\/(.+)\/actions\/workflows\/(.+)/;
-const ccTrayRegex = /cc.xml/;
-const datadogRegex = /https:\/\/app.(.*datadog.*)\/monitors\/(.+)/;
-const sentryRegex = /https:\/\/sentry.io\/organizations\/(.+)\/projects\/(.+)\//;
-
-const observersfromLinkParser: strategy[] = [
-  {
-    canApply: (text: string) => githubRegex.test(text),
-    apply: (text: string) => {
-      const match = text.match(githubRegex);
-      return {
-        type: 'githubAction',
-        owner: match[1],
-        repo: match[2],
-        workflowId: match[3],
-      };
-    },
-  },
-  {
-    canApply: (text: string) => ccTrayRegex.test(text),
-    apply: (text: string) => ({
-      type: 'ccTray',
-      url: text,
-    }),
-  },
-  {
-    canApply: (text: string) => datadogRegex.test(text),
-    apply: (text: string) => {
-      const match = text.match(datadogRegex);
-      return {
-        type: 'datadogMonitor',
-        site: match[1],
-        monitorId: match[2],
-      };
-    },
-  },
-  {
-    canApply: (text: string) => sentryRegex.test(text),
-    apply: (text: string) => {
-      const match = text.match(sentryRegex);
-      return {
-        type: 'sentry',
-        organization: match[1],
-        project: match[2],
-      };
-    },
-  },
-];
 export const Observers = () => {
   const [observables, setObservables] = useState(window.electron.store.get('observables') || []);
+  const [isDrag, setIsDrag] = useState(false);
   const getComponent = (observable: any, index: number, updateFieldWithValue: any): any => {
     try {
       return observersComponentBuilderMap[observable.type](observable, index, updateFieldWithValue);
@@ -109,7 +33,6 @@ export const Observers = () => {
       return 'Unkown';
     }
   };
-
   const deleteByIndex = (index: number) => {
     setObservables(observables.filter((_: any, currentIndex: number) => currentIndex != index));
   };
@@ -120,7 +43,6 @@ export const Observers = () => {
       )
     );
   };
-  const [isDrag, setIsDrag] = useState(false);
   const onDragEnter = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -143,12 +65,9 @@ export const Observers = () => {
     if (!dataTrasfer.types.some((type: string) => type.includes('text'))) return;
     const text = dataTrasfer.getData('Text');
     observersfromLinkParser.forEach((parser) => {
-      console.log(parser.canApply(text));
       if (!parser.canApply(text)) return;
       setObservables([...observables, parser.apply(text)]);
     });
-
-    console.log(text);
   };
   return (
     <>
