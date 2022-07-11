@@ -3,13 +3,11 @@ import { appManager } from './main/AppManager';
 import { TrayMenu } from './main/TrayMenu';
 import { AppWindow } from './main/AppWindow';
 import { ObserverManager } from './main/observers/ObserverManager';
-import './store';
 import { NotificationManager } from './main/NotificationManager';
 import { dirname, resolve, basename } from 'path';
 import updateElectronApp from 'update-electron-app';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import hasSquirrelStartupEvents from 'electron-squirrel-startup';
+import './store';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
