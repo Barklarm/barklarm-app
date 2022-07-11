@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { Navigator } from './components/Navigator';
 import { Observers } from './components/Observers';
 import './app.css';
-import theme, { drawerWidth } from './theme';
+import theme, { drawerWidth } from './themes';
 
 export const App = () => {
   return (
