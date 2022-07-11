@@ -204,7 +204,7 @@ export const Observers = () => {
         >
           <Stack spacing={2}>
             {observables.map((observable: any, index: number) => (
-              <Accordion>
+              <Accordion key={`observable-accordion-${index}`}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
                   <Typography>{getTitle(observable)}</Typography>
                 </AccordionSummary>
