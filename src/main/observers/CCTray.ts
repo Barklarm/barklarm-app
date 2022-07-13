@@ -38,24 +38,12 @@ export class CCTray implements Observer {
       const response = await fetch(this.url, {
         method: 'GET',
       });
-      if (!response.ok)
-        return {
-          name: this.alias,
-          status: Status.NA,
-          link: this.url,
-        };
+      if (!response.ok) throw new Error('response is invalid');
       const projects = this.parser.parse(await response.text()).Projects;
-
       const { activity, lastBuildStatus, webUrl } = this.getProject(projects.Project, this.projectName);
-      if (activity !== 'Sleeping')
-        return {
-          name: this.alias,
-          status: Status.CHECKING,
-          link: webUrl,
-        };
       return {
         name: this.alias,
-        status: this.statusMap[lastBuildStatus],
+        status: this.getStatus(activity, lastBuildStatus),
         link: webUrl,
       };
     } catch (_) {
@@ -65,5 +53,8 @@ export class CCTray implements Observer {
         link: this.url,
       };
     }
+  }
+  private getStatus(activity: string, lastBuildStatus: string): Status {
+    return activity !== 'Sleeping' ? Status.CHECKING : this.statusMap[lastBuildStatus];
   }
 }

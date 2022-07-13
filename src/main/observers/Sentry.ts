@@ -25,22 +25,11 @@ export class Sentry implements Observer {
           Authorization: `Bearer ${this.authToken}`,
         },
       });
-      if (!response.ok)
-        return {
-          name: this.alias,
-          status: Status.NA,
-          link: this.site,
-        };
+      if (!response.ok) throw new Error('response is invalid');
       const body = await response.json();
-      if (body.length !== 0)
-        return {
-          name: this.alias,
-          status: Status.FAILURE,
-          link: this.site,
-        };
       return {
         name: this.alias,
-        status: Status.SUCCESS,
+        status: body.length === 0 ? Status.SUCCESS : Status.FAILURE,
         link: this.site,
       };
     } catch (_) {

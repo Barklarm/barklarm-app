@@ -31,24 +31,11 @@ export class GithubAction implements Observer {
         repo: this.repo,
         workflow_id: this.workflowId,
       });
-      if (response.status != 200 || response.data.total_count == 0)
-        return {
-          name: this.alias,
-          status: Status.NA,
-          link: this.baseLink,
-        };
-
+      if (response.status != 200 || response.data.total_count == 0) throw new Error('response is invalid');
       const { conclusion, html_url } = response.data.workflow_runs[0];
-      if (conclusion == null) {
-        return {
-          name: this.alias,
-          status: Status.CHECKING,
-          link: html_url,
-        };
-      }
       return {
         name: this.alias,
-        status: conclusion === 'success' ? Status.SUCCESS : Status.FAILURE,
+        status: this.getStatus(conclusion),
         link: html_url,
       };
     } catch (error) {
@@ -59,5 +46,9 @@ export class GithubAction implements Observer {
         link: this.baseLink,
       };
     }
+  }
+
+  private getStatus(conclusion: string): Status {
+    return conclusion == null ? Status.CHECKING : conclusion === 'success' ? Status.SUCCESS : Status.FAILURE;
   }
 }
