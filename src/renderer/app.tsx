@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Navigator } from './components/Navigator';
-import { Observers } from './components/Observers';
 import { drawerWidth } from './themes';
+import { Observers } from './pages/Observers';
 
 export const App = () => {
   return (
