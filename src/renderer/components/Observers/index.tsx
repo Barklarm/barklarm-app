@@ -48,7 +48,6 @@ export const Observers = ({ observables, add, remove, update }: ObserversParams)
                 <MenuItem value={'sentry'}>Sentry</MenuItem>
               </Select>
               {getComponent(observable, index, update)}
-
               <TextField
                 id="outlined-basic"
                 label="alias"
