@@ -68,7 +68,9 @@ module.exports = {
           "repository": {
             "owner": "kanekotic",
             "name": "barklarm"
-          }
+          },
+          "draft": false,
+          "prerelease": false
         }
       }
     ]

@@ -3,8 +3,6 @@ const path = require('path');
 var crypto = require('crypto');
 const packageJson = require('../../package.json')
 
-// Below statements must be wrapped inside the 'async' function:
-
 const replaceInFile = async (file, pattern, value) => {
     const data = await fs.readFile(file,'utf-8');
     const result = data.replace(pattern, value);
