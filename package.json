@@ -18,6 +18,7 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format:fix": "yarn prettier --write src",
     "format:check": "yarn prettier --check src",
+    "chocolatey:prepare": "node build/chocolatey/script.js",
     "lint-staged": "lint-staged",
     "prepare": "husky install",
     "commit": "git add . && git commit -m"
