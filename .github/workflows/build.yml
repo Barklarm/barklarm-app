@@ -74,3 +74,18 @@ jobs:
           MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
           WINDOWS_PFX_SECRET: ${{ secrets.WINDOWS_PFX_SECRET }}
         run: yarn deploy
+      - name: prepare chocolatey
+        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
+        run: yarn chocolatey:prepare
+      - name: pack chocolatey
+        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: pack .\build\chocolatey\barklarm.nuspec
+      - name: push chocolatey
+        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: push -s https://push.chocolatey.org/ -k '${{ secrets.CHOCOLATEY_KEY }}'
+
+      

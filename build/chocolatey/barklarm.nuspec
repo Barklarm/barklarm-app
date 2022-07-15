@@ -15,7 +15,7 @@
     <projectSourceUrl>https://github.com/kanekotic/barklarm</projectSourceUrl>
     <docsUrl>https://www.barklarm.com/docs/intro</docsUrl>
     <bugTrackerUrl>https://github.com/kanekotic/barklarm/issues</bugTrackerUrl>
-    <tags>barklarm electron ci cd</tags>
+    <tags>barklarm electron ci cd cicd observability radiator</tags>
     <summary>displays the status of projects as an item in the tray menu bar</summary>
     <description>There is currently no open source radiator application that is multiplatform and that can be extensible to support diferent platforms (ex. Github actions) that dont support cctray xml format. Barklarm looks forward to become this one go to application.</description>
   </metadata>

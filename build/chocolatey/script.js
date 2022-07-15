@@ -21,12 +21,12 @@ const calculateChecksum = async (file) => {
 
 const updateInstallScript = async () => {
     const checksum = await calculateChecksum(path.join(__dirname,'..','..', 'out','make','squirrel.windows','x64',`barklarm-${packageJson.version} Setup.exe`))
-    await replaceInFile(path.join(__dirname, 'chocolateyinstall copy.ps1'), /__REPLACE_VERSION__/g,packageJson.version);
-    await replaceInFile(path.join(__dirname, 'chocolateyinstall copy.ps1'), /__REPLACE_CHECKSUM__/g, checksum);
+    await replaceInFile(path.join(__dirname, 'tools', 'chocolateyinstall.ps1'), /__REPLACE_VERSION__/g,packageJson.version);
+    await replaceInFile(path.join(__dirname, 'tools', 'chocolateyinstall.ps1'), /__REPLACE_CHECKSUM__/g, checksum);
 };
 
 const updateNuspec = async () => {
-    await replaceInFile(path.join(__dirname, 'barklarm copy.nuspec'), /__REPLACE_VERSION__/g,packageJson.version);
+    await replaceInFile(path.join(__dirname, 'barklarm.nuspec'), /__REPLACE_VERSION__/g,packageJson.version);
 };
 
 console.log("update Install Script: started")
