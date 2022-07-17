@@ -28,12 +28,6 @@ export const Navigator = (props: DrawerProps) => {
           </ListItemIcon>
           <ListItemText>Projects</ListItemText>
         </ListItem>
-        {/*<ListItem sx={{ ...item }}>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText>General</ListItemText>
-        </ListItem>*/}
       </List>
     </Drawer>
   );
