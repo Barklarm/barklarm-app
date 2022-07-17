@@ -3,4 +3,5 @@ export type ObserversParams = {
   add: (value: any) => void;
   remove: (index: number) => void;
   update: (fieldName: string, index: number, value: any) => void;
+  save: (values: any[]) => void;
 };

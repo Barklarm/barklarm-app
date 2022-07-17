@@ -6,9 +6,11 @@ import LinkIcon from '@mui/icons-material/Link';
 import { Observers as ObserversComponent } from '../../components/Observers';
 import { DropZone } from '../../components/Dropzone';
 import { mutations } from './helpers/mutations';
+import { storage } from './helpers/storage';
 
 export const Observers = () => {
-  const [observables, setObservables] = useState(window.electron.store.get('observables') || []);
+  const { getObservers, saveObservers } = storage(window.electron);
+  const [observables, setObservables] = useState(getObservers());
   const [isDrag, setIsDrag] = useState(false);
   const { addObserver, removeObserver, updateObserver, parseDataransfer } = mutations(observables, setObservables);
   const onDragEnter = (e: any) => {
@@ -57,6 +59,7 @@ export const Observers = () => {
             add={addObserver}
             update={updateObserver}
             remove={removeObserver}
+            save={saveObservers}
           />
         </Box>
       )}

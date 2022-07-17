@@ -13,7 +13,7 @@ import { observersComponentBuilderMap } from './helpers/observersComponentBuilde
 import { observersTitleBuilderMap } from './helpers/observersTitleBuilderMap';
 import { ObserversParams } from '../../../types/ObserversParams';
 
-export const Observers = ({ observables, add, remove, update }: ObserversParams) => {
+export const Observers = ({ observables, add, remove, update, save }: ObserversParams) => {
   const getComponent = (observable: any, index: number, updateFieldWithValue: any): any => {
     try {
       return observersComponentBuilderMap[observable.type](observable, index, updateFieldWithValue);
@@ -49,7 +49,6 @@ export const Observers = ({ observables, add, remove, update }: ObserversParams)
               </Select>
               {getComponent(observable, index, update)}
               <TextField
-                id="outlined-basic"
                 label="alias"
                 variant="outlined"
                 value={observable.alias}
@@ -74,13 +73,7 @@ export const Observers = ({ observables, add, remove, update }: ObserversParams)
           right: 50,
         }}
       >
-        <Button
-          variant="contained"
-          onClick={() => {
-            window.electron.store.set('observables', observables);
-            window.electron.app.refreshObservers();
-          }}
-        >
+        <Button variant="contained" onClick={() => save(observables)}>
           Save
         </Button>
         <Button variant="contained" onClick={() => add({ type: '' })}>
