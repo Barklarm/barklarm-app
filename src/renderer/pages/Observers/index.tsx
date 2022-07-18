@@ -7,32 +7,14 @@ import { Observers as ObserversComponent } from '../../components/Observers';
 import { DropZone } from '../../components/Dropzone';
 import { mutations } from './helpers/mutations';
 import { storage } from './helpers/storage';
+import { dragdrop } from './helpers/dragdrop';
 
 export const Observers = () => {
   const { getObservers, saveObservers } = storage(window.electron);
   const [observables, setObservables] = useState(getObservers());
   const [isDrag, setIsDrag] = useState(false);
   const { addObserver, removeObserver, updateObserver, parseDataransfer } = mutations(observables, setObservables);
-  const onDragEnter = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDrag(true);
-  };
-  const onDragLeave = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDrag(false);
-  };
-  const onDragOver = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const onDrop = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDrag(false);
-    parseDataransfer(e.dataTransfer);
-  };
+  const { onDragEnter, onDragLeave, onDragOver, onDrop } = dragdrop(setIsDrag, parseDataransfer);
   return (
     <>
       {isDrag ? (
