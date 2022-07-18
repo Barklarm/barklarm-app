@@ -123,7 +123,7 @@ describe('dropzone', () => {
     expect(buttonAdd).toHaveTextContent('Add');
   });
 
-  it('renders githubAction type observables correctly', () => {
+  it('renders know type observables correctly', () => {
     const expectedComponent = <div data-testid={'githubAction'} />;
     const expectedTitle = faker.datatype.uuid();
     const expectedAlias = faker.datatype.uuid();
@@ -138,7 +138,6 @@ describe('dropzone', () => {
     render(
       <Observers observables={observables} add={addMock} remove={removeMock} update={updateMock} save={saveMock} />
     );
-    screen.debug();
     const accordion = screen.getByTestId('accordion');
     const accordionSummary = within(accordion).getByTestId('accordion-summary');
     const accordionDetails = within(accordion).getByTestId('accordion-details');
@@ -155,6 +154,50 @@ describe('dropzone', () => {
     expect(menuItems[2]).toHaveAttribute('value', 'datadogMonitor');
     expect(menuItems[3]).toHaveAttribute('value', 'sentry');
     expect(within(detailsStack).getByTestId('githubAction')).toBeInTheDocument();
+    const alias = within(detailsStack).getByTestId('text-field');
+    expect(alias).toHaveAttribute('label', 'alias');
+    expect(alias).toHaveAttribute('variant', 'outlined');
+    expect(alias).toHaveAttribute('value', expectedAlias);
+    const buttonStack = stacks[1];
+    expect(buttonStack).toHaveAttribute('direction', 'row');
+    expect(buttonStack).toHaveAttribute('justifycontent', 'flex-end');
+    expect(buttonStack).toHaveAttribute('spacing', '2');
+    const deleteButton = within(buttonStack).getByTestId('button');
+    expect(deleteButton).toHaveAttribute('variant', 'contained');
+    expect(deleteButton).toHaveTextContent('Delete');
+  });
+  it('renders empty type observables correctly', () => {
+    const expectedAlias = faker.datatype.uuid();
+    const observables: any[] = [
+      {
+        type: 'githubAction',
+        alias: expectedAlias,
+      },
+    ];
+    observersComponentBuilderMapMock['githubAction'].mockImplementation(() => {
+      throw new Error();
+    });
+    observersTitleBuilderMapMock['githubAction'].mockImplementation(() => {
+      throw new Error();
+    });
+    render(
+      <Observers observables={observables} add={addMock} remove={removeMock} update={updateMock} save={saveMock} />
+    );
+    const accordion = screen.getByTestId('accordion');
+    const accordionSummary = within(accordion).getByTestId('accordion-summary');
+    const accordionDetails = within(accordion).getByTestId('accordion-details');
+    const stacks = within(accordionDetails).getAllByTestId('stack');
+    const detailsStack = stacks[0];
+    const typography = within(accordionSummary).getByTestId('typography');
+    expect(within(typography).getByText('Unkown')).toBeInTheDocument();
+    const select = within(detailsStack).getByTestId('select');
+    expect(select).toHaveAttribute('label', 'Observer Type');
+    const menuItems = within(select).getAllByTestId('menu-item');
+    expect(menuItems).toHaveLength(4);
+    expect(menuItems[0]).toHaveAttribute('value', 'githubAction');
+    expect(menuItems[1]).toHaveAttribute('value', 'ccTray');
+    expect(menuItems[2]).toHaveAttribute('value', 'datadogMonitor');
+    expect(menuItems[3]).toHaveAttribute('value', 'sentry');
     const alias = within(detailsStack).getByTestId('text-field');
     expect(alias).toHaveAttribute('label', 'alias');
     expect(alias).toHaveAttribute('variant', 'outlined');

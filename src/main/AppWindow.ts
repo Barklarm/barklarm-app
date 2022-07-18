@@ -1,6 +1,13 @@
 import { app, BrowserWindow, nativeImage } from 'electron';
 import { join } from 'path';
 
+export const _hide = (window: any) => {
+  return (event: any) => {
+    event.preventDefault();
+    window.hide();
+  };
+};
+
 export class AppWindow {
   public readonly window: BrowserWindow;
   private readonly IconPath: string = join(__dirname, '..', 'assets', 'icon.png');
@@ -21,15 +28,9 @@ export class AppWindow {
     window.setMenu(null);
     window.loadURL(url);
     if (!app.isPackaged) window.webContents.openDevTools();
-    window.on('minimize', function (event: any) {
-      event.preventDefault();
-      window.hide();
-    });
-
-    window.on('close', function (event: any) {
-      event.preventDefault();
-      window.hide();
-    });
+    const hide = _hide(window);
+    window.on('minimize', hide);
+    window.on('close', hide);
     return window;
   }
 }

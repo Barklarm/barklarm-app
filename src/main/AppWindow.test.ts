@@ -1,9 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { State } from '../types/State';
-import { Status } from '../types/Status';
-import { join } from 'path';
-import { BrowserWindow, nativeImage, app } from 'electron';
-import { AppWindow } from './AppWindow';
+import { BrowserWindow, nativeImage } from 'electron';
+import { AppWindow, _hide } from './AppWindow';
 
 jest.mock('electron', () => ({
   nativeImage: {
@@ -38,6 +35,17 @@ describe('AppWindows', () => {
     expectedImage.setTemplateImage.mockClear();
     createFromPathMock.mockReturnValue(expectedImage);
     browserWindowMock.mockReturnValue(expectedBrowser);
+  });
+
+  describe('_hide', () => {
+    it('should call cancel event and hide window', () => {
+      const window = { hide: jest.fn() };
+      const event = { preventDefault: jest.fn() };
+      const hide = _hide(window);
+      hide(event);
+      expect(window.hide).toBeCalled();
+      expect(event.preventDefault).toBeCalled();
+    });
   });
   describe('Constructor', () => {
     it('generates correct instance', () => {

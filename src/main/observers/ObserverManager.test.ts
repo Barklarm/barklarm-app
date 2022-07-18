@@ -1,9 +1,12 @@
-import { GithubAction } from './GithubAction';
 import { Status } from '../../types/Status';
 import { ObserverManager } from './ObserverManager';
 import { TrayMenu } from '../TrayMenu';
 import { NotificationManager } from '../NotificationManager';
 import { State } from '../../types/State';
+import { GithubAction } from './GithubAction';
+import { CCTray } from './CCTray';
+import { Sentry } from './Sentry';
+import { DatadogMonitor } from './DatadogMonitor';
 
 const storeGetMock = jest.fn();
 
@@ -55,16 +58,52 @@ describe('ObserverManager', () => {
       expect((observerManager as any).observers[0]).toBeInstanceOf(GithubAction);
     });
 
-    it('should not map unknown observer types in store', () => {
+    it('should map cctray observer if in store', () => {
       storeGetMock.mockReturnValue([
         {
-          type: 'githubAction',
+          type: 'ccTray',
         },
       ]);
       observerManager.refershObservers();
       expect(storeGetMock).toBeCalledWith('observables');
       expect(observerManager.refreshState).toBeCalled();
-      expect((observerManager as any).observers[0]).toBeInstanceOf(GithubAction);
+      expect((observerManager as any).observers[0]).toBeInstanceOf(CCTray);
+    });
+
+    it('should map datadogMonitor observer if in store', () => {
+      storeGetMock.mockReturnValue([
+        {
+          type: 'datadogMonitor',
+        },
+      ]);
+      observerManager.refershObservers();
+      expect(storeGetMock).toBeCalledWith('observables');
+      expect(observerManager.refreshState).toBeCalled();
+      expect((observerManager as any).observers[0]).toBeInstanceOf(DatadogMonitor);
+    });
+
+    it('should map sentry observer if in store', () => {
+      storeGetMock.mockReturnValue([
+        {
+          type: 'sentry',
+        },
+      ]);
+      observerManager.refershObservers();
+      expect(storeGetMock).toBeCalledWith('observables');
+      expect(observerManager.refreshState).toBeCalled();
+      expect((observerManager as any).observers[0]).toBeInstanceOf(Sentry);
+    });
+
+    it('should not map unknown observer types in store', () => {
+      storeGetMock.mockReturnValue([
+        {
+          type: 'someRandom',
+        },
+      ]);
+      observerManager.refershObservers();
+      expect(storeGetMock).toBeCalledWith('observables');
+      expect(observerManager.refreshState).toBeCalled();
+      expect((observerManager as any).observers[0]).toBeUndefined();
     });
   });
 
