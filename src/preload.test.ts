@@ -5,6 +5,7 @@ import { _ } from './preload';
 jest.mock('electron', () => ({
   ipcRenderer: {
     sendSync: jest.fn(),
+    send: jest.fn(),
   },
   contextBridge: {
     exposeInMainWorld: jest.fn(),
@@ -14,10 +15,12 @@ jest.mock('electron', () => ({
 describe('preload', () => {
   const value = { some: faker.datatype.uuid() };
   const sendSyncMock = ipcRenderer.sendSync as jest.Mock<any>;
+  const sendMock = ipcRenderer.send as jest.Mock<any>;
   const exposeInMainWorldMock = contextBridge.exposeInMainWorld as jest.Mock<any>;
 
   beforeEach(() => {
     sendSyncMock.mockReset();
+    sendMock.mockReset();
     sendSyncMock.mockReturnValue(value);
   });
   describe('store.get', () => {
@@ -29,14 +32,14 @@ describe('preload', () => {
   describe('store.set', () => {
     it('should get from store', () => {
       const property = faker.datatype.uuid();
-      const result = _.store.set(property, value);
-      expect(sendSyncMock).toBeCalledWith('electron-store-set', property, value);
+      _.store.set(property, value);
+      expect(sendMock).toBeCalledWith('electron-store-set', property, value);
     });
   });
   describe('app.refreshObservers', () => {
     it('should get from store', () => {
       _.app.refreshObservers();
-      expect(sendSyncMock).toBeCalledWith('electron-refresh-observers');
+      expect(sendMock).toBeCalledWith('electron-refresh-observers');
     });
   });
 

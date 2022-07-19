@@ -83,6 +83,7 @@ jobs:
         with:
           args: pack .\build\chocolatey\barklarm.nuspec
       - name: push chocolatey
+        continue-on-error: true
         if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
         uses: crazy-max/ghaction-chocolatey@v2
         with:

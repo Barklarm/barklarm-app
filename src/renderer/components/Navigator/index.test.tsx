@@ -34,7 +34,6 @@ jest.mock('@mui/material/ListItemText', () => ({
 describe('navigator', () => {
   it('should render navigator correctly', () => {
     render(<Navigator />);
-    screen.debug();
     const drawer = screen.getByTestId('drawer');
     expect(drawer).toHaveAttribute('variant', 'permanent');
     const list = within(drawer).getByTestId('list');
