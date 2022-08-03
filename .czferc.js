@@ -114,15 +114,6 @@ module.exports = {
         message: 'Select Co-Authors if any:',
         choices: contributors.map(contributor => ({
             name: contributor.name,
-            value: `${contributor.name} <${contributor.email}>`,
-        }))
-      },
-      {
-        type: 'checkbox',
-        name: 'coauthors',
-        message: 'Select Co-Authors if any:',
-        choices: contributors.map(contributor => ({
-            name: contributor.name,
             value: `Co-authored-by: ${contributor.name} <${contributor.email}>`,
         }))
       },
