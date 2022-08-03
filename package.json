@@ -21,7 +21,7 @@
     "chocolatey:prepare": "node build/chocolatey/script.js",
     "lint-staged": "lint-staged",
     "prepare": "husky install",
-    "commit": "git add . && git commit -m"
+    "commit": "git add . && cz"
   },
   "keywords": [],
   "author": "alvaro.perez",
