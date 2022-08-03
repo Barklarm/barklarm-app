@@ -5,6 +5,10 @@
   "description": "Build Radiator supporting Github Actions",
   "main": ".webpack/main",
   "repository": "https://github.com/kanekotic/barklarm",
+  "contributors": [
+    { "name": "kanekotic", "email": "me@kanekotic.com", "url": "https://github.com/kanekotic"},
+    { "name": "kanekotic2", "email": "me@kanekotic.com", "url": "https://github.com/kanekotic"}
+  ],
   "scripts": {
     "test": "jest --passWithNoTests --runInBand",
     "test:cov": "jest --passWithNoTests --coverage --runInBand",
