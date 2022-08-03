@@ -27,7 +27,10 @@
   "author": "alvaro.perez",
   "license": "MIT",
   "config": {
-    "forge": "./forge.config.js"
+    "forge": "./forge.config.js",
+    "commitizen": {
+      "path": "cz-format-extension"
+    }
   },
   "devDependencies": {
     "@datadog/datadog-api-client": "^1.0.0",
@@ -52,8 +55,10 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "@vercel/webpack-asset-relocator-loader": "1.7.0",
+    "commitizen": "^4.2.5",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.0.0",
+    "cz-conventional-changelog": "^3.3.0",
     "electron": "18.2.0",
     "electron-fetch": "^1.7.4",
     "electron-squirrel-startup": "^1.0.0",
@@ -77,5 +82,8 @@
     "ts-loader": "^9.2.2",
     "typescript": "~4.5.4",
     "update-electron-app": "^2.0.1"
+  },
+  "dependencies": {
+    "cz-format-extension": "^1.5.0"
   }
 }
