@@ -1,12 +1,16 @@
 {
   "name": "barklarm",
   "productName": "barklarm",
-  "version": "1.7.4",
+  "version": "1.8.0",
   "description": "Build Radiator supporting Github Actions",
   "main": ".webpack/main",
   "repository": "https://github.com/kanekotic/barklarm",
   "contributors": [
-    { "name": "kanekotic", "email": "me@kanekotic.com", "url": "https://github.com/kanekotic"}
+    {
+      "name": "kanekotic",
+      "email": "me@kanekotic.com",
+      "url": "https://github.com/kanekotic"
+    }
   ],
   "scripts": {
     "test": "jest --passWithNoTests --runInBand",
