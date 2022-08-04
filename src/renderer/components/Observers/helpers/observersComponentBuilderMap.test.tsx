@@ -24,9 +24,13 @@ jest.mock('../../Sentry', () => ({
   __esModule: true,
   Sentry: (props: any) => <input data-testid={`sentry`} {...props} />,
 }));
+jest.mock('../../NewRelic', () => ({
+  __esModule: true,
+  NewRelic: (props: any) => <input data-testid={`newRelic`} {...props} />,
+}));
 
 describe('observersComponentBuilderMap', () => {
-  describe.each([['githubAction'], ['ccTray'], ['datadogMonitor'], ['sentry']])('%s', (type: string) => {
+  describe.each([['githubAction'], ['ccTray'], ['datadogMonitor'], ['sentry'], ['newRelic']])('%s', (type: string) => {
     it('should have correct textfield attributes', () => {
       const expectedObservable = faker.datatype.uuid();
       const expectedIndex = faker.datatype.number();

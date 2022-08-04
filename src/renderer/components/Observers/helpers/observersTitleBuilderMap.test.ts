@@ -11,6 +11,8 @@ describe('observersComponentBuilderMap', () => {
     ['datadogMonitor', { site: 'site', monitorId: 'monitorId' }, 'Datadog: site/monitorId'],
     ['sentry', { alias: 'awesome alias' }, 'Sentry: awesome alias'],
     ['sentry', { organization: 'organization', project: 'project' }, 'Sentry: organization/project'],
+    ['newRelic', {}, 'NewRelic: alerts'],
+    ['newRelic', { alias: 'awesome alias' }, 'NewRelic: awesome alias'],
   ])('%s with %s should return %s', (type: string, observable: any, expected: string) => {
     it('should have correct textfield attributes', () => {
       const result = observersTitleBuilderMap[type](observable);

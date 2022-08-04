@@ -16,6 +16,7 @@ jest.mock('./helpers/observersComponentBuilderMap', () => ({
     ccTray: jest.fn(),
     datadogMonitor: jest.fn(),
     sentry: jest.fn(),
+    newRelic: jest.fn(),
   },
 }));
 jest.mock('./helpers/observersTitleBuilderMap', () => ({
@@ -25,6 +26,7 @@ jest.mock('./helpers/observersTitleBuilderMap', () => ({
     ccTray: jest.fn(),
     datadogMonitor: jest.fn(),
     sentry: jest.fn(),
+    newRelic: jest.fn(),
   },
 }));
 jest.mock('@mui/material/Stack', () => ({
@@ -148,11 +150,12 @@ describe('dropzone', () => {
     const select = within(detailsStack).getByTestId('select');
     expect(select).toHaveAttribute('label', 'Observer Type');
     const menuItems = within(select).getAllByTestId('menu-item');
-    expect(menuItems).toHaveLength(4);
+    expect(menuItems).toHaveLength(5);
     expect(menuItems[0]).toHaveAttribute('value', 'githubAction');
     expect(menuItems[1]).toHaveAttribute('value', 'ccTray');
     expect(menuItems[2]).toHaveAttribute('value', 'datadogMonitor');
     expect(menuItems[3]).toHaveAttribute('value', 'sentry');
+    expect(menuItems[4]).toHaveAttribute('value', 'newRelic');
     expect(within(detailsStack).getByTestId('githubAction')).toBeInTheDocument();
     const alias = within(detailsStack).getByTestId('text-field');
     expect(alias).toHaveAttribute('label', 'alias');
@@ -193,11 +196,12 @@ describe('dropzone', () => {
     const select = within(detailsStack).getByTestId('select');
     expect(select).toHaveAttribute('label', 'Observer Type');
     const menuItems = within(select).getAllByTestId('menu-item');
-    expect(menuItems).toHaveLength(4);
+    expect(menuItems).toHaveLength(5);
     expect(menuItems[0]).toHaveAttribute('value', 'githubAction');
     expect(menuItems[1]).toHaveAttribute('value', 'ccTray');
     expect(menuItems[2]).toHaveAttribute('value', 'datadogMonitor');
     expect(menuItems[3]).toHaveAttribute('value', 'sentry');
+    expect(menuItems[4]).toHaveAttribute('value', 'newRelic');
     const alias = within(detailsStack).getByTestId('text-field');
     expect(alias).toHaveAttribute('label', 'alias');
     expect(alias).toHaveAttribute('variant', 'outlined');

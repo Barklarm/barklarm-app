@@ -4,6 +4,7 @@ import { GithubAction } from '../../GithubAction';
 import { CCTray } from '../../CCTray';
 import { DatadogMonitor } from '../../DatadogMonitor';
 import { Sentry } from '../../Sentry';
+import { NewRelic } from '../../NewRelic';
 
 export const observersComponentBuilderMap: MapType<
   (observable: any, index: number, updateFieldWithValue: any) => JSX.Element
@@ -19,5 +20,8 @@ export const observersComponentBuilderMap: MapType<
   ),
   sentry: (observable: any, index: number, updateFieldWithValue: any) => (
     <Sentry observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
+  ),
+  newRelic: (observable: any, index: number, updateFieldWithValue: any) => (
+    <NewRelic observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
   ),
 };

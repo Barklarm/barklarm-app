@@ -10,6 +10,7 @@ import { Status } from '../../types/Status';
 import { DatadogMonitor } from './DatadogMonitor';
 import { MapType } from '../../types/MapType';
 import { Sentry } from './Sentry';
+import { NewRelic } from './NewRelic';
 
 export class ObserverManager {
   private observers: Observer[];
@@ -20,6 +21,7 @@ export class ObserverManager {
     ccTray: (configuration: any) => new CCTray(configuration as any),
     datadogMonitor: (configuration: any) => new DatadogMonitor(configuration as any),
     sentry: (configuration: any) => new Sentry(configuration as any),
+    newRelic: (configuration: any) => new NewRelic(configuration as any),
   };
 
   constructor(private tray: TrayMenu, private notifications: NotificationManager, enableRefresh = true) {

@@ -46,6 +46,7 @@ export const Observers = ({ observables, add, remove, update, save }: ObserversP
                 <MenuItem value={'ccTray'}>CCTray</MenuItem>
                 <MenuItem value={'datadogMonitor'}>Datadog Monitor</MenuItem>
                 <MenuItem value={'sentry'}>Sentry</MenuItem>
+                <MenuItem value={'newRelic'}>New Relic</MenuItem>
               </Select>
               {getComponent(observable, index, update)}
               <TextField

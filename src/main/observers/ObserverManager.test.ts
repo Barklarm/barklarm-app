@@ -7,6 +7,7 @@ import { GithubAction } from './GithubAction';
 import { CCTray } from './CCTray';
 import { Sentry } from './Sentry';
 import { DatadogMonitor } from './DatadogMonitor';
+import { NewRelic } from './NewRelic';
 
 const storeGetMock = jest.fn();
 
@@ -92,6 +93,18 @@ describe('ObserverManager', () => {
       expect(storeGetMock).toBeCalledWith('observables');
       expect(observerManager.refreshState).toBeCalled();
       expect((observerManager as any).observers[0]).toBeInstanceOf(Sentry);
+    });
+
+    it('should map newRelic observer if in store', () => {
+      storeGetMock.mockReturnValue([
+        {
+          type: 'newRelic',
+        },
+      ]);
+      observerManager.refershObservers();
+      expect(storeGetMock).toBeCalledWith('observables');
+      expect(observerManager.refreshState).toBeCalled();
+      expect((observerManager as any).observers[0]).toBeInstanceOf(NewRelic);
     });
 
     it('should not map unknown observer types in store', () => {
