@@ -13,7 +13,7 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue }: any)
       <MenuItem value={'datadoghq.eu'}>EU</MenuItem>
       <MenuItem value={'datadoghq.com'}>US</MenuItem>
       <MenuItem value={'us3.datadoghq.com'}>US3</MenuItem>
-      <MenuItem value={'us5.datadoghq.com'}>US3</MenuItem>
+      <MenuItem value={'us5.datadoghq.com'}>US5</MenuItem>
       <MenuItem value={'dddog-gov.com'}>US1-FED</MenuItem>
     </Select>
     <TextField
