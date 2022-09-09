@@ -27,7 +27,7 @@ Jus follow this simple steps:
 - install
 - Run
 
-With this next 1 minute video you will be able to start by yourself.
+With this next 120 seconds video you will be able to start by yourself.
 
 [intro.webm](https://user-images.githubusercontent.com/3071208/189301010-0f467bfa-b5e7-4d7b-99fa-d666fbd290b1.webm)
 
