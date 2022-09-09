@@ -29,7 +29,7 @@ Jus follow this simple steps:
 
 With this next 1 minute video you will be able to start by yourself.
 
-https://user-images.githubusercontent.com/3071208/167845939-fba5d78f-7b4f-4a0c-bae3-1ec43db5e69d.mov
+[intro.webm](https://user-images.githubusercontent.com/3071208/189301010-0f467bfa-b5e7-4d7b-99fa-d666fbd290b1.webm)
 
 Further documentation on this project can be found [here](https://www.barklarm.com/docs/intro)
 
