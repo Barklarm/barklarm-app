@@ -5,6 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PublicIcon from '@mui/icons-material/Public';
+import { useNavigate } from 'react-router-dom';
 
 const item = {
   boxShadow: '0 -1px 0 rgb(255,255,255,0.1) inset',
@@ -19,14 +20,22 @@ const item = {
 export const Navigator = (props: DrawerProps) => {
   const { ...other } = props;
 
+  const navigate = useNavigate();
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <ListItem sx={{ ...item }}>
+        <ListItem sx={{ ...item }} onClick={() => navigate('/')}>
           <ListItemIcon>
             <PublicIcon />
           </ListItemIcon>
           <ListItemText>Projects</ListItemText>
+        </ListItem>
+        <ListItem sx={{ ...item }} onClick={() => navigate('/general')}>
+          <ListItemIcon>
+            <PublicIcon />
+          </ListItemIcon>
+          <ListItemText>General</ListItemText>
         </ListItem>
       </List>
     </Drawer>
