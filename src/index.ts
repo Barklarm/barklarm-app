@@ -7,30 +7,32 @@ import { NotificationManager } from './main/NotificationManager';
 import { dirname, resolve, basename } from 'path';
 import updateElectronApp from 'update-electron-app';
 import hasSquirrelStartupEvents from 'electron-squirrel-startup';
-import './store';
+import { store } from './store';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
-updateElectronApp();
+if (store.get('autoupdate')) {
+  updateElectronApp();
 
-if (hasSquirrelStartupEvents) {
-  app.quit();
+  if (hasSquirrelStartupEvents) {
+    app.quit();
+  }
+
+  let updateExePath;
+  const appFolder = dirname(process.execPath);
+  const exeName = basename(process.execPath);
+  if (process.platform === 'win32') {
+    app.setAppUserModelId(app.name);
+    updateExePath = resolve(appFolder, '..', 'Update.exe');
+  }
+
+  app.setLoginItemSettings({
+    openAtLogin: true,
+    path: updateExePath,
+    args: ['--processStart', `"${exeName}"`, '--process-start-args', `"--hidden"`],
+  });
 }
-
-let updateExePath;
-const appFolder = dirname(process.execPath);
-const exeName = basename(process.execPath);
-if (process.platform === 'win32') {
-  app.setAppUserModelId(app.name);
-  updateExePath = resolve(appFolder, '..', 'Update.exe');
-}
-
-app.setLoginItemSettings({
-  openAtLogin: true,
-  path: updateExePath,
-  args: ['--processStart', `"${exeName}"`, '--process-start-args', `"--hidden"`],
-});
 
 app.on('ready', () => {
   const tray = new TrayMenu();

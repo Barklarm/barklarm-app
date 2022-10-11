@@ -1,7 +1,20 @@
 import Store from 'electron-store';
 import { ipcMain } from 'electron';
 
-export const store = new Store();
+const schema: any = {
+  observers: {
+    type: 'array',
+    items: {
+      type: 'number',
+    },
+  },
+  autoupdate: {
+    type: 'boolean',
+    default: true,
+  },
+};
+
+export const store = new Store({ schema });
 
 export const _ = {
   storeGet: (event: any, val: any) => {
