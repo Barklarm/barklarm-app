@@ -4,7 +4,8 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PublicIcon from '@mui/icons-material/Public';
+import ApiIcon from '@mui/icons-material/Api';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { useNavigate } from 'react-router-dom';
 
 const item = {
@@ -27,13 +28,13 @@ export const Navigator = (props: DrawerProps) => {
       <List disablePadding>
         <ListItem sx={{ ...item }} onClick={() => navigate('/')}>
           <ListItemIcon>
-            <PublicIcon />
+            <ApiIcon />
           </ListItemIcon>
           <ListItemText>Projects</ListItemText>
         </ListItem>
         <ListItem sx={{ ...item }} onClick={() => navigate('/general')}>
           <ListItemIcon>
-            <PublicIcon />
+            <SettingsIcon />
           </ListItemIcon>
           <ListItemText>General</ListItemText>
         </ListItem>

@@ -5,4 +5,10 @@ export const storage = (electron: any) => ({
   getAutoupdate: (): boolean => {
     return electron.store.get('autoupdate');
   },
+  importConfig: (): boolean => {
+    return electron.store.import();
+  },
+  exportConfig: (): boolean => {
+    return electron.store.export();
+  },
 });

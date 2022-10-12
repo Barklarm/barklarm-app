@@ -26,9 +26,13 @@ jest.mock('@mui/material/ListItemIcon', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`list-item-icon`} {...props} />,
 }));
-jest.mock('@mui/icons-material/Public', () => ({
+jest.mock('@mui/icons-material/Api', () => ({
   __esModule: true,
-  default: (props: any) => <div data-testid={`public-icon`} {...props} />,
+  default: (props: any) => <div data-testid={`api-icon`} {...props} />,
+}));
+jest.mock('@mui/icons-material/Settings', () => ({
+  __esModule: true,
+  default: (props: any) => <div data-testid={`settings-icon`} {...props} />,
 }));
 jest.mock('@mui/material/ListItemText', () => ({
   __esModule: true,
@@ -43,11 +47,11 @@ describe('navigator', () => {
     const list = within(drawer).getByTestId('list');
     const listItems = within(list).getAllByTestId('list-item');
     const listItemIcon = within(listItems[0]).getByTestId('list-item-icon');
-    expect(within(listItemIcon).getByTestId('public-icon')).toBeInTheDocument();
+    expect(within(listItemIcon).getByTestId('api-icon')).toBeInTheDocument();
     const listItemText = within(listItems[0]).getByTestId('list-item-text');
     expect(listItemText).toHaveTextContent('Projects');
     const listItem2Icon = within(listItems[1]).getByTestId('list-item-icon');
-    expect(within(listItem2Icon).getByTestId('public-icon')).toBeInTheDocument();
+    expect(within(listItem2Icon).getByTestId('settings-icon')).toBeInTheDocument();
     const listItem2Text = within(listItems[1]).getByTestId('list-item-text');
     expect(listItem2Text).toHaveTextContent('General');
   });
