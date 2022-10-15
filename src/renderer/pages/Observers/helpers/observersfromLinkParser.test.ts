@@ -3,11 +3,11 @@ import { observersfromLinkParser } from './observersfromLinkParser';
 describe('observersfromLinkParser', () => {
   describe.each([
     [
-      'https://github.com/kanekotic/barklarm/actions/workflows/build.yml',
+      'https://github.com/barklarm/barklarm-app/actions/workflows/build.yml',
       {
         type: 'githubAction',
-        owner: 'kanekotic',
-        repo: 'barklarm',
+        owner: 'barklarm',
+        repo: 'barklarm-app',
         workflowId: 'build.yml',
       },
     ],

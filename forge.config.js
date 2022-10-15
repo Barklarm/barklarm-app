@@ -66,8 +66,8 @@ module.exports = {
         "name": "@electron-forge/publisher-github",
         "config": {
           "repository": {
-            "owner": "kanekotic",
-            "name": "barklarm"
+            "owner": "barklarm",
+            "name": "barklarm-app"
           },
           "draft": false,
           "prerelease": false

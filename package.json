@@ -4,7 +4,7 @@
   "version": "1.10.0",
   "description": "Build Radiator supporting Github Actions",
   "main": ".webpack/main",
-  "repository": "https://github.com/kanekotic/barklarm",
+  "repository": "https://github.com/barklarm/barklarm-app",
   "contributors": [
     {
       "name": "kanekotic",

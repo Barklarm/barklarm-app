@@ -1,11 +1,11 @@
 # ![barklarm_normal](https://user-images.githubusercontent.com/3071208/167244374-da18da7a-f52a-4f25-aa9e-c71476647c9c.png)
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kanekotic/barklarm/Build%20%26%20Publish)
-![GitHub all releases](https://img.shields.io/github/downloads/kanekotic/barklarm/total)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/barklarm/barklarm-app/Build%20%26%20Publish)
+![GitHub all releases](https://img.shields.io/github/downloads/barklarm/barklarm-app/total)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-[![Maintainability](https://api.codeclimate.com/v1/badges/2722ae6ccb495529d393/maintainability)](https://codeclimate.com/github/kanekotic/barklarm/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/2722ae6ccb495529d393/test_coverage)](https://codeclimate.com/github/kanekotic/barklarm/test_coverage)
-![GitHub](https://img.shields.io/github/license/kanekotic/barklarm)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2722ae6ccb495529d393/maintainability)](https://codeclimate.com/github/barklarm/barklarm-app/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2722ae6ccb495529d393/test_coverage)](https://codeclimate.com/github/barklarm/barklarm-app/test_coverage)
+![GitHub](https://img.shields.io/github/license/barklarm/barklarm-app)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/kanekotic/endomondo-unofficial-api/graphs/commit-activity)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/kanekotic/)
 
@@ -23,7 +23,7 @@ Barklarm looks forward to become this one go to application.
 ## Getting Started
 
 Jus follow this simple steps:
-- [downloading barklarm](https://github.com/kanekotic/barklarm/releases)
+- [downloading barklarm](https://github.com/barklarm/barklarm-app/releases)
 - install
 - Run
 
@@ -43,7 +43,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/pehota"><img src="https://avatars.githubusercontent.com/u/10498221?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dimitar Apostolov</b></sub></a><br /><a href="https://github.com/kanekotic/barklarm/commits?author=pehota" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/pehota"><img src="https://avatars.githubusercontent.com/u/10498221?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dimitar Apostolov</b></sub></a><br /><a href="https://github.com/barklarm/barklarm-app/commits?author=pehota" title="Code">💻</a></td>
   </tr>
 </table>
 
