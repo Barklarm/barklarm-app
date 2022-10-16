@@ -14,6 +14,10 @@
 [![Product Hunt](https://img.shields.io/badge/Product%20Hunt-like-blue?style=for-the-badge)](https://www.producthunt.com/posts/barklarm)
 [![AlternativeTo](https://img.shields.io/badge/alternativeto.net-like-blue?style=for-the-badge)](https://alternativeto.net/software/barklarm/about/)
 
+## Join The Conversation
+
+[![Slack](https://img.shields.io/badge/Slack-like-blue?style=for-the-badge)](https://join.slack.com/t/barklarm/shared_invite/zt-1hyocikcy-kMxfq8jsCsSSmuGVkeFrBA)
+
 ## Motivation
 
 There is currently no open source radiator application that is multiplatform and that can be extensible to support diferent platforms (ex. Github actions) that dont support cctray xml format.
