@@ -3,27 +3,28 @@ import { join } from 'path';
 import { Status } from '../types/Status';
 import { State } from '../types/State';
 import { MapType } from '../types/MapType';
+import { translate } from '../i18n';
 
 export class NotificationManager {
   private readonly notificationMap: MapType<(name: State) => NotificationConstructorOptions> = {
     [Status.FAILURE]: (state: State) => ({
-      title: 'Fail',
-      body: `${state.name} Failed`,
+      title: translate('Failed'),
+      body: `${state.name} ${translate('Failed')}`,
       icon: nativeImage.createFromPath(join(__dirname, '..', 'assets', 'fail_icon_big.png')),
     }),
     [Status.SUCCESS]: (state: State) => ({
-      title: 'Success',
-      body: `${state.name} Success`,
+      title: translate('Succeeded'),
+      body: `${state.name} ${translate('Succeeded')}`,
       icon: nativeImage.createFromPath(join(__dirname, '..', 'assets', 'ok_icon_big.png')),
     }),
     [Status.CHECKING]: (state: State) => ({
-      title: 'Checking',
-      body: `${state.name} Checking`,
+      title: translate('Checking'),
+      body: `${state.name} ${translate('Checking')}`,
       icon: nativeImage.createFromPath(join(__dirname, '..', 'assets', 'running_icon_big.png')),
     }),
     [Status.NA]: (state: State) => ({
-      title: 'Unaccesible',
-      body: `${state.name} Unaccesible`,
+      title: translate('Unaccesible'),
+      body: `${state.name} ${translate('Unaccesible')}`,
       icon: nativeImage.createFromPath(join(__dirname, '..', 'assets', 'na_icon_big.png')),
     }),
   };

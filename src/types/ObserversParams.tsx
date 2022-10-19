@@ -4,4 +4,5 @@ export type ObserversParams = {
   remove: (index: number) => void;
   update: (fieldName: string, index: number, value: any) => void;
   save: (values: any[]) => void;
+  translate: (values: string) => string;
 };

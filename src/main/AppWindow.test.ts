@@ -2,6 +2,10 @@ import { faker } from '@faker-js/faker';
 import { BrowserWindow, nativeImage } from 'electron';
 import { AppWindow, _hide } from './AppWindow';
 
+jest.mock('../i18n', () => ({
+  translate: (val: string): string => val,
+}));
+
 jest.mock('electron', () => ({
   nativeImage: {
     createFromPath: jest.fn(),

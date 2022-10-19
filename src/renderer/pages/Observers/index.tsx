@@ -10,6 +10,7 @@ import { storage } from './helpers/storage';
 import { dragdrop } from './helpers/dragdrop';
 
 export const Observers = () => {
+  const { translate } = window.electron.translations;
   const { getObservers, saveObservers } = storage(window.electron);
   const [observables, setObservables] = useState(getObservers());
   const [isDrag, setIsDrag] = useState(false);
@@ -42,6 +43,7 @@ export const Observers = () => {
             update={updateObserver}
             remove={removeObserver}
             save={saveObservers}
+            translate={translate}
           />
         </Box>
       )}

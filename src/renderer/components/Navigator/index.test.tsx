@@ -40,6 +40,32 @@ jest.mock('@mui/material/ListItemText', () => ({
 }));
 
 describe('navigator', () => {
+  let ORIGINAL_WINDOW: any;
+  beforeAll(() => {
+    ORIGINAL_WINDOW = window;
+  });
+
+  afterAll(() => {
+    window = ORIGINAL_WINDOW; // eslint-disable-line no-global-assign
+  });
+  beforeEach(() => {
+    window.electron = {
+      // eslint-disable-line no-global-assign
+      store: {
+        get: jest.fn(),
+        set: jest.fn(),
+        import: jest.fn(),
+        export: jest.fn(),
+      },
+      translations: {
+        translate: jest.fn(),
+      },
+      app: {
+        refreshObservers: jest.fn(),
+      },
+    };
+    (window.electron.translations.translate as any).mockImplementation((val: string): string => val);
+  });
   it('should render navigator correctly', () => {
     render(<Navigator />);
     const drawer = screen.getByTestId('drawer');

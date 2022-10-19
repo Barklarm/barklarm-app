@@ -71,6 +71,7 @@ describe('dropzone', () => {
   const removeMock = jest.fn();
   const updateMock = jest.fn();
   const saveMock = jest.fn();
+  const translateMock = (val: string): string => val;
   const observersComponentBuilderMapMock = observersComponentBuilderMap as any;
   const observersTitleBuilderMapMock = observersTitleBuilderMap as any;
 
@@ -83,7 +84,14 @@ describe('dropzone', () => {
   it('should render only buttons on empty observers', () => {
     const observables: any[] = [];
     render(
-      <Observers observables={observables} add={addMock} remove={removeMock} update={updateMock} save={saveMock} />
+      <Observers
+        observables={observables}
+        add={addMock}
+        remove={removeMock}
+        update={updateMock}
+        save={saveMock}
+        translate={translateMock}
+      />
     );
     const stack = screen.getAllByTestId('stack');
     expect(stack).toHaveLength(1);
@@ -102,7 +110,14 @@ describe('dropzone', () => {
   it('should call save when save button click', () => {
     const observables: any[] = [];
     render(
-      <Observers observables={observables} add={addMock} remove={removeMock} update={updateMock} save={saveMock} />
+      <Observers
+        observables={observables}
+        add={addMock}
+        remove={removeMock}
+        update={updateMock}
+        save={saveMock}
+        translate={translateMock}
+      />
     );
     const buttons = screen.getAllByTestId('button');
     expect(buttons).toHaveLength(2);
@@ -115,7 +130,14 @@ describe('dropzone', () => {
   it('should call add when add button click', () => {
     const observables: any[] = [];
     render(
-      <Observers observables={observables} add={addMock} remove={removeMock} update={updateMock} save={saveMock} />
+      <Observers
+        observables={observables}
+        add={addMock}
+        remove={removeMock}
+        update={updateMock}
+        save={saveMock}
+        translate={translateMock}
+      />
     );
     const buttons = screen.getAllByTestId('button');
     expect(buttons).toHaveLength(2);
@@ -138,7 +160,14 @@ describe('dropzone', () => {
     observersComponentBuilderMapMock['githubAction'].mockReturnValue(expectedComponent);
     observersTitleBuilderMapMock['githubAction'].mockReturnValue(expectedTitle);
     render(
-      <Observers observables={observables} add={addMock} remove={removeMock} update={updateMock} save={saveMock} />
+      <Observers
+        observables={observables}
+        add={addMock}
+        remove={removeMock}
+        update={updateMock}
+        save={saveMock}
+        translate={translateMock}
+      />
     );
     const accordion = screen.getByTestId('accordion');
     const accordionSummary = within(accordion).getByTestId('accordion-summary');
@@ -184,7 +213,14 @@ describe('dropzone', () => {
       throw new Error();
     });
     render(
-      <Observers observables={observables} add={addMock} remove={removeMock} update={updateMock} save={saveMock} />
+      <Observers
+        observables={observables}
+        add={addMock}
+        remove={removeMock}
+        update={updateMock}
+        save={saveMock}
+        translate={translateMock}
+      />
     );
     const accordion = screen.getByTestId('accordion');
     const accordionSummary = within(accordion).getByTestId('accordion-summary');

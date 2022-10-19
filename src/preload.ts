@@ -7,6 +7,9 @@ export const _ = {
     import: (): boolean => ipcRenderer.sendSync('electron-store-import'),
     export: (): boolean => ipcRenderer.sendSync('electron-store-export'),
   },
+  translations: {
+    translate: (val: string): string => ipcRenderer.sendSync('electron-translate-get', val),
+  },
   app: {
     refreshObservers: () => ipcRenderer.send('electron-refresh-observers'),
   },

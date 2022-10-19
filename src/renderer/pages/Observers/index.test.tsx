@@ -58,11 +58,17 @@ describe('Observers', () => {
       store: {
         get: jest.fn(),
         set: jest.fn(),
+        import: jest.fn(),
+        export: jest.fn(),
+      },
+      translations: {
+        translate: jest.fn(),
       },
       app: {
         refreshObservers: jest.fn(),
       },
     };
+    (window.electron.translations.translate as any).mockImplementation((val: string): string => val);
     mutationsMock.addObserver.mockClear();
     mutationsMock.removeObserver.mockClear();
     mutationsMock.updateObserver.mockClear();

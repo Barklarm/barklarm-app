@@ -4,7 +4,11 @@ import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { join } from 'path';
 import { Tray, nativeImage, Menu } from 'electron';
-import { defaultMenuItems, TrayMenu } from './TrayMenu';
+import { TrayMenu } from './TrayMenu';
+
+jest.mock('../i18n', () => ({
+  translate: (val: string): string => val,
+}));
 
 jest.mock('electron', () => ({
   nativeImage: {
@@ -47,7 +51,7 @@ describe('TrayMenu', () => {
       expect(createFromPathMock).toBeCalledWith(join(__dirname, '..', 'assets', 'na_icon.png'));
       expect(expectedImage.setTemplateImage).toBeCalledWith(true);
       expect(trayMock).toBeCalledWith(expectedImage);
-      expect(buildFromTemplateMock).toHaveBeenCalledWith(defaultMenuItems);
+      expect(buildFromTemplateMock).toHaveBeenCalledWith(tray.defaultMenuItems);
       expect(expectedTray.setContextMenu).toBeCalledWith(expectedMenu);
       expect(tray.tray).toEqual(expectedTray);
     });
@@ -89,7 +93,11 @@ describe('TrayMenu', () => {
       ];
       const tray = new TrayMenu();
       tray.updateObserverMenu(observersState);
-      expect(buildFromTemplateMock).toBeCalledWith([...expectedMenuItems, { type: 'separator' }, ...defaultMenuItems]);
+      expect(buildFromTemplateMock).toBeCalledWith([
+        ...expectedMenuItems,
+        { type: 'separator' },
+        ...tray.defaultMenuItems,
+      ]);
       expect(expectedTray.setContextMenu).toBeCalledWith(expectedMenu);
     });
   });

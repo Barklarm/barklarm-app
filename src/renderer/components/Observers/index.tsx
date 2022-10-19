@@ -13,7 +13,7 @@ import { observersComponentBuilderMap } from './helpers/observersComponentBuilde
 import { observersTitleBuilderMap } from './helpers/observersTitleBuilderMap';
 import { ObserversParams } from '../../../types/ObserversParams';
 
-export const Observers = ({ observables, add, remove, update, save }: ObserversParams) => {
+export const Observers = ({ observables, add, remove, update, save, translate }: ObserversParams) => {
   const getComponent = (observable: any, index: number, updateFieldWithValue: any): any => {
     try {
       return observersComponentBuilderMap[observable.type](observable, index, updateFieldWithValue);
@@ -25,7 +25,7 @@ export const Observers = ({ observables, add, remove, update, save }: ObserversP
     try {
       return observersTitleBuilderMap[observable.type](observable);
     } catch (_) {
-      return 'Unkown';
+      return translate('Unkown');
     }
   };
   return (
@@ -57,7 +57,7 @@ export const Observers = ({ observables, add, remove, update, save }: ObserversP
               />
               <Stack spacing={2} direction="row" justifyContent="flex-end">
                 <Button variant="contained" onClick={() => remove(index)}>
-                  Delete
+                  {translate('Delete')}
                 </Button>
               </Stack>
             </Stack>
@@ -75,10 +75,10 @@ export const Observers = ({ observables, add, remove, update, save }: ObserversP
         }}
       >
         <Button variant="contained" onClick={() => save(observables)}>
-          Save
+          {translate('Save')}
         </Button>
         <Button variant="contained" onClick={() => add({ type: '' })}>
-          Add
+          {translate('Add')}
         </Button>
       </Stack>
     </>

@@ -1,0 +1,21 @@
+{
+  "Configure": "Configurar",
+  "Quit": "Salir",
+  "Link": "Enlace",
+  "Failed": "Fallo",
+  "Succeeded": "Paso",
+  "Checking": "Comprobando",
+  "Unaccesible": "Inaccesible",
+  "Configuration": "Configuracion",
+  "Update": "Actualizaciones",
+  "Auto Update": "Actualizacion Automantica",
+  "Backup": "Copia de Seguridad",
+  "Import": "Importar",
+  "Export": "Exportar",
+  "Projects": "Proyectos",
+  "General": "General",
+  "Unkown": "Desconocido",
+  "Delete": "Borrar",
+  "Save": "Salvar",
+  "Add": "Añadir"
+}

@@ -8,6 +8,7 @@ import { dirname, resolve, basename } from 'path';
 import updateElectronApp from 'update-electron-app';
 import hasSquirrelStartupEvents from 'electron-squirrel-startup';
 import { store } from './store';
+import { initialize } from './i18n';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -35,6 +36,7 @@ if (store.get('autoupdate')) {
 }
 
 app.on('ready', () => {
+  initialize(app.getLocale()?.slice(0, 2) || 'en');
   const tray = new TrayMenu();
   const notification = new NotificationManager();
   const observerManager = new ObserverManager(tray, notification);

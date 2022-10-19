@@ -20,7 +20,7 @@ const item = {
 
 export const Navigator = (props: DrawerProps) => {
   const { ...other } = props;
-
+  const { translate } = window.electron.translations;
   const navigate = useNavigate();
 
   return (
@@ -30,13 +30,13 @@ export const Navigator = (props: DrawerProps) => {
           <ListItemIcon>
             <ApiIcon />
           </ListItemIcon>
-          <ListItemText>Projects</ListItemText>
+          <ListItemText>{translate('Projects')}</ListItemText>
         </ListItem>
         <ListItem sx={{ ...item }} onClick={() => navigate('/general')}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText>General</ListItemText>
+          <ListItemText>{translate('General')}</ListItemText>
         </ListItem>
       </List>
     </Drawer>

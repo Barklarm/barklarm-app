@@ -1,5 +1,6 @@
 import { app, BrowserWindow, nativeImage } from 'electron';
 import { join } from 'path';
+import { translate } from '../i18n';
 
 export const _hide = (window: any) => {
   return (event: any) => {
@@ -18,7 +19,7 @@ export class AppWindow {
 
   createWindow(url: string, preload: string): BrowserWindow {
     const window = new BrowserWindow({
-      title: 'Barklarm - Configuration',
+      title: `Barklarm - ${translate('Configuration')}`,
       icon: nativeImage.createFromPath(this.IconPath),
       show: false,
       webPreferences: {

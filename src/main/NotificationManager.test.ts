@@ -4,6 +4,10 @@ import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { Notification } from 'electron';
 
+jest.mock('../i18n', () => ({
+  translate: (val: string): string => val,
+}));
+
 jest.mock('electron', () => ({
   nativeImage: {
     createFromPath: jest.fn(),
@@ -56,9 +60,9 @@ describe('NotificationManager', () => {
       ];
       notificationManager.updateNotifications(oldState, newState);
       expect(NotificationMock).toBeCalledWith({
-        body: `${expectedName} Success`,
+        body: `${expectedName} Succeeded`,
         icon: undefined,
-        title: 'Success',
+        title: 'Succeeded',
       });
     });
     it('shoulds raise a notification with same name and diferent status towards FAILURE', async () => {
@@ -82,7 +86,7 @@ describe('NotificationManager', () => {
       expect(NotificationMock).toBeCalledWith({
         body: `${expectedName} Failed`,
         icon: undefined,
-        title: 'Fail',
+        title: 'Failed',
       });
     });
     it('shoulds raise a notification with same name and diferent status towards CHECKING', async () => {

@@ -6,7 +6,11 @@ declare global {
       store: {
         get: (key: string) => any;
         set: (key: string, val: any) => void;
-        // any other methods you've defined...
+        import: () => boolean;
+        export: () => boolean;
+      };
+      translations: {
+        translate: (id: string) => string;
       };
       app: {
         refreshObservers: () => void;
