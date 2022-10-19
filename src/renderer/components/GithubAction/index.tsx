@@ -1,10 +1,10 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 
-export const GithubAction = ({ observable, index, updateFieldWithValue }: any) => (
+export const GithubAction = ({ observable, index, updateFieldWithValue, translate }: any) => (
   <>
     <TextField
-      label="owner"
+      label={translate('Owner')}
       variant="outlined"
       value={observable.owner}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -12,13 +12,13 @@ export const GithubAction = ({ observable, index, updateFieldWithValue }: any) =
       }
     />
     <TextField
-      label="repo"
+      label={translate('Repository')}
       variant="outlined"
       value={observable.repo}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue('repo', index, event.target.value)}
     />
     <TextField
-      label="Workflow Name"
+      label={translate('Workflow ID')}
       variant="outlined"
       value={observable.workflowId}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -26,7 +26,7 @@ export const GithubAction = ({ observable, index, updateFieldWithValue }: any) =
       }
     />
     <TextField
-      label="authorization Token"
+      label={translate('Authorization Token')}
       variant="outlined"
       type="password"
       value={observable.authToken}

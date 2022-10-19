@@ -3,11 +3,11 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-export const DatadogMonitor = ({ observable, index, updateFieldWithValue }: any) => (
+export const DatadogMonitor = ({ observable, index, updateFieldWithValue, translate }: any) => (
   <>
     <Select
       value={observable.site}
-      label="Site"
+      label={translate('Site')}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue('site', index, event.target.value)}
     >
       <MenuItem value={'datadoghq.eu'}>EU</MenuItem>
@@ -17,7 +17,7 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue }: any)
       <MenuItem value={'dddog-gov.com'}>US1-FED</MenuItem>
     </Select>
     <TextField
-      label="Monitor ID"
+      label={translate('Monitor ID')}
       variant="outlined"
       value={observable.monitorId}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -25,7 +25,7 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue }: any)
       }
     />
     <TextField
-      label="Api Key"
+      label={translate('API Key')}
       variant="outlined"
       type="password"
       value={observable.apiKey}
@@ -34,7 +34,7 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue }: any)
       }
     />
     <TextField
-      label="App Key"
+      label={translate('Application Key')}
       variant="outlined"
       type="password"
       value={observable.appKey}

@@ -20,16 +20,22 @@ describe('Datadog Monitor', () => {
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
+  const translateMock = (val: string): string => val;
   beforeEach(() => {
     updateFieldMock.mockClear();
     render(
-      <DatadogMonitor observable={expectedObservable} index={expectedIndex} updateFieldWithValue={updateFieldMock} />
+      <DatadogMonitor
+        observable={expectedObservable}
+        index={expectedIndex}
+        updateFieldWithValue={updateFieldMock}
+        translate={translateMock}
+      />
     );
   });
   describe.each([
     ['Monitor ID', 'monitorId', undefined],
-    ['Api Key', 'apiKey', 'password'],
-    ['App Key', 'appKey', 'password'],
+    ['API Key', 'apiKey', 'password'],
+    ['Application Key', 'appKey', 'password'],
   ])('%s', (label: string, value: string, type: string) => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId(`textField-${label}`);

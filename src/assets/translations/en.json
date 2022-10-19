@@ -17,5 +17,18 @@
   "Unkown": "Unkown",
   "Delete": "Delete",
   "Save": "Save",
-  "Add": "Add"
+  "Add": "Add",
+  "Alias": "Alias",
+  "Organization": "Organization",
+  "Project": "Project",
+  "Authorization Token": "Authorization Token",
+  "URL": "URL",
+  "Site": "Site",
+  "Monitor ID": "Monitor ID",
+  "API Key": "API Key",
+  "Application Key": "Application Key",
+  "Owner": "Owner",
+  "Repository": "Repository",
+  "Workflow ID": "Workflow ID",
+  "Drop Link Here": "Drop Link Here"
 }

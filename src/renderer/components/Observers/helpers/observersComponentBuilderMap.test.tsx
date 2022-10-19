@@ -35,12 +35,19 @@ describe('observersComponentBuilderMap', () => {
       const expectedObservable = faker.datatype.uuid();
       const expectedIndex = faker.datatype.number();
       const expectedUpdateFn = faker.datatype.uuid();
-      const component = observersComponentBuilderMap[type](expectedObservable, expectedIndex, expectedUpdateFn);
+      const expectedTranslateFn = faker.datatype.uuid();
+      const component = observersComponentBuilderMap[type](
+        expectedObservable,
+        expectedIndex,
+        expectedUpdateFn,
+        expectedTranslateFn
+      );
       render(component);
       const textfield = screen.getByTestId(type);
       expect(textfield).toHaveAttribute('observable', expectedObservable);
       expect(textfield).toHaveAttribute('index', expectedIndex.toString());
       expect(textfield).toHaveAttribute('updateFieldWithValue', expectedUpdateFn);
+      expect(textfield).toHaveAttribute('translate', expectedTranslateFn);
     });
   });
 });

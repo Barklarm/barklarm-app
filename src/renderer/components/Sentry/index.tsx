@@ -1,10 +1,10 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 
-export const Sentry = ({ observable, index, updateFieldWithValue }: any) => (
+export const Sentry = ({ observable, index, updateFieldWithValue, translate }: any) => (
   <>
     <TextField
-      label="organization"
+      label={translate('Organization')}
       variant="outlined"
       value={observable.organization}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -12,7 +12,7 @@ export const Sentry = ({ observable, index, updateFieldWithValue }: any) => (
       }
     />
     <TextField
-      label="project"
+      label={translate('Project')}
       variant="outlined"
       value={observable.project}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -20,7 +20,7 @@ export const Sentry = ({ observable, index, updateFieldWithValue }: any) => (
       }
     />
     <TextField
-      label="authorization Token"
+      label={translate('Authorization Token')}
       variant="outlined"
       type="password"
       value={observable.authToken}

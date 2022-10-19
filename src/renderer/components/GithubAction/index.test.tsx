@@ -21,17 +21,23 @@ describe('Github Action', () => {
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
+  const translateMock = (val: string): string => val;
   beforeEach(() => {
     updateFieldMock.mockClear();
     render(
-      <GithubAction observable={expectedObservable} index={expectedIndex} updateFieldWithValue={updateFieldMock} />
+      <GithubAction
+        observable={expectedObservable}
+        index={expectedIndex}
+        updateFieldWithValue={updateFieldMock}
+        translate={translateMock}
+      />
     );
   });
   describe.each([
-    ['owner', 'owner', undefined],
-    ['repo', 'repo', undefined],
-    ['Workflow Name', 'workflowId', undefined],
-    ['authorization Token', 'authToken', 'password'],
+    ['Owner', 'owner', undefined],
+    ['Repository', 'repo', undefined],
+    ['Workflow ID', 'workflowId', undefined],
+    ['Authorization Token', 'authToken', 'password'],
   ])('%s', (label: string, value: string, type: string) => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId(`textField-${label}`);

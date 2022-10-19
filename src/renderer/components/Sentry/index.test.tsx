@@ -20,51 +20,59 @@ describe('Sentry', () => {
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
+  const translateMock = (val: string): string => val;
   beforeEach(() => {
     updateFieldMock.mockClear();
-    render(<Sentry observable={expectedObservable} index={expectedIndex} updateFieldWithValue={updateFieldMock} />);
+    render(
+      <Sentry
+        observable={expectedObservable}
+        index={expectedIndex}
+        updateFieldWithValue={updateFieldMock}
+        translate={translateMock}
+      />
+    );
   });
   describe('organization', () => {
     it('should have correct textfield attributes', () => {
-      const textfield = screen.getByTestId('textField-organization');
-      expect(textfield).toHaveAttribute('label', 'organization');
+      const textfield = screen.getByTestId('textField-Organization');
+      expect(textfield).toHaveAttribute('label', 'Organization');
       expect(textfield).toHaveAttribute('variant', 'outlined');
       expect(textfield).toHaveAttribute('value', expectedObservable.organization);
     });
 
     it('should call update field on change event', () => {
       const expectedValue = faker.random.word();
-      const textfield = screen.getByTestId('textField-organization');
+      const textfield = screen.getByTestId('textField-Organization');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('organization', expectedIndex, expectedValue);
     });
   });
   describe('Project', () => {
     it('should have correct textfield attributes', () => {
-      const textfield = screen.getByTestId('textField-project');
-      expect(textfield).toHaveAttribute('label', 'project');
+      const textfield = screen.getByTestId('textField-Project');
+      expect(textfield).toHaveAttribute('label', 'Project');
       expect(textfield).toHaveAttribute('variant', 'outlined');
       expect(textfield).toHaveAttribute('value', expectedObservable.project);
     });
 
     it('should call update field on change event', () => {
       const expectedValue = faker.random.word();
-      const textfield = screen.getByTestId('textField-project');
+      const textfield = screen.getByTestId('textField-Project');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('project', expectedIndex, expectedValue);
     });
   });
   describe('authorization Token', () => {
     it('should have correct textfield attributes', () => {
-      const textfield = screen.getByTestId('textField-authorization Token');
-      expect(textfield).toHaveAttribute('label', 'authorization Token');
+      const textfield = screen.getByTestId('textField-Authorization Token');
+      expect(textfield).toHaveAttribute('label', 'Authorization Token');
       expect(textfield).toHaveAttribute('variant', 'outlined');
       expect(textfield).toHaveAttribute('value', expectedObservable.authToken);
     });
 
     it('should call update field on change event', () => {
       const expectedValue = faker.random.word();
-      const textfield = screen.getByTestId('textField-authorization Token');
+      const textfield = screen.getByTestId('textField-Authorization Token');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('authToken', expectedIndex, expectedValue);
     });

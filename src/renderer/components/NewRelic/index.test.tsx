@@ -12,17 +12,25 @@ jest.mock('@mui/material/TextField', () => ({
   default: (props: any) => <input data-testid={`textField-${props.label}`} {...props} />,
 }));
 
-describe('Datadog Monitor', () => {
+describe('NewRelic Monitor', () => {
   const expectedObservable = {
     apiKey: faker.random.word(),
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
+  const translateMock = (val: string): string => val;
   beforeEach(() => {
     updateFieldMock.mockClear();
-    render(<NewRelic observable={expectedObservable} index={expectedIndex} updateFieldWithValue={updateFieldMock} />);
+    render(
+      <NewRelic
+        observable={expectedObservable}
+        index={expectedIndex}
+        updateFieldWithValue={updateFieldMock}
+        translate={translateMock}
+      />
+    );
   });
-  describe.each([['Api Key', 'apiKey', 'password']])('%s', (label: string, value: string, type: string) => {
+  describe.each([['API Key', 'apiKey', 'password']])('%s', (label: string, value: string, type: string) => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId(`textField-${label}`);
       expect(textfield).toHaveAttribute('label', label);

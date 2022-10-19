@@ -19,36 +19,45 @@ describe('cctray', () => {
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
+  const translateMock = (val: string): string => val;
+
   beforeEach(() => {
     updateFieldMock.mockClear();
-    render(<CCTray observable={expectedObservable} index={expectedIndex} updateFieldWithValue={updateFieldMock} />);
+    render(
+      <CCTray
+        observable={expectedObservable}
+        index={expectedIndex}
+        updateFieldWithValue={updateFieldMock}
+        translate={translateMock}
+      />
+    );
   });
   describe('url', () => {
     it('should have correct textfield attributes', () => {
-      const textfield = screen.getByTestId('textField-url');
-      expect(textfield).toHaveAttribute('label', 'url');
+      const textfield = screen.getByTestId('textField-URL');
+      expect(textfield).toHaveAttribute('label', 'URL');
       expect(textfield).toHaveAttribute('variant', 'outlined');
       expect(textfield).toHaveAttribute('value', expectedObservable.url);
     });
 
     it('should call update field on change event', () => {
       const expectedValue = faker.random.word();
-      const textfield = screen.getByTestId('textField-url');
+      const textfield = screen.getByTestId('textField-URL');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('url', expectedIndex, expectedValue);
     });
   });
   describe('Project Name', () => {
     it('should have correct textfield attributes', () => {
-      const textfield = screen.getByTestId('textField-Project Name');
-      expect(textfield).toHaveAttribute('label', 'Project Name');
+      const textfield = screen.getByTestId('textField-Project');
+      expect(textfield).toHaveAttribute('label', 'Project');
       expect(textfield).toHaveAttribute('variant', 'outlined');
       expect(textfield).toHaveAttribute('value', expectedObservable.name);
     });
 
     it('should call update field on change event', () => {
       const expectedValue = faker.random.word();
-      const textfield = screen.getByTestId('textField-Project Name');
+      const textfield = screen.getByTestId('textField-Project');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('name', expectedIndex, expectedValue);
     });

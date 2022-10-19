@@ -27,7 +27,7 @@ export const Observers = () => {
             }}
           >
             <LinkIcon fontSize="large" />
-            <Typography>Drop Link Here</Typography>
+            <Typography>{translate('Drop Link Here')}</Typography>
           </Stack>
         </DropZone>
       ) : (

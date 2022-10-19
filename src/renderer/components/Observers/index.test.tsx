@@ -187,7 +187,7 @@ describe('dropzone', () => {
     expect(menuItems[4]).toHaveAttribute('value', 'newRelic');
     expect(within(detailsStack).getByTestId('githubAction')).toBeInTheDocument();
     const alias = within(detailsStack).getByTestId('text-field');
-    expect(alias).toHaveAttribute('label', 'alias');
+    expect(alias).toHaveAttribute('label', 'Alias');
     expect(alias).toHaveAttribute('variant', 'outlined');
     expect(alias).toHaveAttribute('value', expectedAlias);
     const buttonStack = stacks[1];
@@ -239,7 +239,7 @@ describe('dropzone', () => {
     expect(menuItems[3]).toHaveAttribute('value', 'sentry');
     expect(menuItems[4]).toHaveAttribute('value', 'newRelic');
     const alias = within(detailsStack).getByTestId('text-field');
-    expect(alias).toHaveAttribute('label', 'alias');
+    expect(alias).toHaveAttribute('label', 'Alias');
     expect(alias).toHaveAttribute('variant', 'outlined');
     expect(alias).toHaveAttribute('value', expectedAlias);
     const buttonStack = stacks[1];

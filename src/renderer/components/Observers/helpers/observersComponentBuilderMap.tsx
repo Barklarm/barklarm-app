@@ -7,21 +7,31 @@ import { Sentry } from '../../Sentry';
 import { NewRelic } from '../../NewRelic';
 
 export const observersComponentBuilderMap: MapType<
-  (observable: any, index: number, updateFieldWithValue: any) => JSX.Element
+  (observable: any, index: number, updateFieldWithValue: any, translate: any) => JSX.Element
 > = {
-  githubAction: (observable: any, index: number, updateFieldWithValue: any) => (
-    <GithubAction observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
+  githubAction: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <GithubAction
+      observable={observable}
+      index={index}
+      updateFieldWithValue={updateFieldWithValue}
+      translate={translate}
+    />
   ),
-  ccTray: (observable: any, index: number, updateFieldWithValue: any) => (
-    <CCTray observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
+  ccTray: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <CCTray observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} translate={translate} />
   ),
-  datadogMonitor: (observable: any, index: number, updateFieldWithValue: any) => (
-    <DatadogMonitor observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
+  datadogMonitor: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <DatadogMonitor
+      observable={observable}
+      index={index}
+      updateFieldWithValue={updateFieldWithValue}
+      translate={translate}
+    />
   ),
-  sentry: (observable: any, index: number, updateFieldWithValue: any) => (
-    <Sentry observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
+  sentry: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <Sentry observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} translate={translate} />
   ),
-  newRelic: (observable: any, index: number, updateFieldWithValue: any) => (
-    <NewRelic observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} />
+  newRelic: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <NewRelic observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} translate={translate} />
   ),
 };

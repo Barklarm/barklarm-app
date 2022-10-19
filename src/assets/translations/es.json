@@ -17,5 +17,18 @@
   "Unkown": "Desconocido",
   "Delete": "Borrar",
   "Save": "Salvar",
-  "Add": "Añadir"
+  "Add": "Añadir",
+  "Alias": "Alias",
+  "Organization": "Organizacion",
+  "Project": "Proyecto",
+  "Authorization Token": "Token de Autorizacion",
+  "URL": "URL",
+  "Site": "Lugar Web",
+  "Monitor ID": "ID del Monitor",
+  "API Key": "Clave de la API",
+  "Application Key": "Clave de la Application",
+  "Owner": "Dueño",
+  "Repository": "Repositorio",
+  "Workflow ID": "ID del Workflow",
+  "Drop Link Here": "Soltar Enlace Aqui"
 }

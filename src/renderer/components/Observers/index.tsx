@@ -16,7 +16,7 @@ import { ObserversParams } from '../../../types/ObserversParams';
 export const Observers = ({ observables, add, remove, update, save, translate }: ObserversParams) => {
   const getComponent = (observable: any, index: number, updateFieldWithValue: any): any => {
     try {
-      return observersComponentBuilderMap[observable.type](observable, index, updateFieldWithValue);
+      return observersComponentBuilderMap[observable.type](observable, index, updateFieldWithValue, translate);
     } catch (_) {
       return <></>;
     }
@@ -50,7 +50,7 @@ export const Observers = ({ observables, add, remove, update, save, translate }:
               </Select>
               {getComponent(observable, index, update)}
               <TextField
-                label="alias"
+                label={translate('Alias')}
                 variant="outlined"
                 value={observable.alias}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => update('alias', index, event.target.value)}
