@@ -15,25 +15,25 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 if (store.get('autoupdate')) {
   updateElectronApp();
-
-  if (hasSquirrelStartupEvents) {
-    app.quit();
-  }
-
-  let updateExePath;
-  const appFolder = dirname(process.execPath);
-  const exeName = basename(process.execPath);
-  if (process.platform === 'win32') {
-    app.setAppUserModelId(app.name);
-    updateExePath = resolve(appFolder, '..', 'Update.exe');
-  }
-
-  app.setLoginItemSettings({
-    openAtLogin: true,
-    path: updateExePath,
-    args: ['--processStart', `"${exeName}"`, '--process-start-args', `"--hidden"`],
-  });
 }
+
+if (hasSquirrelStartupEvents) {
+  app.quit();
+}
+
+let updateExePath;
+const appFolder = dirname(process.execPath);
+const exeName = basename(process.execPath);
+if (process.platform === 'win32') {
+  app.setAppUserModelId(app.name);
+  updateExePath = resolve(appFolder, '..', 'Update.exe');
+}
+
+app.setLoginItemSettings({
+  openAtLogin: true,
+  path: updateExePath,
+  args: ['--processStart', `"${exeName}"`, '--process-start-args', `"--hidden"`],
+});
 
 app.on('ready', () => {
   initialize(app.getLocale()?.slice(0, 2) || 'en');
