@@ -30,7 +30,7 @@ if (process.platform === 'win32') {
 }
 
 app.setLoginItemSettings({
-  openAtLogin: true,
+  openAtLogin: store.get('autostart') as boolean,
   path: updateExePath,
   args: ['--processStart', `"${exeName}"`, '--process-start-args', `"--hidden"`],
 });

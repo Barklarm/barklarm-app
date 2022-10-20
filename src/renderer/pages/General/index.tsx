@@ -8,11 +8,26 @@ import { storage } from './helpers/storage';
 
 export const General = () => {
   const { translate } = window.electron.translations;
-  const { getAutoupdate, saveAutoupdate, importConfig, exportConfig } = storage(window.electron);
+  const { getAutoupdate, saveAutoupdate, getAutostart, saveAutostart, importConfig, exportConfig } = storage(
+    window.electron
+  );
   const [autoupdate, setAutoupdate] = useState(getAutoupdate());
+  const [autostart, setAutostart] = useState(getAutostart());
   return (
     <Stack>
       <Divider sx={{ mb: 2 }}>{translate('Update')}</Divider>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={autostart}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              saveAutostart(event.target.checked);
+              setAutostart(event.target.checked);
+            }}
+          />
+        }
+        label={translate('Auto Start')}
+      />
       <FormControlLabel
         control={
           <Switch

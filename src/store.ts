@@ -13,6 +13,10 @@ const schema: any = {
     type: 'boolean',
     default: true,
   },
+  autostart: {
+    type: 'boolean',
+    default: true,
+  },
 };
 
 export const store = new Store({ schema });
