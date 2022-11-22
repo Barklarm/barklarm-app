@@ -46,9 +46,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/pehota"><img src="https://avatars.githubusercontent.com/u/10498221?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dimitar Apostolov</b></sub></a><br /><a href="https://github.com/barklarm/barklarm-app/commits?author=pehota" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/pehota"><img src="https://avatars.githubusercontent.com/u/10498221?v=4?s=100" width="100px;" alt="Dimitar Apostolov"/><br /><sub><b>Dimitar Apostolov</b></sub></a><br /><a href="https://github.com/Barklarm/barklarm-app/commits?author=pehota" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/ezinneanne"><img src="https://avatars.githubusercontent.com/u/79814820?v=4?s=100" width="100px;" alt="Ezinne Anne Emilia"/><br /><sub><b>Ezinne Anne Emilia</b></sub></a><br /><a href="https://github.com/Barklarm/barklarm-app/commits?author=ezinneanne" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
