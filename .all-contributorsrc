@@ -13,12 +13,22 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ezinneanne",
+      "name": "Ezinne Anne Emilia",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79814820?v=4",
+      "profile": "https://github.com/ezinneanne",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
-  "projectName": "barklarm",
-  "projectOwner": "kanekotic",
+  "projectName": "barklarm-app",
+  "projectOwner": "Barklarm",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }
