@@ -9,6 +9,7 @@ import updateElectronApp from 'update-electron-app';
 import hasSquirrelStartupEvents from 'electron-squirrel-startup';
 import { store } from './store';
 import { initialize } from './i18n';
+import { NotificationsConfiguration } from './types/NotificationEnabled';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -38,17 +39,19 @@ app.setLoginItemSettings({
 app.on('ready', () => {
   initialize(app.getLocale()?.slice(0, 2) || 'en');
   const tray = new TrayMenu();
-  const notification = new NotificationManager({
-    datetime: [
-      { weekday: 0, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
-      { weekday: 1, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
-      { weekday: 2, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
-      { weekday: 3, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
-      { weekday: 4, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
-      { weekday: 5, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
-      { weekday: 6, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
-    ],
-  });
+  const notification = new NotificationManager(
+    (store.get('notificationSchedule') as NotificationsConfiguration) || {
+      datetime: [
+        { weekday: 0, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+        { weekday: 1, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+        { weekday: 2, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+        { weekday: 3, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+        { weekday: 4, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+        { weekday: 5, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+        { weekday: 6, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      ],
+    }
+  );
   const observerManager = new ObserverManager(tray, notification);
   observerManager.refershObservers();
   appManager.setTray(tray);

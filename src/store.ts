@@ -17,6 +17,26 @@ const schema: any = {
     type: 'boolean',
     default: true,
   },
+  notificationSchedule: {
+    type: 'object',
+    properties: {
+      weekday: { type: 'number' },
+      enableTime: {
+        type: 'object',
+        properties: {
+          hour: { type: 'number' },
+          minute: { type: 'number' },
+        },
+      },
+      disableTime: {
+        type: 'object',
+        properties: {
+          hour: { type: 'number' },
+          minute: { type: 'number' },
+        },
+      },
+    },
+  },
 };
 
 export const store = new Store({ schema });
