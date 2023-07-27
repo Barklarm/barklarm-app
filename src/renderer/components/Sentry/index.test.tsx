@@ -14,9 +14,9 @@ jest.mock('@mui/material/TextField', () => ({
 
 describe('Sentry', () => {
   const expectedObservable = {
-    organization: faker.random.word(),
-    project: faker.random.word(),
-    authToken: faker.random.word(),
+    organization: faker.lorem.word(),
+    project: faker.lorem.word(),
+    authToken: faker.lorem.word(),
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
@@ -41,7 +41,7 @@ describe('Sentry', () => {
     });
 
     it('should call update field on change event', () => {
-      const expectedValue = faker.random.word();
+      const expectedValue = faker.lorem.word();
       const textfield = screen.getByTestId('textField-Organization');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('organization', expectedIndex, expectedValue);
@@ -56,7 +56,7 @@ describe('Sentry', () => {
     });
 
     it('should call update field on change event', () => {
-      const expectedValue = faker.random.word();
+      const expectedValue = faker.lorem.word();
       const textfield = screen.getByTestId('textField-Project');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('project', expectedIndex, expectedValue);
@@ -71,7 +71,7 @@ describe('Sentry', () => {
     });
 
     it('should call update field on change event', () => {
-      const expectedValue = faker.random.word();
+      const expectedValue = faker.lorem.word();
       const textfield = screen.getByTestId('textField-Authorization Token');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('authToken', expectedIndex, expectedValue);

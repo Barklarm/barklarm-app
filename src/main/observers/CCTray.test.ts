@@ -21,7 +21,7 @@ describe('CCTray', () => {
       config = {
         type: 'ccTray',
         url: faker.internet.url(),
-        alias: faker.random.word(),
+        alias: faker.lorem.word(),
         name: 'selected-test',
       };
       observer = new CCTray(config);

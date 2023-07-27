@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { Notification } from 'electron';
+import { NotificationsConfiguration } from '../types/NotificationEnabled';
 
 jest.mock('../i18n', () => ({
   translate: (val: string): string => val,
@@ -17,13 +18,14 @@ jest.mock('electron', () => ({
 
 describe('NotificationManager', () => {
   const NotificationMock = Notification as any;
-  const notificationManager: NotificationManager = new NotificationManager();
+  const configurationMock: NotificationsConfiguration = {datetime: []};
+  const notificationManager: NotificationManager = new NotificationManager(configurationMock);
   beforeEach(() => {
     NotificationMock.mockClear();
   });
   describe('updateNotifications', () => {
     it('shoulds not raise a notification with same name and sam status', async () => {
-      const expectedName = faker.random.word();
+      const expectedName = faker.lorem.word();
       const oldState: State[] = [
         {
           name: expectedName,
@@ -43,7 +45,7 @@ describe('NotificationManager', () => {
     });
     it('shoulds raise a notification with same name and diferent status towards SUCCESS', async () => {
       NotificationMock.mockReturnValue([]);
-      const expectedName = faker.random.word();
+      const expectedName = faker.lorem.word();
       const oldState: State[] = [
         {
           name: expectedName,
@@ -67,7 +69,7 @@ describe('NotificationManager', () => {
     });
     it('shoulds raise a notification with same name and diferent status towards FAILURE', async () => {
       NotificationMock.mockReturnValue([]);
-      const expectedName = faker.random.word();
+      const expectedName = faker.lorem.word();
       const oldState: State[] = [
         {
           name: expectedName,
@@ -91,7 +93,7 @@ describe('NotificationManager', () => {
     });
     it('shoulds raise a notification with same name and diferent status towards CHECKING', async () => {
       NotificationMock.mockReturnValue([]);
-      const expectedName = faker.random.word();
+      const expectedName = faker.lorem.word();
       const oldState: State[] = [
         {
           name: expectedName,
@@ -115,7 +117,7 @@ describe('NotificationManager', () => {
     });
     it('shoulds raise a notification with same name and diferent status towards NA', async () => {
       NotificationMock.mockReturnValue([]);
-      const expectedName = faker.random.word();
+      const expectedName = faker.lorem.word();
       const oldState: State[] = [
         {
           name: expectedName,

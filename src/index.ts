@@ -38,7 +38,7 @@ app.setLoginItemSettings({
 app.on('ready', () => {
   initialize(app.getLocale()?.slice(0, 2) || 'en');
   const tray = new TrayMenu();
-  const notification = new NotificationManager();
+  const notification = new NotificationManager({datetime: []});
   const observerManager = new ObserverManager(tray, notification);
   observerManager.refershObservers();
   appManager.setTray(tray);

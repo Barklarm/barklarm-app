@@ -22,11 +22,11 @@ describe('Github Action', () => {
       requestMock.mockClear();
       config = {
         type: 'githubAction',
-        authToken: faker.random.word(),
-        owner: faker.random.word(),
-        repo: faker.random.word(),
-        workflowId: faker.random.word(),
-        alias: faker.random.word(),
+        authToken: faker.lorem.word(),
+        owner: faker.lorem.word(),
+        repo: faker.lorem.word(),
+        workflowId: faker.lorem.word(),
+        alias: faker.lorem.word(),
       };
       observer = new GithubAction(config);
     });
@@ -114,7 +114,7 @@ describe('Github Action', () => {
           total_count: 100,
           workflow_runs: [
             {
-              conclusion: faker.random.word(),
+              conclusion: faker.lorem.word(),
               html_url: expectedUrl,
             },
           ],

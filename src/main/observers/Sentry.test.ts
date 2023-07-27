@@ -23,10 +23,10 @@ describe('Sentry', () => {
       fetchtMock.mockClear();
       config = {
         type: 'sentry',
-        organization: faker.random.word(),
-        project: faker.random.word(),
-        authToken: faker.random.word(),
-        alias: faker.random.word(),
+        organization: faker.lorem.word(),
+        project: faker.lorem.word(),
+        authToken: faker.lorem.word(),
+        alias: faker.lorem.word(),
       };
       expectedUrl = `https://sentry.io/api/0/projects/${config.organization}/${config.project}/issues/`;
       expectedSite = `https://sentry.io/organizations/${config.organization}/projects/${config.project}`;

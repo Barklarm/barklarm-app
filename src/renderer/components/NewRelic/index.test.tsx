@@ -14,7 +14,7 @@ jest.mock('@mui/material/TextField', () => ({
 
 describe('NewRelic Monitor', () => {
   const expectedObservable = {
-    apiKey: faker.random.word(),
+    apiKey: faker.lorem.word(),
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
@@ -40,7 +40,7 @@ describe('NewRelic Monitor', () => {
     });
 
     it('should call update field on change event', () => {
-      const expectedValue = faker.random.word();
+      const expectedValue = faker.lorem.word();
       const textfield = screen.getByTestId(`textField-${label}`);
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith(value, expectedIndex, expectedValue);

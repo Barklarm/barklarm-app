@@ -24,8 +24,8 @@ describe('NewRelic', () => {
       config = {
         type: 'newRelic',
         site: faker.internet.url(),
-        apiKey: faker.random.word(),
-        alias: faker.random.word(),
+        apiKey: faker.lorem.word(),
+        alias: faker.lorem.word(),
       };
       expectedUrl = `https://api.${config.site}/v2/alerts_violations.json`;
       expectedSite = `https://one.${config.site}/nrai`;

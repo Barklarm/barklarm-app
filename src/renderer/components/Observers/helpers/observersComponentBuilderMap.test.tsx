@@ -32,10 +32,10 @@ jest.mock('../../NewRelic', () => ({
 describe('observersComponentBuilderMap', () => {
   describe.each([['githubAction'], ['ccTray'], ['datadogMonitor'], ['sentry'], ['newRelic']])('%s', (type: string) => {
     it('should have correct textfield attributes', () => {
-      const expectedObservable = faker.datatype.uuid();
-      const expectedIndex = faker.datatype.number();
-      const expectedUpdateFn = faker.datatype.uuid();
-      const expectedTranslateFn = faker.datatype.uuid();
+      const expectedObservable = faker.string.uuid();
+      const expectedIndex = faker.number.int();
+      const expectedUpdateFn = faker.string.uuid();
+      const expectedTranslateFn = faker.string.uuid();
       const component = observersComponentBuilderMap[type](
         expectedObservable,
         expectedIndex,

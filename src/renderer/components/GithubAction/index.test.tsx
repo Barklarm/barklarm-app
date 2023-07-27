@@ -14,10 +14,10 @@ jest.mock('@mui/material/TextField', () => ({
 
 describe('Github Action', () => {
   const expectedObservable = {
-    owner: faker.random.word(),
-    repo: faker.random.word(),
-    workflowId: faker.random.word(),
-    authToken: faker.random.word(),
+    owner: faker.lorem.word(),
+    repo: faker.lorem.word(),
+    workflowId: faker.lorem.word(),
+    authToken: faker.lorem.word(),
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
@@ -48,7 +48,7 @@ describe('Github Action', () => {
     });
 
     it('should call update field on change event', () => {
-      const expectedValue = faker.random.word();
+      const expectedValue = faker.lorem.word();
       const textfield = screen.getByTestId(`textField-${label}`);
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith(value, expectedIndex, expectedValue);

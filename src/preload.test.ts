@@ -13,7 +13,7 @@ jest.mock('electron', () => ({
 }));
 
 describe('preload', () => {
-  const value = { some: faker.datatype.uuid() };
+  const value = { some: faker.string.uuid() };
   const sendSyncMock = ipcRenderer.sendSync as jest.Mock<any>;
   const sendMock = ipcRenderer.send as jest.Mock<any>;
   const exposeInMainWorldMock = contextBridge.exposeInMainWorld as jest.Mock<any>;
@@ -31,7 +31,7 @@ describe('preload', () => {
   });
   describe('store.set', () => {
     it('should get from store', () => {
-      const property = faker.datatype.uuid();
+      const property = faker.string.uuid();
       _.store.set(property, value);
       expect(sendMock).toBeCalledWith('electron-store-set', property, value);
     });

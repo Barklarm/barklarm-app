@@ -11,7 +11,7 @@ const MonitorApiMock = {
   getMonitor: getMonitorMock,
 };
 const serverConfigurationMock = {
-  some: faker.random.word(),
+  some: faker.lorem.word(),
 };
 
 jest.mock('@datadog/datadog-api-client', () => {
@@ -47,10 +47,10 @@ describe('Datadog', () => {
       config = {
         type: 'datadogMonitor',
         site: faker.internet.url(),
-        apiKey: faker.random.word(),
-        appKey: faker.random.word(),
-        monitorId: faker.datatype.number(),
-        alias: faker.random.word(),
+        apiKey: faker.lorem.word(),
+        appKey: faker.lorem.word(),
+        monitorId: faker.number.int(),
+        alias: faker.lorem.word(),
       };
       expectLink = `https://app.${config.site}/monitors/${config.monitorId}`;
 

@@ -4,6 +4,7 @@ import { Status } from '../types/Status';
 import { State } from '../types/State';
 import { MapType } from '../types/MapType';
 import { translate } from '../i18n';
+import { NotificationsConfiguration } from '../types/NotificationEnabled';
 
 export class NotificationManager {
   private readonly notificationMap: MapType<(name: State) => NotificationConstructorOptions> = {
@@ -29,11 +30,18 @@ export class NotificationManager {
     }),
   };
 
+  constructor(private config: NotificationsConfiguration){}
+
   public updateNotifications(old: State[], actual: State[]) {
+    if(areActive()) return;
     actual.forEach((current) => {
       const previous = old.find(({ name }) => name === current.name) || ({ status: Status.NA } as any);
-      if (current.status === previous.status) return;
+      if (current.status === previous.status ) return;
       return new Notification(this.notificationMap[current.status](current));
     });
   }
 }
+function areActive() {
+  return true;
+}
+

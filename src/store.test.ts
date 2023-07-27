@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { ipcMain } from 'electron';
 import { _ } from './store';
 
-const expectedResult = { some: faker.datatype.uuid() };
+const expectedResult = { some: faker.string.uuid() };
 jest.mock('electron-store', () => {
   return jest.fn().mockImplementation(() => {
     return {
@@ -21,7 +21,7 @@ jest.mock('electron', () => {
 });
 
 describe('preload', () => {
-  const value = { some: faker.datatype.uuid() };
+  const value = { some: faker.string.uuid() };
   const ipcMainOnMock = ipcMain.on as jest.Mock<any>;
 
   describe('storeGet', () => {
@@ -30,7 +30,7 @@ describe('preload', () => {
     });
     it('should get from store', () => {
       const event: any = {};
-      const expectedValue = faker.datatype.uuid();
+      const expectedValue = faker.string.uuid();
       _.storeGet(event, expectedValue);
       expect(event.returnValue).toEqual(expectedResult);
     });
@@ -41,8 +41,8 @@ describe('preload', () => {
     });
     it('should set key value in the store', () => {
       const event: any = {};
-      const expectedKey = faker.datatype.uuid();
-      const expectedValue = faker.datatype.uuid();
+      const expectedKey = faker.string.uuid();
+      const expectedValue = faker.string.uuid();
       _.storeSet(undefined, expectedKey, expectedValue);
     });
   });

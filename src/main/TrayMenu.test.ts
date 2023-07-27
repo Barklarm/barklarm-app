@@ -60,7 +60,7 @@ describe('TrayMenu', () => {
     it('should update the image', () => {
       const tray = new TrayMenu();
       tray.updateTrayImage({
-        name: faker.random.word(),
+        name: faker.lorem.word(),
         status: Status.SUCCESS,
         link: faker.internet.url(),
       });
@@ -74,7 +74,7 @@ describe('TrayMenu', () => {
     it('should update the menu with the states', () => {
       const observersState: State[] = [
         {
-          name: faker.random.word(),
+          name: faker.lorem.word(),
           status: Status.SUCCESS,
           link: faker.internet.url(),
         },

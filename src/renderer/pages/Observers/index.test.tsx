@@ -75,7 +75,7 @@ describe('Observers', () => {
     mutationsMock.parseDataransfer.mockClear();
   });
   it('should have box with ObserverComponent', () => {
-    const expectedObservers = faker.datatype.uuid();
+    const expectedObservers = faker.string.uuid();
     (window.electron.store.get as any).mockReturnValue(expectedObservers);
     render(<Observers />);
     const box = screen.getByTestId('box');
@@ -83,7 +83,7 @@ describe('Observers', () => {
     expect(observersComponent).toHaveAttribute('observables', expectedObservers);
   });
   it('should have DropZone on drag', async () => {
-    const expectedObservers = faker.datatype.uuid();
+    const expectedObservers = faker.string.uuid();
     (window.electron.store.get as any).mockReturnValue(expectedObservers);
     render(<Observers />);
     const box = screen.getByTestId('box');
@@ -100,8 +100,8 @@ describe('Observers', () => {
     expect(expectedText).toBeInTheDocument();
   });
   it('should hide DropZone on drop', async () => {
-    const expectedObservers = faker.datatype.uuid();
-    const expectedDataTransferText = faker.datatype.uuid();
+    const expectedObservers = faker.string.uuid();
+    const expectedDataTransferText = faker.string.uuid();
     (window.electron.store.get as any).mockReturnValue(expectedObservers);
     render(<Observers />);
     const box = screen.getByTestId('box');
@@ -118,7 +118,7 @@ describe('Observers', () => {
     });
   });
   it('should hide DropZone on leave', async () => {
-    const expectedObservers = faker.datatype.uuid();
+    const expectedObservers = faker.string.uuid();
     (window.electron.store.get as any).mockReturnValue(expectedObservers);
     render(<Observers />);
     const box = screen.getByTestId('box');

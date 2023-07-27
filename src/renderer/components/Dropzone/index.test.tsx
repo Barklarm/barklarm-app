@@ -17,7 +17,7 @@ jest.mock('@mui/material/Box', () => ({
 }));
 
 describe('dropzone', () => {
-  const childrenText = faker.datatype.uuid();
+  const childrenText = faker.string.uuid();
   const onDragOverMock = jest.fn();
   const onDragLeaveMock = jest.fn();
   const onDropMock = jest.fn();

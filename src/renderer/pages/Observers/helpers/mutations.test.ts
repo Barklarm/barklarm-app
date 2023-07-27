@@ -3,9 +3,9 @@ import { mutations } from './mutations';
 
 describe('mutations', () => {
   const initialObservables = [
-    { some: faker.datatype.uuid() },
-    { some: faker.datatype.uuid() },
-    { some: faker.datatype.uuid() },
+    { some: faker.string.uuid() },
+    { some: faker.string.uuid() },
+    { some: faker.string.uuid() },
   ];
   const setObservablesMock = jest.fn();
   let mutationFunctions: any;
@@ -16,7 +16,7 @@ describe('mutations', () => {
   });
   describe('addObserver', () => {
     it('should add the new value to the existing collection', () => {
-      const newObservable = { some: faker.datatype.uuid() };
+      const newObservable = { some: faker.string.uuid() };
       mutationFunctions.addObserver(newObservable);
       expect(setObservablesMock).toBeCalledWith([...initialObservables, newObservable]);
     });
@@ -29,7 +29,7 @@ describe('mutations', () => {
   });
   describe('updateObserver', () => {
     it('should update the value of the field at the index', () => {
-      const expectNewValue = faker.datatype.uuid();
+      const expectNewValue = faker.string.uuid();
       mutationFunctions.updateObserver(`some`, 1, expectNewValue);
       expect(setObservablesMock).toBeCalledWith([
         initialObservables[0],
@@ -41,7 +41,7 @@ describe('mutations', () => {
   describe('parseDataransfer', () => {
     it('should not call set observable if no text data type', () => {
       const dataTransfer = {
-        types: [faker.datatype.uuid()],
+        types: [faker.string.uuid()],
       };
       mutationFunctions.parseDataransfer(dataTransfer);
       expect(setObservablesMock).not.toBeCalled();

@@ -21,7 +21,7 @@ describe('storage', () => {
   });
   describe('saveObservers', () => {
     it('should set observers and refresh', () => {
-      const newObservable = { some: faker.datatype.uuid() };
+      const newObservable = { some: faker.string.uuid() };
       storageFunctions.saveObservers(newObservable);
       expect(electronMock.store.set).toBeCalledWith('observables', newObservable);
       expect(electronMock.app.refreshObservers).toBeCalled();
@@ -29,7 +29,7 @@ describe('storage', () => {
   });
   describe('getObservers', () => {
     it('should retrieve the list of observables', () => {
-      const observables = { some: faker.datatype.uuid() };
+      const observables = { some: faker.string.uuid() };
       electronMock.store.get.mockReturnValue(observables);
       const result = storageFunctions.getObservers();
       expect(electronMock.store.get).toBeCalledWith('observables');

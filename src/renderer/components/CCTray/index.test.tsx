@@ -15,7 +15,7 @@ jest.mock('@mui/material/TextField', () => ({
 describe('cctray', () => {
   const expectedObservable = {
     url: faker.internet.url(),
-    name: faker.random.word(),
+    name: faker.lorem.word(),
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
@@ -41,7 +41,7 @@ describe('cctray', () => {
     });
 
     it('should call update field on change event', () => {
-      const expectedValue = faker.random.word();
+      const expectedValue = faker.lorem.word();
       const textfield = screen.getByTestId('textField-URL');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('url', expectedIndex, expectedValue);
@@ -56,7 +56,7 @@ describe('cctray', () => {
     });
 
     it('should call update field on change event', () => {
-      const expectedValue = faker.random.word();
+      const expectedValue = faker.lorem.word();
       const textfield = screen.getByTestId('textField-Project');
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith('name', expectedIndex, expectedValue);

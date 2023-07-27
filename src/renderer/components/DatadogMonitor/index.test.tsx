@@ -14,9 +14,9 @@ jest.mock('@mui/material/TextField', () => ({
 
 describe('Datadog Monitor', () => {
   const expectedObservable = {
-    organization: faker.random.word(),
-    project: faker.random.word(),
-    authToken: faker.random.word(),
+    organization: faker.lorem.word(),
+    project: faker.lorem.word(),
+    authToken: faker.lorem.word(),
   };
   const expectedIndex = faker.random.numeric();
   const updateFieldMock = jest.fn();
@@ -46,7 +46,7 @@ describe('Datadog Monitor', () => {
     });
 
     it('should call update field on change event', () => {
-      const expectedValue = faker.random.word();
+      const expectedValue = faker.lorem.word();
       const textfield = screen.getByTestId(`textField-${label}`);
       fireEvent.change(textfield, { target: { value: expectedValue } });
       expect(updateFieldMock).toBeCalledWith(value, expectedIndex, expectedValue);

@@ -149,8 +149,8 @@ describe('dropzone', () => {
 
   it('renders know type observables correctly', () => {
     const expectedComponent = <div data-testid={'githubAction'} />;
-    const expectedTitle = faker.datatype.uuid();
-    const expectedAlias = faker.datatype.uuid();
+    const expectedTitle = faker.string.uuid();
+    const expectedAlias = faker.string.uuid();
     const observables: any[] = [
       {
         type: 'githubAction',
@@ -199,7 +199,7 @@ describe('dropzone', () => {
     expect(deleteButton).toHaveTextContent('Delete');
   });
   it('renders empty type observables correctly', () => {
-    const expectedAlias = faker.datatype.uuid();
+    const expectedAlias = faker.string.uuid();
     const observables: any[] = [
       {
         type: 'githubAction',
