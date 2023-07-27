@@ -32,7 +32,7 @@ describe('TrayMenu', () => {
     setImage: jest.fn(),
   };
   const expectedMenu = {
-    some: faker.random.alphaNumeric(100),
+    some: faker.string.alphanumeric(100),
   };
   beforeEach(() => {
     trayMock.mockClear();

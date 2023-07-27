@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { Notification } from 'electron';
-import { NotificationsConfiguration } from '../types/NotificationEnabled';
+import { NotificationsConfiguration, NotificationConfiguration } from '../types/NotificationEnabled';
 
 jest.mock('../i18n', () => ({
   translate: (val: string): string => val,
@@ -18,7 +18,17 @@ jest.mock('electron', () => ({
 
 describe('NotificationManager', () => {
   const NotificationMock = Notification as any;
-  const configurationMock: NotificationsConfiguration = {datetime: []};
+  const configurationMock: NotificationsConfiguration = {
+    datetime: [
+      { weekday: 0, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 1, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 2, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 3, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 4, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 5, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 6, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+    ],
+  };
   const notificationManager: NotificationManager = new NotificationManager(configurationMock);
   beforeEach(() => {
     NotificationMock.mockClear();

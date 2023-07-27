@@ -1,9 +1,14 @@
 export type NotificationsConfiguration = {
-    datetime: Array<NotificationConfiguration>;
+  datetime: Array<NotificationConfiguration>;
 };
 
 export type NotificationConfiguration = {
-    weekday: number;
-    enableTime: number;
-    disableTime: number;
+  weekday: number;
+  enableTime: Time;
+  disableTime: Time;
+};
+
+export type Time = {
+  hour: number;
+  minute: number;
 };
