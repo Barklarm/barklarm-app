@@ -24,7 +24,11 @@ export class ObserverManager {
     newRelic: (configuration: any) => new NewRelic(configuration as any),
   };
 
-  constructor(private tray: TrayMenu, private notifications: NotificationManager, enableRefresh = true) {
+  constructor(
+    private tray: TrayMenu,
+    private notifications: NotificationManager,
+    enableRefresh = true
+  ) {
     enableRefresh && setInterval(this.refreshState.bind(this), 60000);
   }
 

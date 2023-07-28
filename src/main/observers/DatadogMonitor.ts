@@ -53,7 +53,7 @@ export class DatadogMonitor implements Observer {
       });
       return {
         name: this.alias,
-        status: this.overalStateMap[data.overallState],
+        status: this.overalStateMap[data.overallState as any],
         link,
       };
     } catch (error) {

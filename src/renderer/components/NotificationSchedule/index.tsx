@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { NotificationConfiguration } from '../../../types/NotificationEnabled';
-import TimePicker from 'react-time-picker';
+import { TimePicker } from 'react-time-picker';
 import './style.css';
 
 export const NotificationSchedule = ({ schedules, translate, updateSchedules }: any) => {
