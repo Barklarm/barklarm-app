@@ -12,17 +12,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14
-      - name: Cache ✨
-        uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cache-
+          node-version: 18
+          cache: 'yarn'
       - name: Windows Codesign executable
         if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
         run: |
@@ -58,7 +51,7 @@ jobs:
           security import $CERTIFICATE_PATH_INSTALLER -P "$MACOS_CERTIFICATE_INSTALLER_PWD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
       - name: install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: test
         run: yarn test:cov
       - name: Publish coverage
