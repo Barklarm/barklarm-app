@@ -18,24 +18,36 @@ const schema: any = {
     default: true,
   },
   notificationSchedule: {
-    type: 'object',
-    properties: {
-      weekday: { type: 'number' },
-      enableTime: {
-        type: 'object',
-        properties: {
-          hour: { type: 'number' },
-          minute: { type: 'number' },
+    type: 'array',
+    items: {
+      type: 'object',
+      properties: {
+        weekday: { type: 'number' },
+        enableTime: {
+          type: 'object',
+          properties: {
+            hour: { type: 'number' },
+            minute: { type: 'number' },
+          },
         },
-      },
-      disableTime: {
-        type: 'object',
-        properties: {
-          hour: { type: 'number' },
-          minute: { type: 'number' },
+        disableTime: {
+          type: 'object',
+          properties: {
+            hour: { type: 'number' },
+            minute: { type: 'number' },
+          },
         },
       },
     },
+    default: [
+      { weekday: 0, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 1, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 2, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 3, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 4, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 5, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+      { weekday: 6, enableTime: { hour: 0, minute: 0 }, disableTime: { hour: 23, minute: 59 } },
+    ],
   },
 };
 

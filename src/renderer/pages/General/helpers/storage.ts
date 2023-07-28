@@ -1,3 +1,5 @@
+import { NotificationConfiguration } from '../../../../types/NotificationEnabled';
+
 export const storage = (electron: any) => ({
   saveAutoupdate: (autoupdate: boolean): void => {
     electron.store.set('autoupdate', autoupdate);
@@ -10,6 +12,12 @@ export const storage = (electron: any) => ({
   },
   getAutostart: (): boolean => {
     return electron.store.get('autostart');
+  },
+  saveNotificationSchedule: (schedule: Array<NotificationConfiguration>): void => {
+    electron.store.set('notificationSchedule', schedule);
+  },
+  getNotificationSchedule: (): Array<NotificationConfiguration> => {
+    return electron.store.get('notificationSchedule');
   },
   importConfig: (): boolean => {
     return electron.store.import();
