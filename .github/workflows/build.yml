@@ -11,7 +11,7 @@ jobs:
           os: [macos-latest, ubuntu-latest, windows-2019]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -52,13 +52,13 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
       - name: install dependencies
         run: npm ci
-      - name: test
-        run: npm run test:cov
-      - name: Publish coverage
+      - name: Test & publish code coverage
         if: matrix.os != 'windows-2019'
-        uses: paambaati/codeclimate-action@v3.0.0
+        uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
+        with:
+          coverageCommand: npm run test:cov
       - name: deploy
         if: startsWith(github.event.head_commit.message,'v1.')
         env:
