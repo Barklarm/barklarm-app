@@ -1,7 +1,7 @@
 {
   "name": "barklarm",
   "productName": "barklarm",
-  "version": "1.11.4",
+  "version": "1.11.5",
   "description": "Build Radiator supporting Github Actions",
   "main": ".webpack/main",
   "repository": "https://github.com/barklarm/barklarm-app",
