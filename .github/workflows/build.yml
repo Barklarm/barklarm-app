@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'yarn'
+          cache: 'npm'
       - name: Windows Codesign executable
         if: matrix.os == 'windows-2019' && startsWith(github.event.head_commit.message,'v1.')
         run: |
@@ -51,9 +51,9 @@ jobs:
           security import $CERTIFICATE_PATH_INSTALLER -P "$MACOS_CERTIFICATE_INSTALLER_PWD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
       - name: install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
       - name: test
-        run: yarn test:cov
+        run: npm run test:cov
       - name: Publish coverage
         if: matrix.os != 'windows-2019'
         uses: paambaati/codeclimate-action@v3.0.0
@@ -67,10 +67,10 @@ jobs:
           MAC_APPLE_ID_PWD: ${{ secrets.MAC_APPLE_ID_PWD }}
           MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
           WINDOWS_PFX_SECRET: ${{ secrets.WINDOWS_PFX_SECRET }}
-        run: yarn deploy
+        run: npm run deploy
       - name: prepare chocolatey
         if: matrix.os == 'windows-2019' && startsWith(github.event.head_commit.message,'v1.')
-        run: yarn chocolatey:prepare
+        run: npm run chocolatey:prepare
       - name: pack chocolatey
         if: matrix.os == 'windows-2019' && startsWith(github.event.head_commit.message,'v1.')
         uses: crazy-max/ghaction-chocolatey@v2
