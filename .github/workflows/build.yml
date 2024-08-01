@@ -66,6 +66,7 @@ jobs:
           MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
           MAC_APPLE_ID_PWD: ${{ secrets.MAC_APPLE_ID_PWD }}
           MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
+          MAC_APPLE_TEAM_ID: ${{ secrets.MAC_APPLE_TEAM_ID }}
           WINDOWS_PFX_SECRET: ${{ secrets.WINDOWS_PFX_SECRET }}
         run: npm run deploy
       - name: prepare chocolatey
