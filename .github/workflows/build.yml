@@ -19,9 +19,9 @@ jobs:
       - name: Windows Codesign executable
         if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
         run: |
-          $SIGNING_CERTIFICATE_BASE64 | ConvertFrom-Base64 | Set-Content -Path "certificate\certificate.pfx" -Encoding Byte
-        env:
-          SIGNING_CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
+          New-Item -ItemType directory -Path certificate
+          Set-Content -Path certificate\certificate.txt -Value '${{ secrets.SIGNING_CERTIFICATE_BASE64 }}'
+          certutil -decode certificate\certificate.txt certificate\certificate.pfx
       - name: OSX install setuptools
         if: matrix.os == 'macOS-latest'
         run: python3 -m pip install setuptools  --break-system-packages
