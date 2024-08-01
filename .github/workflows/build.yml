@@ -65,7 +65,7 @@ jobs:
       - name: deploy
         if: startsWith(github.event.head_commit.message,'v1.')
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
           MAC_APPLE_ID_PWD: ${{ secrets.MAC_APPLE_ID_PWD }}
           MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
