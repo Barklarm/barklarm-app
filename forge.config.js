@@ -20,9 +20,7 @@ module.exports = {
         "config": {
           "name": "barklarm",
           "setupIcon": "src/assets/favicon.ico",
-          "loadingGif": "src/assets/installer.gif",
-          "certificateFile": "certificate/certificate.pfx",
-          "certificatePassword": process.env.WINDOWS_PFX_SECRET
+          "loadingGif": "src/assets/installer.gif"
         }
       },
       {
