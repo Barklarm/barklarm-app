@@ -19,7 +19,7 @@ jobs:
       - name: Windows Codesign executable
         if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
         run: |
-          echo -n $SIGNING_CERTIFICATE_BASE64 | base64 -d -o certificate\certificate.pfx
+          $SIGNING_CERTIFICATE_BASE64 | ConvertFrom-Base64 | Set-Content -Path "certificate\certificate.pfx" -Encoding Byte
         env:
           SIGNING_CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
       - name: OSX install setuptools
@@ -70,7 +70,7 @@ jobs:
           MAC_APPLE_ID_PWD: ${{ secrets.MAC_APPLE_ID_PWD }}
           MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
           MAC_APPLE_TEAM_ID: ${{ secrets.MAC_APPLE_TEAM_ID }}
-          WINDOWS_PFX_SECRET: ${{ secrets.WINDOWS_PFX_SECRET }}
+          WINDOWS_PFX_SECRET: ${{ secrets.WINDOWS_PFX_SECRET_NEW }}
         run: npm run deploy
       - name: prepare chocolatey
         if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
