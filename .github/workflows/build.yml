@@ -22,7 +22,7 @@ jobs:
           New-Item -ItemType directory -Path certificate
           Set-Content -Path certificate\certificate.txt -Value '${{ secrets.WINDOWS_PFX }}'
           certutil -decode certificate\certificate.txt certificate\certificate.pfx
-      - name: OSX install setuptools
+      - name: OSX install setuptools --break-system-packages
         if: matrix.os == 'macOS-latest'
         run: python3 -m pip install setuptools
       - name: OSX Codesign executable
