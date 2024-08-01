@@ -5,6 +5,7 @@ import { CCTray } from '../../CCTray';
 import { DatadogMonitor } from '../../DatadogMonitor';
 import { Sentry } from '../../Sentry';
 import { NewRelic } from '../../NewRelic';
+import { Grafana } from '../../Grafana';
 
 export const observersComponentBuilderMap: MapType<
   (observable: any, index: number, updateFieldWithValue: any, translate: any) => JSX.Element
@@ -33,5 +34,8 @@ export const observersComponentBuilderMap: MapType<
   ),
   newRelic: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
     <NewRelic observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} translate={translate} />
+  ),
+  grafana: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <Grafana observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} translate={translate} />
   ),
 };

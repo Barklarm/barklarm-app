@@ -11,6 +11,7 @@ import { DatadogMonitor } from './DatadogMonitor';
 import { MapType } from '../../types/MapType';
 import { Sentry } from './Sentry';
 import { NewRelic } from './NewRelic';
+import { Grafana } from './grafana';
 
 export class ObserverManager {
   private observers: Observer[];
@@ -22,6 +23,7 @@ export class ObserverManager {
     datadogMonitor: (configuration: any) => new DatadogMonitor(configuration as any),
     sentry: (configuration: any) => new Sentry(configuration as any),
     newRelic: (configuration: any) => new NewRelic(configuration as any),
+    grafana: (configuration: any) => new Grafana(configuration as any),
   };
 
   constructor(

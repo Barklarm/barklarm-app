@@ -7,4 +7,5 @@ export const observersTitleBuilderMap: MapType<(observable: any) => string> = {
   datadogMonitor: (observable: any) => `Datadog: ${observable.alias || `${observable.site}/${observable.monitorId}`}`,
   sentry: (observable: any) => `Sentry: ${observable.alias || `${observable.organization}/${observable.project}`}`,
   newRelic: (observable: any) => `NewRelic: ${observable.alias || `alerts`}`,
+  grafana: (observable: any) => `Grafana: ${observable.alias || observable.url}`,
 };

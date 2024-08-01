@@ -47,6 +47,7 @@ export const Observers = ({ observables, add, remove, update, save, translate }:
                 <MenuItem value={'datadogMonitor'}>Datadog Monitor</MenuItem>
                 <MenuItem value={'sentry'}>Sentry</MenuItem>
                 <MenuItem value={'newRelic'}>New Relic</MenuItem>
+                <MenuItem value={'grafana'}>Grafana</MenuItem>
               </Select>
               {getComponent(observable, index, update)}
               <TextField
