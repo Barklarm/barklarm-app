@@ -43,8 +43,8 @@ export const Observers = ({ observables, add, remove, update, save, translate }:
                 label="Observer Type"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => update('type', index, event.target.value)}
               >
-                {observersList.map(({ value, lable }: any) => (
-                  <MenuItem value={value}>{lable}</MenuItem>
+                {observersList.map(({ value, label }: any) => (
+                  <MenuItem value={value}>{label}</MenuItem>
                 ))}
               </Select>
               {getComponent(observable, index, update)}
