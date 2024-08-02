@@ -1,4 +1,4 @@
-import { MapType } from '../../../../types/MapType';
+import { MapType } from '../types/MapType';
 
 export const observersTitleBuilderMap: MapType<(observable: any) => string> = {
   githubAction: (observable: any) =>

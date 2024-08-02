@@ -1,7 +1,7 @@
-import { GithubActionConfiguration } from '../../types/GithubActionConfiguration';
-import { GithubAction } from './GithubAction';
+import { GithubActionConfiguration } from '../../../types/GithubActionConfiguration';
+import { GithubAction } from '.';
 import { faker } from '@faker-js/faker';
-import { Status } from '../../types/Status';
+import { Status } from '../../../types/Status';
 
 const requestMock = jest.fn();
 

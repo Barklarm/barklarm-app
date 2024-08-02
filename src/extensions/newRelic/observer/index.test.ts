@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
-import { GrafanaConfiguration } from '../../../types/GrafanaConfiguration';
-import { Grafana } from './index';
+import { NewRelicConfiguration } from '../../../types/NewRelicConfiguration';
+import { NewRelic } from '.';
 
 const fetchtMock = jest.fn();
 jest.mock('electron-fetch', () => {
@@ -13,8 +13,8 @@ jest.mock('electron-fetch', () => {
 
 describe('NewRelic', () => {
   describe('getState', () => {
-    let config: GrafanaConfiguration;
-    let observer: Grafana;
+    let config: NewRelicConfiguration;
+    let observer: NewRelic;
 
     let expectedUrl: string;
     let expectedSite: string;
@@ -22,14 +22,14 @@ describe('NewRelic', () => {
     beforeEach(() => {
       fetchtMock.mockClear();
       config = {
-        type: 'grafana',
-        url: faker.internet.url(),
-        authToken: faker.lorem.word(),
+        type: 'newRelic',
+        site: faker.internet.url(),
+        apiKey: faker.lorem.word(),
         alias: faker.lorem.word(),
       };
-      expectedUrl = `${config.url}/api/v1/provisioning/alert-rules`;
-      expectedSite = `${config.url}/alerting`;
-      observer = new Grafana(config);
+      expectedUrl = `https://api.${config.site}/v2/alerts_violations.json`;
+      expectedSite = `https://one.${config.site}/nrai`;
+      observer = new NewRelic(config);
     });
 
     it('shoulds return NA status if request return diferent value than 200', async () => {
@@ -41,7 +41,7 @@ describe('NewRelic', () => {
       expect(fetchtMock).toBeCalledWith(expectedUrl, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${config.authToken}`,
+          'X-Api-Key': `${config.apiKey}`,
         },
       });
       expect(result).toEqual({
@@ -52,25 +52,14 @@ describe('NewRelic', () => {
     });
     it('shoulds return SUCCESS status if request return empty violations array', async () => {
       fetchtMock.mockResolvedValue({
-        json: () =>
-          Promise.resolve([
-            {
-              execErrState: 'Success',
-            },
-            {
-              execErrState: 'Success',
-            },
-            {
-              execErrState: 'Success',
-            },
-          ]),
+        json: () => Promise.resolve({ violations: [] }),
         ok: true,
       });
       const result = await observer.getState();
       expect(fetchtMock).toBeCalledWith(expectedUrl, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${config.authToken}`,
+          'X-Api-Key': `${config.apiKey}`,
         },
       });
       expect(result).toEqual({
@@ -79,27 +68,16 @@ describe('NewRelic', () => {
         link: expectedSite,
       });
     });
-    it('shoulds return FAILURE status if request have active alarms', async () => {
+    it('shoulds return FAILURE status if request return non empty violations array', async () => {
       fetchtMock.mockResolvedValue({
-        json: () =>
-          Promise.resolve([
-            {
-              execErrState: 'Error',
-            },
-            {
-              execErrState: 'Success',
-            },
-            {
-              execErrState: 'Success',
-            },
-          ]),
+        json: () => Promise.resolve({ violations: [{}] }),
         ok: true,
       });
       const result = await observer.getState();
       expect(fetchtMock).toBeCalledWith(expectedUrl, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${config.authToken}`,
+          'X-Api-Key': `${config.apiKey}`,
         },
       });
       expect(result).toEqual({

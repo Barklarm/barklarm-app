@@ -1,7 +1,7 @@
+import { Sentry } from '.';
 import { faker } from '@faker-js/faker';
-import { Status } from '../../types/Status';
-import { NewRelicConfiguration } from '../../types/NewRelicConfiguration';
-import { NewRelic } from './NewRelic';
+import { Status } from '../../../types/Status';
+import { SentryConfiguration } from '../../../types/SentryConfiguration';
 
 const fetchtMock = jest.fn();
 jest.mock('electron-fetch', () => {
@@ -11,10 +11,10 @@ jest.mock('electron-fetch', () => {
   };
 });
 
-describe('NewRelic', () => {
+describe('Sentry', () => {
   describe('getState', () => {
-    let config: NewRelicConfiguration;
-    let observer: NewRelic;
+    let config: SentryConfiguration;
+    let observer: Sentry;
 
     let expectedUrl: string;
     let expectedSite: string;
@@ -22,14 +22,15 @@ describe('NewRelic', () => {
     beforeEach(() => {
       fetchtMock.mockClear();
       config = {
-        type: 'newRelic',
-        site: faker.internet.url(),
-        apiKey: faker.lorem.word(),
+        type: 'sentry',
+        organization: faker.lorem.word(),
+        project: faker.lorem.word(),
+        authToken: faker.lorem.word(),
         alias: faker.lorem.word(),
       };
-      expectedUrl = `https://api.${config.site}/v2/alerts_violations.json`;
-      expectedSite = `https://one.${config.site}/nrai`;
-      observer = new NewRelic(config);
+      expectedUrl = `https://sentry.io/api/0/projects/${config.organization}/${config.project}/issues/`;
+      expectedSite = `https://sentry.io/organizations/${config.organization}/projects/${config.project}`;
+      observer = new Sentry(config);
     });
 
     it('shoulds return NA status if request return diferent value than 200', async () => {
@@ -41,7 +42,7 @@ describe('NewRelic', () => {
       expect(fetchtMock).toBeCalledWith(expectedUrl, {
         method: 'GET',
         headers: {
-          'X-Api-Key': `${config.apiKey}`,
+          Authorization: `Bearer ${config.authToken}`,
         },
       });
       expect(result).toEqual({
@@ -50,16 +51,16 @@ describe('NewRelic', () => {
         link: expectedSite,
       });
     });
-    it('shoulds return SUCCESS status if request return empty violations array', async () => {
+    it('shoulds return SUCCESS status if request return empty array', async () => {
       fetchtMock.mockResolvedValue({
-        json: () => Promise.resolve({ violations: [] }),
+        json: () => Promise.resolve([]),
         ok: true,
       });
       const result = await observer.getState();
       expect(fetchtMock).toBeCalledWith(expectedUrl, {
         method: 'GET',
         headers: {
-          'X-Api-Key': `${config.apiKey}`,
+          Authorization: `Bearer ${config.authToken}`,
         },
       });
       expect(result).toEqual({
@@ -68,16 +69,16 @@ describe('NewRelic', () => {
         link: expectedSite,
       });
     });
-    it('shoulds return FAILURE status if request return non empty violations array', async () => {
+    it('shoulds return FAILURE status if request return non empty array', async () => {
       fetchtMock.mockResolvedValue({
-        json: () => Promise.resolve({ violations: [{}] }),
+        json: () => Promise.resolve([{}]),
         ok: true,
       });
       const result = await observer.getState();
       expect(fetchtMock).toBeCalledWith(expectedUrl, {
         method: 'GET',
         headers: {
-          'X-Api-Key': `${config.apiKey}`,
+          Authorization: `Bearer ${config.authToken}`,
         },
       });
       expect(result).toEqual({

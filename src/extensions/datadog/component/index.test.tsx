@@ -4,7 +4,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { DatadogMonitor } from './';
+import { DatadogMonitor } from '.';
 import { faker } from '@faker-js/faker';
 
 jest.mock('@mui/material/TextField', () => ({

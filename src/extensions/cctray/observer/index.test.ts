@@ -1,7 +1,7 @@
-import { CCTray } from './CCTray';
+import { CCTray } from './';
 import { faker } from '@faker-js/faker';
-import { Status } from '../../types/Status';
-import { CCTrayConfiguration } from '../../types/CCTrayConfiguration';
+import { Status } from '../../../types/Status';
+import { CCTrayConfiguration } from '../../../types/CCTrayConfiguration';
 
 const fetchtMock = jest.fn();
 jest.mock('electron-fetch', () => {

@@ -1,30 +1,16 @@
-import { GithubAction } from './GithubAction';
-import { CCTray } from './CCTray';
-import { store } from '../../store';
-import { TrayMenu } from '../TrayMenu';
-import { NotificationManager } from '../NotificationManager';
-import { State } from '../../types/State';
-import { Observer } from '../../types/Observer';
-import { ObserverConfiguration } from '../../types/ObserverConfiguration';
-import { Status } from '../../types/Status';
-import { DatadogMonitor } from './DatadogMonitor';
-import { MapType } from '../../types/MapType';
-import { Sentry } from './Sentry';
-import { NewRelic } from './NewRelic';
-import { Grafana } from './grafana';
+import { store } from '../store';
+import { TrayMenu } from './TrayMenu';
+import { NotificationManager } from './NotificationManager';
+import { State } from '../types/State';
+import { Observer } from '../types/Observer';
+import { ObserverConfiguration } from '../types/ObserverConfiguration';
+import { Status } from '../types/Status';
+import { ObserversBuildersMap } from '../extensions/observerBuiderMap';
 
 export class ObserverManager {
   private observers: Observer[];
   private globalState: State;
   private observersState: State[];
-  private readonly ObserversBuildersMap: MapType<(config: any) => Observer> = {
-    githubAction: (configuration: any) => new GithubAction(configuration as any),
-    ccTray: (configuration: any) => new CCTray(configuration as any),
-    datadogMonitor: (configuration: any) => new DatadogMonitor(configuration as any),
-    sentry: (configuration: any) => new Sentry(configuration as any),
-    newRelic: (configuration: any) => new NewRelic(configuration as any),
-    grafana: (configuration: any) => new Grafana(configuration as any),
-  };
 
   constructor(
     private tray: TrayMenu,
@@ -59,7 +45,7 @@ export class ObserverManager {
     this.observers = (store.get('observables') as ObserverConfiguration[]).map(
       (configuration: ObserverConfiguration) => {
         try {
-          return this.ObserversBuildersMap[configuration.type](configuration);
+          return ObserversBuildersMap[configuration.type](configuration);
         } catch (error) {
           console.error(error);
         }

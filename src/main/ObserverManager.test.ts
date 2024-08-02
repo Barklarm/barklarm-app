@@ -1,17 +1,17 @@
-import { Status } from '../../types/Status';
+import { Status } from '../types/Status';
 import { ObserverManager } from './ObserverManager';
-import { TrayMenu } from '../TrayMenu';
-import { NotificationManager } from '../NotificationManager';
-import { State } from '../../types/State';
-import { GithubAction } from './GithubAction';
-import { CCTray } from './CCTray';
-import { Sentry } from './Sentry';
-import { DatadogMonitor } from './DatadogMonitor';
-import { NewRelic } from './NewRelic';
+import { TrayMenu } from './TrayMenu';
+import { NotificationManager } from './NotificationManager';
+import { State } from '../types/State';
+import { GithubAction } from '../extensions/github/observer';
+import { CCTray } from '../extensions/cctray/observer';
+import { Sentry } from '../extensions/sentry/observer';
+import { DatadogMonitor } from '../extensions/datadog/observer';
+import { NewRelic } from '../extensions/newRelic/observer';
 
 const storeGetMock = jest.fn();
 
-jest.mock('../../store', () => ({
+jest.mock('../store', () => ({
   store: {
     get: (...params: any[]) => storeGetMock(...params),
   },

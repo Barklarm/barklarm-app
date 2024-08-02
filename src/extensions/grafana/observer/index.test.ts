@@ -1,7 +1,7 @@
-import { Sentry } from './Sentry';
 import { faker } from '@faker-js/faker';
-import { Status } from '../../types/Status';
-import { SentryConfiguration } from '../../types/SentryConfiguration';
+import { Status } from '../../../types/Status';
+import { GrafanaConfiguration } from '../../../types/GrafanaConfiguration';
+import { Grafana } from './';
 
 const fetchtMock = jest.fn();
 jest.mock('electron-fetch', () => {
@@ -11,10 +11,10 @@ jest.mock('electron-fetch', () => {
   };
 });
 
-describe('Sentry', () => {
+describe('NewRelic', () => {
   describe('getState', () => {
-    let config: SentryConfiguration;
-    let observer: Sentry;
+    let config: GrafanaConfiguration;
+    let observer: Grafana;
 
     let expectedUrl: string;
     let expectedSite: string;
@@ -22,15 +22,14 @@ describe('Sentry', () => {
     beforeEach(() => {
       fetchtMock.mockClear();
       config = {
-        type: 'sentry',
-        organization: faker.lorem.word(),
-        project: faker.lorem.word(),
+        type: 'grafana',
+        url: faker.internet.url(),
         authToken: faker.lorem.word(),
         alias: faker.lorem.word(),
       };
-      expectedUrl = `https://sentry.io/api/0/projects/${config.organization}/${config.project}/issues/`;
-      expectedSite = `https://sentry.io/organizations/${config.organization}/projects/${config.project}`;
-      observer = new Sentry(config);
+      expectedUrl = `${config.url}/api/v1/provisioning/alert-rules`;
+      expectedSite = `${config.url}/alerting`;
+      observer = new Grafana(config);
     });
 
     it('shoulds return NA status if request return diferent value than 200', async () => {
@@ -51,9 +50,20 @@ describe('Sentry', () => {
         link: expectedSite,
       });
     });
-    it('shoulds return SUCCESS status if request return empty array', async () => {
+    it('shoulds return SUCCESS status if request return empty violations array', async () => {
       fetchtMock.mockResolvedValue({
-        json: () => Promise.resolve([]),
+        json: () =>
+          Promise.resolve([
+            {
+              execErrState: 'Success',
+            },
+            {
+              execErrState: 'Success',
+            },
+            {
+              execErrState: 'Success',
+            },
+          ]),
         ok: true,
       });
       const result = await observer.getState();
@@ -69,9 +79,20 @@ describe('Sentry', () => {
         link: expectedSite,
       });
     });
-    it('shoulds return FAILURE status if request return non empty array', async () => {
+    it('shoulds return FAILURE status if request have active alarms', async () => {
       fetchtMock.mockResolvedValue({
-        json: () => Promise.resolve([{}]),
+        json: () =>
+          Promise.resolve([
+            {
+              execErrState: 'Error',
+            },
+            {
+              execErrState: 'Success',
+            },
+            {
+              execErrState: 'Success',
+            },
+          ]),
         ok: true,
       });
       const result = await observer.getState();

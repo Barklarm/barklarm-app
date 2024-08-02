@@ -6,10 +6,10 @@ import { render, fireEvent, waitFor, screen, within } from '@testing-library/rea
 import '@testing-library/jest-dom';
 import { Observers } from './index';
 import { faker } from '@faker-js/faker';
-import { observersComponentBuilderMap } from './helpers/observersComponentBuilderMap';
-import { observersTitleBuilderMap } from './helpers/observersTitleBuilderMap';
+import { observersComponentBuilderMap } from '../../../extensions/observersComponentBuilderMap';
+import { observersTitleBuilderMap } from '../../../extensions/observersTitleBuilderMap';
 
-jest.mock('./helpers/observersComponentBuilderMap', () => ({
+jest.mock('../../../extensions/observersComponentBuilderMap', () => ({
   __esModule: true,
   observersComponentBuilderMap: {
     githubAction: jest.fn(),
@@ -19,7 +19,7 @@ jest.mock('./helpers/observersComponentBuilderMap', () => ({
     newRelic: jest.fn(),
   },
 }));
-jest.mock('./helpers/observersTitleBuilderMap', () => ({
+jest.mock('../../../extensions/observersTitleBuilderMap', () => ({
   __esModule: true,
   observersTitleBuilderMap: {
     githubAction: jest.fn(),

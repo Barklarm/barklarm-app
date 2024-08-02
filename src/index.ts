@@ -2,7 +2,7 @@ import { app, ipcMain } from 'electron';
 import { appManager } from './main/AppManager';
 import { TrayMenu } from './main/TrayMenu';
 import { AppWindow } from './main/AppWindow';
-import { ObserverManager } from './main/observers/ObserverManager';
+import { ObserverManager } from './main/ObserverManager';
 import { NotificationManager } from './main/NotificationManager';
 import { dirname, resolve, basename } from 'path';
 import updateElectronApp from 'update-electron-app';

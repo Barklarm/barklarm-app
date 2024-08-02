@@ -9,9 +9,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import { observersComponentBuilderMap } from './helpers/observersComponentBuilderMap';
-import { observersTitleBuilderMap } from './helpers/observersTitleBuilderMap';
+import { observersComponentBuilderMap } from '../../../extensions/observersComponentBuilderMap';
+import { observersTitleBuilderMap } from '../../../extensions/observersTitleBuilderMap';
 import { ObserversParams } from '../../../types/ObserversParams';
+import { observersList } from '../../../extensions/observersList';
 
 export const Observers = ({ observables, add, remove, update, save, translate }: ObserversParams) => {
   const getComponent = (observable: any, index: number, updateFieldWithValue: any): any => {
@@ -42,12 +43,9 @@ export const Observers = ({ observables, add, remove, update, save, translate }:
                 label="Observer Type"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => update('type', index, event.target.value)}
               >
-                <MenuItem value={'githubAction'}>Github Action</MenuItem>
-                <MenuItem value={'ccTray'}>CCTray</MenuItem>
-                <MenuItem value={'datadogMonitor'}>Datadog Monitor</MenuItem>
-                <MenuItem value={'sentry'}>Sentry</MenuItem>
-                <MenuItem value={'newRelic'}>New Relic</MenuItem>
-                <MenuItem value={'grafana'}>Grafana</MenuItem>
+                {observersList.map(({ value, lable }: any) => (
+                  <MenuItem value={value}>{lable}</MenuItem>
+                ))}
               </Select>
               {getComponent(observable, index, update)}
               <TextField
