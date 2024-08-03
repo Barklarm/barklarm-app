@@ -41,7 +41,6 @@ export class TrayMenu {
 
   public updateTrayImage(state: State) {
     const image = nativeImage.createFromPath(this.getIconForState(state));
-    image.setTemplateImage(true);
     this.tray.setImage(image);
   }
 
@@ -59,6 +58,7 @@ export class TrayMenu {
   }
 
   private getIconForState(state: State) {
+    console.log(this.statusToImagePathMap[state.status]);
     return this.statusToImagePathMap[state.status];
   }
 
