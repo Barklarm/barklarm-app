@@ -58,7 +58,6 @@ export class TrayMenu {
   }
 
   private getIconForState(state: State) {
-    console.log(this.statusToImagePathMap[state.status]);
     return this.statusToImagePathMap[state.status];
   }
 
