@@ -1,26 +1,37 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import { Navigator } from './components/Navigator';
-import { drawerWidth } from './themes';
 import { Observers } from './pages/Observers';
 import { General } from './pages/General';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Drawer from './components/Drawer';
+import ApiIcon from '@mui/icons-material/Api';
+import SettingsIcon from '@mui/icons-material/Settings';
+
+const menuRoutes: any = [
+  {
+    name: 'Observers',
+    path: '/observers',
+    element: <Observers />,
+    icon: <ApiIcon />,
+  },
+  {
+    name: 'General',
+    path: '/general',
+    element: <General />,
+    icon: <SettingsIcon />,
+  },
+];
 
 export const App = () => {
   return (
-    <HashRouter>
-      <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-        <Box component="nav" sx={{ width: drawerWidth }}>
-          <Navigator PaperProps={{ style: { width: drawerWidth } }} />
-        </Box>
-        <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#f5eff7' }}>
-          <Routes>
-            <Route path="/observers" element={<Observers />} />
-            <Route path="/general" element={<General />} />
-            <Route path="*" element={<Navigate to="/observers" replace />} />
-          </Routes>
-        </Box>
-      </Box>
-    </HashRouter>
+    <>
+      <Drawer routes={menuRoutes}>
+        <Routes>
+          {menuRoutes.map((route: any) => (
+            <Route {...route} />
+          ))}
+          <Route path="*" element={<Navigate to="/observers" replace />} />
+        </Routes>
+      </Drawer>
+    </>
   );
 };
