@@ -36,7 +36,7 @@ describe('Sentry', () => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId('textField-Organization');
       expect(textfield).toHaveAttribute('label', 'Organization');
-      expect(textfield).toHaveAttribute('variant', 'outlined');
+      expect(textfield).toHaveAttribute('variant', 'standard');
       expect(textfield).toHaveAttribute('value', expectedObservable.organization);
     });
 
@@ -51,7 +51,7 @@ describe('Sentry', () => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId('textField-Project');
       expect(textfield).toHaveAttribute('label', 'Project');
-      expect(textfield).toHaveAttribute('variant', 'outlined');
+      expect(textfield).toHaveAttribute('variant', 'standard');
       expect(textfield).toHaveAttribute('value', expectedObservable.project);
     });
 
@@ -66,7 +66,7 @@ describe('Sentry', () => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId('textField-Authorization Token');
       expect(textfield).toHaveAttribute('label', 'Authorization Token');
-      expect(textfield).toHaveAttribute('variant', 'outlined');
+      expect(textfield).toHaveAttribute('variant', 'standard');
       expect(textfield).toHaveAttribute('value', expectedObservable.authToken);
     });
 

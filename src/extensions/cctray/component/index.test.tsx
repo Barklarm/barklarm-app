@@ -36,7 +36,7 @@ describe('cctray', () => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId('textField-URL');
       expect(textfield).toHaveAttribute('label', 'URL');
-      expect(textfield).toHaveAttribute('variant', 'outlined');
+      expect(textfield).toHaveAttribute('variant', 'standard');
       expect(textfield).toHaveAttribute('value', expectedObservable.url);
     });
 
@@ -51,7 +51,7 @@ describe('cctray', () => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId('textField-Project');
       expect(textfield).toHaveAttribute('label', 'Project');
-      expect(textfield).toHaveAttribute('variant', 'outlined');
+      expect(textfield).toHaveAttribute('variant', 'standard');
       expect(textfield).toHaveAttribute('value', expectedObservable.name);
     });
 

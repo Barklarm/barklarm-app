@@ -34,7 +34,7 @@ describe('NewRelic Monitor', () => {
     it('should have correct textfield attributes', () => {
       const textfield = screen.getByTestId(`textField-${label}`);
       expect(textfield).toHaveAttribute('label', label);
-      expect(textfield).toHaveAttribute('variant', 'outlined');
+      expect(textfield).toHaveAttribute('variant', 'standard');
       if (type) expect(textfield).toHaveAttribute('type', type);
       expect(textfield).toHaveAttribute('value', (expectedObservable as any)[value]);
     });
