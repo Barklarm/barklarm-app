@@ -8,6 +8,7 @@ export const NewRelic = ({ observable, index, updateFieldWithValue, translate }:
     <Select
       value={observable.site}
       label={translate('Site')}
+      variant="standard"
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue('site', index, event.target.value)}
     >
       <MenuItem value={'eu.newrelic.com'}>EU</MenuItem>
@@ -15,7 +16,7 @@ export const NewRelic = ({ observable, index, updateFieldWithValue, translate }:
     </Select>
     <TextField
       label={translate('API Key')}
-      variant="outlined"
+      variant="standard"
       type="password"
       value={observable.apiKey}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

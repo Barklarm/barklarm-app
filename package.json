@@ -52,11 +52,12 @@
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
     "@faker-js/faker": "8.0.2",
-    "@mui/icons-material": "5.14.1",
-    "@mui/material": "5.14.2",
+    "@mui/icons-material": "5.15.14",
+    "@mui/material": "5.15.14",
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "14.0.0",
     "@types/jest": "29.5.3",
+    "@types/luxon": "^3.4.2",
     "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
     "@typescript-eslint/eslint-plugin": "6.2.0",
@@ -91,7 +92,9 @@
     "update-electron-app": "2.0.1"
   },
   "dependencies": {
+    "@mui/x-date-pickers": "^7.12.0",
     "cz-format-extension": "1.5.1",
+    "luxon": "^3.5.0",
     "react-router-dom": "6.14.2",
     "react-time-picker": "6.5.0"
   }

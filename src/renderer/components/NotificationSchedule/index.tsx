@@ -4,8 +4,11 @@ import Button from '@mui/material/Button';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { NotificationConfiguration } from '../../../types/NotificationEnabled';
-import { TimePicker } from 'react-time-picker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import './style.css';
+import { DateTime } from 'luxon';
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const NotificationSchedule = ({ schedules, translate, updateSchedules }: any) => {
   const [localSchedule, setLocalSchedule] = useState(schedules);
@@ -28,9 +31,8 @@ export const NotificationSchedule = ({ schedules, translate, updateSchedules }: 
           key={`notification-schedule-${index}`}
         >
           <Select
-            sx={{
-              flexBasis: '25%',
-            }}
+            sx={{ width: 170 }}
+            variant="standard"
             value={schedule.weekday}
             label={translate('Weekday')}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => update('weekday', index, event.target.value)}
@@ -44,37 +46,30 @@ export const NotificationSchedule = ({ schedules, translate, updateSchedules }: 
             <MenuItem value={0}>{translate('Sunday')}</MenuItem>
           </Select>
           <TimePicker
-            disableClock
-            clearIcon={null}
-            value={`${schedule.enableTime.hour}:${schedule.enableTime.minute}`}
-            onChange={(value) =>
-              update('enableTime', index, { hour: Number(value.substring(0, 2)), minute: Number(value.substring(3)) })
-            }
+            sx={{ width: 170 }}
+            slotProps={{ textField: { variant: 'standard' } }}
+            value={DateTime.fromObject({ hour: schedule.enableTime.hour, minute: schedule.enableTime.minute })}
+            onChange={(value) => update('enableTime', index, { hour: value.hour, minute: value.minute })}
           />
           <TimePicker
-            disableClock
-            clearIcon={null}
-            value={`${schedule.disableTime.hour}:${schedule.disableTime.minute}`}
-            onChange={(value) =>
-              update('disableTime', index, { hour: Number(value.substring(0, 2)), minute: Number(value.substring(3)) })
-            }
+            sx={{ width: 170 }}
+            slotProps={{ textField: { variant: 'standard' } }}
+            value={DateTime.fromObject({ hour: schedule.disableTime.hour, minute: schedule.disableTime.minute })}
+            onChange={(value) => update('disableTime', index, { hour: value.hour, minute: value.minute })}
           />
-          <Button
-            variant="contained"
-            sx={{
-              flexBasis: '20%',
-            }}
+          <IconButton
+            size="small"
+            sx={{ padding: '0.15rem' }}
             onClick={() =>
               setLocalSchedule(localSchedule.filter((_: any, currentIndex: number) => currentIndex != index))
             }
           >
-            {translate('Delete')}
-          </Button>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </Stack>
       ))}
       <Stack spacing={2} direction="row">
         <Button
-          variant="contained"
           onClick={() =>
             setLocalSchedule([
               ...localSchedule,

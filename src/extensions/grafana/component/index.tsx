@@ -5,13 +5,13 @@ export const Grafana = ({ observable, index, updateFieldWithValue, translate }: 
   <>
     <TextField
       label={translate('URL')}
-      variant="outlined"
+      variant="standard"
       value={observable.url}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue('url', index, event.target.value)}
     />
     <TextField
       label={translate('Authorization Token')}
-      variant="outlined"
+      variant="standard"
       type="password"
       value={observable.authToken}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

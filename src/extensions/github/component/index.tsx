@@ -5,7 +5,7 @@ export const GithubAction = ({ observable, index, updateFieldWithValue, translat
   <>
     <TextField
       label={translate('Owner')}
-      variant="outlined"
+      variant="standard"
       value={observable.owner}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
         updateFieldWithValue('owner', index, event.target.value)
@@ -13,13 +13,13 @@ export const GithubAction = ({ observable, index, updateFieldWithValue, translat
     />
     <TextField
       label={translate('Repository')}
-      variant="outlined"
+      variant="standard"
       value={observable.repo}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue('repo', index, event.target.value)}
     />
     <TextField
       label={translate('Workflow ID')}
-      variant="outlined"
+      variant="standard"
       value={observable.workflowId}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
         updateFieldWithValue('workflowId', index, event.target.value)
@@ -27,7 +27,7 @@ export const GithubAction = ({ observable, index, updateFieldWithValue, translat
     />
     <TextField
       label={translate('Authorization Token')}
-      variant="outlined"
+      variant="standard"
       type="password"
       value={observable.authToken}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

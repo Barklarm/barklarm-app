@@ -5,7 +5,7 @@ export const Sentry = ({ observable, index, updateFieldWithValue, translate }: a
   <>
     <TextField
       label={translate('Organization')}
-      variant="outlined"
+      variant="standard"
       value={observable.organization}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
         updateFieldWithValue('organization', index, event.target.value)
@@ -13,7 +13,7 @@ export const Sentry = ({ observable, index, updateFieldWithValue, translate }: a
     />
     <TextField
       label={translate('Project')}
-      variant="outlined"
+      variant="standard"
       value={observable.project}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
         updateFieldWithValue('project', index, event.target.value)
@@ -21,7 +21,7 @@ export const Sentry = ({ observable, index, updateFieldWithValue, translate }: a
     />
     <TextField
       label={translate('Authorization Token')}
-      variant="outlined"
+      variant="standard"
       type="password"
       value={observable.authToken}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

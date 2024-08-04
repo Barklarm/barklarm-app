@@ -8,6 +8,7 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue, transl
     <Select
       value={observable.site}
       label={translate('Site')}
+      variant="standard"
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue('site', index, event.target.value)}
     >
       <MenuItem value={'datadoghq.eu'}>EU</MenuItem>
@@ -18,7 +19,7 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue, transl
     </Select>
     <TextField
       label={translate('Monitor ID')}
-      variant="outlined"
+      variant="standard"
       value={observable.monitorId}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
         updateFieldWithValue('monitorId', index, event.target.value)
@@ -26,7 +27,7 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue, transl
     />
     <TextField
       label={translate('API Key')}
-      variant="outlined"
+      variant="standard"
       type="password"
       value={observable.apiKey}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -35,7 +36,7 @@ export const DatadogMonitor = ({ observable, index, updateFieldWithValue, transl
     />
     <TextField
       label={translate('Application Key')}
-      variant="outlined"
+      variant="standard"
       type="password"
       value={observable.appKey}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
