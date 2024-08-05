@@ -1,4 +1,4 @@
-import { app, ipcMain } from 'electron';
+import { ipcMain } from 'electron';
 import { join } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import { MapType } from './types/MapType';

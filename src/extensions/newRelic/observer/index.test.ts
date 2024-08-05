@@ -2,9 +2,10 @@ import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
 import { NewRelicConfiguration } from '../../../types/NewRelicConfiguration';
 import { NewRelic } from '.';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
-const fetchtMock = jest.fn();
-jest.mock('electron-fetch', () => {
+const fetchtMock = vi.fn();
+vi.mock('electron-fetch', () => {
   return {
     __esModule: true,
     default: (...all: any) => fetchtMock(...all),

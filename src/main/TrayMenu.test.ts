@@ -1,35 +1,35 @@
-import { NotificationManager } from './NotificationManager';
 import { faker } from '@faker-js/faker';
 import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { join } from 'path';
 import { Tray, nativeImage, Menu } from 'electron';
 import { TrayMenu } from './TrayMenu';
+import { expect, describe, it, vi, beforeEach, Mock } from 'vitest';
 
-jest.mock('../i18n', () => ({
+vi.mock('../i18n', () => ({
   translate: (val: string): string => val,
 }));
 
-jest.mock('electron', () => ({
+vi.mock('electron', () => ({
   nativeImage: {
-    createFromPath: jest.fn(),
+    createFromPath: vi.fn(),
   },
   Menu: {
-    buildFromTemplate: jest.fn(),
+    buildFromTemplate: vi.fn(),
   },
-  Tray: jest.fn(),
+  Tray: vi.fn(),
 }));
 
 describe('TrayMenu', () => {
   const trayMock = Tray as any;
-  const createFromPathMock: jest.Mock<any> = nativeImage.createFromPath as any;
-  const buildFromTemplateMock: jest.Mock<any> = Menu.buildFromTemplate as any;
+  const createFromPathMock: Mock<any> = nativeImage.createFromPath as any;
+  const buildFromTemplateMock: Mock<any> = Menu.buildFromTemplate as any;
   const expectedImage = {
-    setTemplateImage: jest.fn(),
+    setTemplateImage: vi.fn(),
   };
   const expectedTray = {
-    setContextMenu: jest.fn(),
-    setImage: jest.fn(),
+    setContextMenu: vi.fn(),
+    setImage: vi.fn(),
   };
   const expectedMenu = {
     some: faker.string.alphanumeric(100),

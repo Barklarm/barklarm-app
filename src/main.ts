@@ -4,15 +4,14 @@ import { TrayMenu } from './main/TrayMenu';
 import { AppWindow } from './main/AppWindow';
 import { ObserverManager } from './main/ObserverManager';
 import { NotificationManager } from './main/NotificationManager';
-import { dirname, resolve, basename } from 'path';
+import { dirname, resolve, basename, join } from 'path';
 import updateElectronApp from 'update-electron-app';
 import hasSquirrelStartupEvents from 'electron-squirrel-startup';
 import { store } from './store';
 import { initialize } from './i18n';
 import { NotificationConfiguration } from './types/NotificationEnabled';
 
-declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
-declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 
 if (store.get('autoupdate')) {
   updateElectronApp();
@@ -45,7 +44,8 @@ app.on('ready', () => {
   const observerManager = new ObserverManager(tray, notification);
   observerManager.refershObservers();
   appManager.setTray(tray);
-  appManager.setWindow(new AppWindow(MAIN_WINDOW_WEBPACK_ENTRY, MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY));
+
+  appManager.setWindow(new AppWindow(MAIN_WINDOW_VITE_DEV_SERVER_URL, join(__dirname, 'preload.js')));
   ipcMain.on('electron-refresh-observers', () => {
     observerManager.refershObservers();
   });

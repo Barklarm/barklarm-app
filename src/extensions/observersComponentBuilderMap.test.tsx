@@ -1,29 +1,30 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { observersComponentBuilderMap } from './observersComponentBuilderMap';
 import { faker } from '@faker-js/faker';
+import { expect, describe, it, vi } from 'vitest';
 
-jest.mock('./github/component', () => ({
+vi.mock('./github/component', () => ({
   __esModule: true,
   GithubAction: (props: any) => <input data-testid={`githubAction`} {...props} />,
 }));
-jest.mock('./cctray/component', () => ({
+vi.mock('./cctray/component', () => ({
   __esModule: true,
   CCTray: (props: any) => <input data-testid={`ccTray`} {...props} />,
 }));
-jest.mock('./datadog/component', () => ({
+vi.mock('./datadog/component', () => ({
   __esModule: true,
   DatadogMonitor: (props: any) => <input data-testid={`datadogMonitor`} {...props} />,
 }));
-jest.mock('./sentry/component', () => ({
+vi.mock('./sentry/component', () => ({
   __esModule: true,
   Sentry: (props: any) => <input data-testid={`sentry`} {...props} />,
 }));
-jest.mock('./newRelic/component', () => ({
+vi.mock('./newRelic/component', () => ({
   __esModule: true,
   NewRelic: (props: any) => <input data-testid={`newRelic`} {...props} />,
 }));

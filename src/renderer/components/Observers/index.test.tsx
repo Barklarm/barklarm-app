@@ -1,76 +1,76 @@
-/**
- * @jest-environment jsdom
- */
+// @vitest-environment jsdom
+
 import React from 'react';
-import { render, fireEvent, waitFor, screen, within } from '@testing-library/react';
+import { render, fireEvent, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Observers } from './index';
 import { faker } from '@faker-js/faker';
 import { observersComponentBuilderMap } from '../../../extensions/observersComponentBuilderMap';
 import { observersTitleBuilderMap } from '../../../extensions/observersTitleBuilderMap';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
-jest.mock('../../../extensions/observersComponentBuilderMap', () => ({
+vi.mock('../../../extensions/observersComponentBuilderMap', () => ({
   __esModule: true,
   observersComponentBuilderMap: {
-    githubAction: jest.fn(),
-    ccTray: jest.fn(),
-    datadogMonitor: jest.fn(),
-    sentry: jest.fn(),
-    newRelic: jest.fn(),
+    githubAction: vi.fn(),
+    ccTray: vi.fn(),
+    datadogMonitor: vi.fn(),
+    sentry: vi.fn(),
+    newRelic: vi.fn(),
   },
 }));
-jest.mock('../../../extensions/observersTitleBuilderMap', () => ({
+vi.mock('../../../extensions/observersTitleBuilderMap', () => ({
   __esModule: true,
   observersTitleBuilderMap: {
-    githubAction: jest.fn(),
-    ccTray: jest.fn(),
-    datadogMonitor: jest.fn(),
-    sentry: jest.fn(),
-    newRelic: jest.fn(),
+    githubAction: vi.fn(),
+    ccTray: vi.fn(),
+    datadogMonitor: vi.fn(),
+    sentry: vi.fn(),
+    newRelic: vi.fn(),
   },
 }));
-jest.mock('@mui/material/Stack', () => ({
+vi.mock('@mui/material/Stack', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`stack`} {...props} />,
 }));
-jest.mock('@mui/material/Button', () => ({
+vi.mock('@mui/material/Button', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`button`} {...props} />,
 }));
-jest.mock('@mui/material/Accordion', () => ({
+vi.mock('@mui/material/Accordion', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`accordion`} {...props} />,
 }));
-jest.mock('@mui/material/AccordionSummary', () => ({
+vi.mock('@mui/material/AccordionSummary', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`accordion-summary`} {...props} />,
 }));
-jest.mock('@mui/material/AccordionDetails', () => ({
+vi.mock('@mui/material/AccordionDetails', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`accordion-details`} {...props} />,
 }));
-jest.mock('@mui/material/Typography', () => ({
+vi.mock('@mui/material/Typography', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`typography`} {...props} />,
 }));
-jest.mock('@mui/material/Select', () => ({
+vi.mock('@mui/material/Select', () => ({
   __esModule: true,
   default: (props: any) => <select data-testid={`select`} {...props} />,
 }));
-jest.mock('@mui/material/MenuItem', () => ({
+vi.mock('@mui/material/MenuItem', () => ({
   __esModule: true,
   default: (props: any) => <option data-testid={`menu-item`} {...props} />,
 }));
-jest.mock('@mui/material/TextField', () => ({
+vi.mock('@mui/material/TextField', () => ({
   __esModule: true,
   default: (props: any) => <input data-testid={`text-field`} {...props} />,
 }));
 
 describe('dropzone', () => {
-  const addMock = jest.fn();
-  const removeMock = jest.fn();
-  const updateMock = jest.fn();
-  const saveMock = jest.fn();
+  const addMock = vi.fn();
+  const removeMock = vi.fn();
+  const updateMock = vi.fn();
+  const saveMock = vi.fn();
   const translateMock = (val: string): string => val;
   const observersComponentBuilderMapMock = observersComponentBuilderMap as any;
   const observersTitleBuilderMapMock = observersTitleBuilderMap as any;

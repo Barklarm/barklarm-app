@@ -1,13 +1,14 @@
 import { GithubActionConfiguration } from '../../../types/GithubActionConfiguration';
 import { GithubAction } from '.';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
 
-const requestMock = jest.fn();
+const requestMock = vi.fn();
 
-jest.mock('octokit', () => {
+vi.mock('octokit', () => {
   return {
-    Octokit: jest.fn().mockImplementation(() => {
+    Octokit: vi.fn().mockImplementation(() => {
       return { request: requestMock };
     }),
   };

@@ -1,22 +1,23 @@
 import { faker } from '@faker-js/faker';
 import { ipcRenderer, contextBridge } from 'electron';
 import { _ } from './preload';
+import { expect, describe, it, vi, beforeEach, Mock } from 'vitest';
 
-jest.mock('electron', () => ({
+vi.mock('electron', () => ({
   ipcRenderer: {
-    sendSync: jest.fn(),
-    send: jest.fn(),
+    sendSync: vi.fn(),
+    send: vi.fn(),
   },
   contextBridge: {
-    exposeInMainWorld: jest.fn(),
+    exposeInMainWorld: vi.fn(),
   },
 }));
 
 describe('preload', () => {
   const value = { some: faker.string.uuid() };
-  const sendSyncMock = ipcRenderer.sendSync as jest.Mock<any>;
-  const sendMock = ipcRenderer.send as jest.Mock<any>;
-  const exposeInMainWorldMock = contextBridge.exposeInMainWorld as jest.Mock<any>;
+  const sendSyncMock = ipcRenderer.sendSync as Mock<any>;
+  const sendMock = ipcRenderer.send as Mock<any>;
+  const exposeInMainWorldMock = contextBridge.exposeInMainWorld as Mock<any>;
 
   beforeEach(() => {
     sendSyncMock.mockReset();

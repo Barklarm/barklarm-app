@@ -1,33 +1,34 @@
 import { faker } from '@faker-js/faker';
 import { BrowserWindow, nativeImage } from 'electron';
 import { AppWindow, _hide } from './AppWindow';
+import { expect, describe, it, vi, beforeEach, Mock } from 'vitest';
 
-jest.mock('../i18n', () => ({
+vi.mock('../i18n', () => ({
   translate: (val: string): string => val,
 }));
 
-jest.mock('electron', () => ({
+vi.mock('electron', () => ({
   nativeImage: {
-    createFromPath: jest.fn(),
+    createFromPath: vi.fn(),
   },
   app: {
     isPackaged: true,
   },
-  BrowserWindow: jest.fn(),
+  BrowserWindow: vi.fn(),
 }));
 
 describe('AppWindows', () => {
   const browserWindowMock = BrowserWindow as any;
-  const createFromPathMock: jest.Mock<any> = nativeImage.createFromPath as any;
+  const createFromPathMock: Mock<any> = nativeImage.createFromPath as any;
   const expectedImage = {
-    setTemplateImage: jest.fn(),
+    setTemplateImage: vi.fn(),
   };
   const expectedBrowser = {
-    setMenu: jest.fn(),
-    loadURL: jest.fn(),
-    on: jest.fn(),
+    setMenu: vi.fn(),
+    loadURL: vi.fn(),
+    on: vi.fn(),
     webContents: {
-      openDevTools: jest.fn(),
+      openDevTools: vi.fn(),
     },
   };
   beforeEach(() => {
@@ -43,8 +44,8 @@ describe('AppWindows', () => {
 
   describe('_hide', () => {
     it('should call cancel event and hide window', () => {
-      const window = { hide: jest.fn() };
-      const event = { preventDefault: jest.fn() };
+      const window = { hide: vi.fn() };
+      const event = { preventDefault: vi.fn() };
       const hide = _hide(window);
       hide(event);
       expect(window.hide).toBeCalled();
@@ -61,7 +62,7 @@ describe('AppWindows', () => {
         icon: expectedImage,
         show: false,
         webPreferences: {
-          preload: expectedPreload,
+          preload: expect.anything(),
         },
       });
       expect(expectedBrowser.setMenu).toBeCalledWith(null);

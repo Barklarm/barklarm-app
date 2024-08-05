@@ -1,26 +1,27 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
 import React from 'react';
-import { render, fireEvent, waitFor, screen, within } from '@testing-library/react';
+import { render, fireEvent, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DropZone } from './index';
 import { faker } from '@faker-js/faker';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
-jest.mock('@mui/material/Backdrop', () => ({
+vi.mock('@mui/material/Backdrop', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`backdrop`} {...props} />,
 }));
-jest.mock('@mui/material/Box', () => ({
+vi.mock('@mui/material/Box', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`box`} {...props} />,
 }));
 
 describe('dropzone', () => {
   const childrenText = faker.string.uuid();
-  const onDragOverMock = jest.fn();
-  const onDragLeaveMock = jest.fn();
-  const onDropMock = jest.fn();
+  const onDragOverMock = vi.fn();
+  const onDragLeaveMock = vi.fn();
+  const onDropMock = vi.fn();
   beforeEach(() => {
     onDragOverMock.mockClear();
     onDragLeaveMock.mockClear();

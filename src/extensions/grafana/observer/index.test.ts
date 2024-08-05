@@ -1,10 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 import { GrafanaConfiguration } from '../../../types/GrafanaConfiguration';
 import { Grafana } from './';
 
-const fetchtMock = jest.fn();
-jest.mock('electron-fetch', () => {
+const fetchtMock = vi.fn();
+vi.mock('electron-fetch', () => {
   return {
     __esModule: true,
     default: (...all: any) => fetchtMock(...all),

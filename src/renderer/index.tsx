@@ -9,7 +9,7 @@ import './app.css';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 const container = document.getElementById('root');
-const root = createRoot(container!);
+const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>

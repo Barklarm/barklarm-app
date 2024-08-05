@@ -1,28 +1,28 @@
 import { faker } from '@faker-js/faker';
+import { expect, describe, it, vi, Mock } from 'vitest';
 import { ipcMain } from 'electron';
 import { _ } from './store';
 
 const expectedResult = { some: faker.string.uuid() };
-jest.mock('electron-store', () => {
-  return jest.fn().mockImplementation(() => {
+vi.mock('electron-store', () => ({
+  default: vi.fn().mockImplementation(() => {
     return {
       get: () => expectedResult,
       set: () => true,
     };
-  });
-});
+  }),
+}));
 
-jest.mock('electron', () => {
+vi.mock('electron', () => {
   return {
     ipcMain: {
-      on: jest.fn(),
+      on: vi.fn(),
     },
   };
 });
 
 describe('preload', () => {
-  const value = { some: faker.string.uuid() };
-  const ipcMainOnMock = ipcMain.on as jest.Mock<any>;
+  const ipcMainOnMock = ipcMain.on as Mock<any>;
 
   describe('storeGet', () => {
     it('should call ipcmain on with Get functionality', () => {
@@ -40,7 +40,6 @@ describe('preload', () => {
       expect(ipcMainOnMock).toBeCalledWith('electron-store-set', _.storeSet);
     });
     it('should set key value in the store', () => {
-      const event: any = {};
       const expectedKey = faker.string.uuid();
       const expectedValue = faker.string.uuid();
       _.storeSet(undefined, expectedKey, expectedValue);

@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { mutations } from './mutations';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
 describe('mutations', () => {
   const initialObservables = [
@@ -7,7 +8,7 @@ describe('mutations', () => {
     { some: faker.string.uuid() },
     { some: faker.string.uuid() },
   ];
-  const setObservablesMock = jest.fn();
+  const setObservablesMock = vi.fn();
   let mutationFunctions: any;
 
   beforeEach(() => {

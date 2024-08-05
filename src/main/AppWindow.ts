@@ -23,7 +23,7 @@ export class AppWindow {
       icon: nativeImage.createFromPath(this.IconPath),
       show: false,
       webPreferences: {
-        preload: preload,
+        preload,
       },
     });
     window.setMenu(null);

@@ -1,4 +1,5 @@
 import { observersTitleBuilderMap } from './observersTitleBuilderMap';
+import { expect, describe, it } from 'vitest';
 
 describe('observersComponentBuilderMap', () => {
   describe.each([

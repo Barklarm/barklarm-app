@@ -1,13 +1,14 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
 import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { CCTray } from './';
 import { faker } from '@faker-js/faker';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
-jest.mock('@mui/material/TextField', () => ({
+vi.mock('@mui/material/TextField', () => ({
   __esModule: true,
   default: (props: any) => <input data-testid={`textField-${props.label}`} {...props} />,
 }));
@@ -17,8 +18,8 @@ describe('cctray', () => {
     url: faker.internet.url(),
     name: faker.lorem.word(),
   };
-  const expectedIndex = faker.random.numeric();
-  const updateFieldMock = jest.fn();
+  const expectedIndex = faker.number.int();
+  const updateFieldMock = vi.fn();
   const translateMock = (val: string): string => val;
 
   beforeEach(() => {

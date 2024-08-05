@@ -1,14 +1,15 @@
 import { faker } from '@faker-js/faker';
 import { storage } from './storage';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
 describe('storage', () => {
   const electronMock = {
     store: {
-      set: jest.fn(),
-      get: jest.fn(),
+      set: vi.fn(),
+      get: vi.fn(),
     },
     app: {
-      refreshObservers: jest.fn(),
+      refreshObservers: vi.fn(),
     },
   };
   let storageFunctions: any;

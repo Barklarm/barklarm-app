@@ -4,9 +4,10 @@ import { Status } from '../../../types/Status';
 import { DetadogMonitorConfiguration } from '../../../types/DetadogMonitorConfiguration';
 import { v1 } from '@datadog/datadog-api-client';
 import { ServerConfiguration } from '@datadog/datadog-api-client/dist/packages/datadog-api-client-common';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
-const createConfigurationMock = jest.fn();
-const getMonitorMock = jest.fn();
+const createConfigurationMock = vi.fn();
+const getMonitorMock = vi.fn();
 const MonitorApiMock = {
   getMonitor: getMonitorMock,
 };
@@ -14,28 +15,28 @@ const serverConfigurationMock = {
   some: faker.lorem.word(),
 };
 
-jest.mock('@datadog/datadog-api-client', () => {
+vi.mock('@datadog/datadog-api-client', () => {
   return {
     __esModule: true,
     client: {
       createConfiguration: (...all: any) => createConfigurationMock(...all),
     },
     v1: {
-      MonitorsApi: jest.fn().mockImplementation(() => MonitorApiMock),
+      MonitorsApi: vi.fn().mockImplementation(() => MonitorApiMock),
     },
   };
 });
 
-jest.mock('@datadog/datadog-api-client/dist/packages/datadog-api-client-common', () => {
+vi.mock('@datadog/datadog-api-client/dist/packages/datadog-api-client-common', () => {
   return {
-    ServerConfiguration: jest.fn().mockImplementation(() => serverConfigurationMock),
+    ServerConfiguration: vi.fn().mockImplementation(() => serverConfigurationMock),
   };
 });
 
 describe('Datadog', () => {
   describe('getState', () => {
     const configurationMockReturn = {
-      value: faker.random.alpha(),
+      value: faker.string.alpha(),
     };
     let expectLink: string;
     let config: DetadogMonitorConfiguration;

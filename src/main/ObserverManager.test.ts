@@ -8,10 +8,11 @@ import { CCTray } from '../extensions/cctray/observer';
 import { Sentry } from '../extensions/sentry/observer';
 import { DatadogMonitor } from '../extensions/datadog/observer';
 import { NewRelic } from '../extensions/newRelic/observer';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
-const storeGetMock = jest.fn();
+const storeGetMock = vi.fn();
 
-jest.mock('../store', () => ({
+vi.mock('../store', () => ({
   store: {
     get: (...params: any[]) => storeGetMock(...params),
   },
@@ -20,11 +21,11 @@ jest.mock('../store', () => ({
 describe('ObserverManager', () => {
   let observerManager: ObserverManager;
   const trayMock: TrayMenu = {
-    updateTrayImage: jest.fn(),
-    updateObserverMenu: jest.fn(),
+    updateTrayImage: vi.fn(),
+    updateObserverMenu: vi.fn(),
   } as any;
   const notificationManagerMock: NotificationManager = {
-    updateNotifications: jest.fn(),
+    updateNotifications: vi.fn(),
   } as any;
 
   beforeEach(() => {
@@ -36,11 +37,11 @@ describe('ObserverManager', () => {
   });
   describe('refershObservers', () => {
     beforeEach(() => {
-      observerManager.refreshState = jest.fn();
+      observerManager.refreshState = vi.fn();
     });
 
     it('should map empty observer if nothing in store', () => {
-      storeGetMock.mockReturnValue([{}]);
+      storeGetMock.mockReturnValue([]);
       observerManager.refershObservers();
       expect(storeGetMock).toBeCalledWith('observables');
       expect(observerManager.refreshState).toBeCalled();

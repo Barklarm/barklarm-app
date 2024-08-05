@@ -3,17 +3,18 @@ import { faker } from '@faker-js/faker';
 import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { Notification } from 'electron';
-import { NotificationsConfiguration, NotificationConfiguration } from '../types/NotificationEnabled';
+import { NotificationsConfiguration } from '../types/NotificationEnabled';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
-jest.mock('../i18n', () => ({
+vi.mock('../i18n', () => ({
   translate: (val: string): string => val,
 }));
 
-jest.mock('electron', () => ({
+vi.mock('electron', () => ({
   nativeImage: {
-    createFromPath: jest.fn(),
+    createFromPath: vi.fn(),
   },
-  Notification: jest.fn(),
+  Notification: vi.fn(),
 }));
 
 describe('NotificationManager', () => {

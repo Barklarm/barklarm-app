@@ -1,44 +1,45 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
 import React from 'react';
 import { render, fireEvent, waitFor, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Observers } from './';
 import { faker } from '@faker-js/faker';
+import { expect, describe, it, vi, beforeAll, afterAll, beforeEach } from 'vitest';
 
 const mutationsMock = {
-  addObserver: jest.fn(),
-  removeObserver: jest.fn(),
-  updateObserver: jest.fn(),
-  parseDataransfer: jest.fn(),
+  addObserver: vi.fn(),
+  removeObserver: vi.fn(),
+  updateObserver: vi.fn(),
+  parseDataransfer: vi.fn(),
 };
 
-jest.mock('./helpers/mutations', () => ({
+vi.mock('./helpers/mutations', () => ({
   __esModule: true,
-  mutations: jest.fn().mockImplementation(() => mutationsMock),
+  mutations: vi.fn().mockImplementation(() => mutationsMock),
 }));
-jest.mock('../../components/Observers', () => ({
+vi.mock('../../components/Observers', () => ({
   __esModule: true,
   Observers: (props: any) => <div data-testid={`observers`} {...props} />,
 }));
-jest.mock('../../components/Dropzone', () => ({
+vi.mock('../../components/Dropzone', () => ({
   __esModule: true,
   DropZone: (props: any) => <div data-testid={`dropzone`} {...props} />,
 }));
-jest.mock('@mui/icons-material/Link', () => ({
+vi.mock('@mui/icons-material/Link', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`link`} {...props} />,
 }));
-jest.mock('@mui/material/Box', () => ({
+vi.mock('@mui/material/Box', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`box`} {...props} />,
 }));
-jest.mock('@mui/material/Typography', () => ({
+vi.mock('@mui/material/Typography', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`typography`} {...props} />,
 }));
-jest.mock('@mui/material/Stack', () => ({
+vi.mock('@mui/material/Stack', () => ({
   __esModule: true,
   default: (props: any) => <div data-testid={`stack`} {...props} />,
 }));
@@ -56,16 +57,16 @@ describe('Observers', () => {
     window.electron = {
       // eslint-disable-line no-global-assign
       store: {
-        get: jest.fn(),
-        set: jest.fn(),
-        import: jest.fn(),
-        export: jest.fn(),
+        get: vi.fn(),
+        set: vi.fn(),
+        import: vi.fn(),
+        export: vi.fn(),
       },
       translations: {
-        translate: jest.fn(),
+        translate: vi.fn(),
       },
       app: {
-        refreshObservers: jest.fn(),
+        refreshObservers: vi.fn(),
       },
     };
     (window.electron.translations.translate as any).mockImplementation((val: string): string => val);

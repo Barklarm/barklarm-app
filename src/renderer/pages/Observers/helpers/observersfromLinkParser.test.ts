@@ -1,4 +1,5 @@
 import { observersfromLinkParser } from './observersfromLinkParser';
+import { expect, describe, it } from 'vitest';
 
 describe('observersfromLinkParser', () => {
   describe.each([
