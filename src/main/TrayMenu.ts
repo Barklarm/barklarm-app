@@ -63,7 +63,6 @@ export class TrayMenu {
 
   private createNativeImage() {
     const image = nativeImage.createFromPath(this.statusToImagePathMap[Status.NA]);
-    image.setTemplateImage(true);
     return image;
   }
 

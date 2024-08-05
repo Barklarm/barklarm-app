@@ -49,7 +49,6 @@ describe('TrayMenu', () => {
     it('generates correct instance', () => {
       const tray = new TrayMenu();
       expect(createFromPathMock).toBeCalledWith(join(__dirname, '..', 'assets', 'na_icon.png'));
-      expect(expectedImage.setTemplateImage).toBeCalledWith(true);
       expect(trayMock).toBeCalledWith(expectedImage);
       expect(buildFromTemplateMock).toHaveBeenCalledWith(tray.defaultMenuItems);
       expect(expectedTray.setContextMenu).toBeCalledWith(expectedMenu);
@@ -66,7 +65,6 @@ describe('TrayMenu', () => {
       });
 
       expect(createFromPathMock).toBeCalledWith(join(__dirname, '..', 'assets', 'ok_icon.png'));
-      expect(expectedImage.setTemplateImage).toBeCalledWith(true);
       expect(expectedTray.setImage).toBeCalledWith(expectedImage);
     });
   });
