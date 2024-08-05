@@ -99,6 +99,7 @@
     "vite-plugin-static-copy": "^1.0.6"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.20.0"
+    "@rollup/rollup-linux-x64-gnu": "4.20.0",
+    "@rollup/rollup-win32-x64-msvc":"4.20.0"
   }
 }
