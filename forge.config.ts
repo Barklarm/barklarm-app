@@ -6,10 +6,10 @@ import { MakerRpm } from '@electron-forge/maker-rpm';
 import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import MakerDMG from '@electron-forge/maker-dmg';
 
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: true,
     icon: 'src/assets/favicon',
     osxSign: {
       identity: `Developer ID Application: ${process.env.MAC_DEVELOPER_ID}`,
@@ -36,6 +36,7 @@ const config: ForgeConfig = {
     new MakerZIP({}),
     new MakerRpm({}),
     new MakerDeb({}),
+    new MakerDMG({}),
   ],
   plugins: [
     new VitePlugin({
