@@ -17,7 +17,7 @@ jobs:
           node-version: 18
           cache: 'npm'
       - name: Windows Codesign executable
-        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
+        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v2.')
         run: |
           New-Item -ItemType directory -Path certificate
           Set-Content -Path certificate\certificate.txt -Value '${{ secrets.SIGNING_CERTIFICATE_BASE64 }}'
@@ -26,7 +26,7 @@ jobs:
         if: matrix.os == 'macOS-latest'
         run: python3 -m pip install setuptools  --break-system-packages
       - name: OSX Codesign executable
-        if: matrix.os == 'macOS-latest' && startsWith(github.event.head_commit.message,'v1.')
+        if: matrix.os == 'macOS-latest' && startsWith(github.event.head_commit.message,'v2.')
         env: 
           MACOS_CERTIFICATE_APP: ${{ secrets.MACOS_CERTIFICATE_APP }}
           MACOS_CERTIFICATE_APP_PWD: ${{ secrets.MACOS_CERTIFICATE_APP_PWD }}
@@ -63,7 +63,7 @@ jobs:
         with:
           coverageCommand: npm run test:cov
       - name: deploy
-        if: startsWith(github.event.head_commit.message,'v1.')
+        if: startsWith(github.event.head_commit.message,'v2.')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
@@ -73,16 +73,16 @@ jobs:
           WINDOWS_PFX_SECRET: ${{ secrets.WINDOWS_PFX_SECRET_NEW }}
         run: npm run deploy
       - name: prepare chocolatey
-        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
+        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v2.')
         run: npm run chocolatey:prepare
       - name: pack chocolatey
-        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
+        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v2.')
         uses: crazy-max/ghaction-chocolatey@v2
         with:
           args: pack .\build\chocolatey\barklarm.nuspec
       - name: push chocolatey
         continue-on-error: true
-        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v1.')
+        if: matrix.os == 'windows-latest' && startsWith(github.event.head_commit.message,'v2.')
         uses: crazy-max/ghaction-chocolatey@v2
         with:
           args: push -s https://push.chocolatey.org/ -k '${{ secrets.CHOCOLATEY_KEY }}'
