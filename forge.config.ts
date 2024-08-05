@@ -10,6 +10,7 @@ import MakerDMG from '@electron-forge/maker-dmg';
 
 const config: ForgeConfig = {
   packagerConfig: {
+    asar: true,
     icon: 'src/assets/favicon',
     osxSign: {
       identity: `Developer ID Application: ${process.env.MAC_DEVELOPER_ID}`,

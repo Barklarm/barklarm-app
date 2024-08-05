@@ -56,7 +56,8 @@ describe('AppWindows', () => {
     it('generates correct instance', () => {
       const expectedUrl = faker.internet.url();
       const expectedPreload = faker.system.directoryPath();
-      const window = new AppWindow(expectedUrl, expectedPreload);
+      const name = faker.string.alphanumeric();
+      const window = new AppWindow(expectedUrl, name, expectedPreload);
       expect(browserWindowMock).toBeCalledWith({
         title: 'Barklarm - Configuration',
         icon: expectedImage,

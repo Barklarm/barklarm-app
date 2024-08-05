@@ -12,7 +12,7 @@ export default defineConfig((env) => {
   return {
     root,
     mode,
-    base: './src',
+    base: './',
     build: {
       outDir: `.vite/renderer/${name}`,
     },

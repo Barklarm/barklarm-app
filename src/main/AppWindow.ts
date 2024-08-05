@@ -13,11 +13,11 @@ export class AppWindow {
   public readonly window: BrowserWindow;
   private readonly IconPath: string = join(__dirname, '..', 'assets', 'icon.png');
 
-  constructor(url: string, preload: string) {
-    this.window = this.createWindow(url, preload);
+  constructor(url: string, windowName: string, preload: string) {
+    this.window = this.createWindow(url, windowName, preload);
   }
 
-  createWindow(url: string, preload: string): BrowserWindow {
+  createWindow(url: string, windowName: string, preload: string): BrowserWindow {
     const window = new BrowserWindow({
       title: `Barklarm - ${translate('Configuration')}`,
       icon: nativeImage.createFromPath(this.IconPath),
@@ -27,7 +27,11 @@ export class AppWindow {
       },
     });
     window.setMenu(null);
-    window.loadURL(url);
+    if (url) {
+      window.loadURL(url);
+    } else {
+      window.loadFile(join(__dirname, `../renderer/${windowName}/index.html`));
+    }
     if (!app.isPackaged) window.webContents.openDevTools();
     const hide = _hide(window);
     window.on('minimize', hide);
