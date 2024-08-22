@@ -1,6 +1,7 @@
 export const dragdrop = (setIsDrag: any, parseDataransfer: any) => {
   return {
     onDragEnter: (e: any) => {
+      console.log('enter');
       e.preventDefault();
       e.stopPropagation();
       setIsDrag(true);

@@ -35,6 +35,7 @@ export const Observers = () => {
           onDragEnter={onDragEnter}
           sx={{
             minHeight: '100%',
+            height: '95vh',
           }}
         >
           <ObserversComponent

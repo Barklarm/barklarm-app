@@ -6,6 +6,7 @@ const githubRegex = /https:\/\/github.com\/(.+)\/(.+)\/actions\/workflows\/(.+)/
 const ccTrayRegex = /cc.xml/;
 const datadogRegex = /https:\/\/app.(.*datadog.*)\/monitors\/(.+)/;
 const sentryRegex = /https:\/\/sentry.io\/organizations\/(.+)\/projects\/(.+)\//;
+const azureDevOpsRegex = /https:\/\/sentry.io\/organizations\/(.+)\/projects\/(.+)\//;
 
 export const observersfromLinkParser: strategy[] = [
   {

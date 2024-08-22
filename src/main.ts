@@ -53,3 +53,4 @@ app.on('ready', () => {
     observerManager.refershObservers();
   });
 });
+console.log(app.getPath('userData'));
