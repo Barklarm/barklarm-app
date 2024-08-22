@@ -35,6 +35,15 @@ describe('observersfromLinkParser', () => {
         project: 'website',
       },
     ],
+    [
+      'https://orgname.visualstudio.com/projectname/_build?definitionId=11111',
+      {
+        type: 'azureDevOps',
+        orgUrl: 'https://orgname.visualstudio.com',
+        pipelineId: '11111',
+        project: 'projectname',
+      },
+    ],
   ])('%s parsed', (url: string, expectedParse: any) => {
     it('should have correct textfield attributes', () => {
       const result = observersfromLinkParser

@@ -1,4 +1,4 @@
-import { observersfromLinkParser } from './observersfromLinkParser';
+import { observersfromLinkParser } from '../../../../extensions/observersfromLinkParser';
 
 export const mutations = (observables: any[], setObservables: any) => ({
   addObserver: (observer: any): void => {

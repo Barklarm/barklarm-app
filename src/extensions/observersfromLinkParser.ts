@@ -6,7 +6,7 @@ const githubRegex = /https:\/\/github.com\/(.+)\/(.+)\/actions\/workflows\/(.+)/
 const ccTrayRegex = /cc.xml/;
 const datadogRegex = /https:\/\/app.(.*datadog.*)\/monitors\/(.+)/;
 const sentryRegex = /https:\/\/sentry.io\/organizations\/(.+)\/projects\/(.+)\//;
-const azureDevOpsRegex = /https:\/\/sentry.io\/organizations\/(.+)\/projects\/(.+)\//;
+const azureDevOpsRegex = /(https:\/\/.*\.visualstudio\.com)\/(.+)\/_build\?definitionId=(.+)/;
 
 export const observersfromLinkParser: strategy[] = [
   {
@@ -47,6 +47,29 @@ export const observersfromLinkParser: strategy[] = [
         type: 'sentry',
         organization: match[1],
         project: match[2],
+      };
+    },
+  },
+  {
+    canApply: (text: string) => sentryRegex.test(text),
+    apply: (text: string) => {
+      const match = text.match(sentryRegex);
+      return {
+        type: 'sentry',
+        organization: match[1],
+        project: match[2],
+      };
+    },
+  },
+  {
+    canApply: (text: string) => azureDevOpsRegex.test(text),
+    apply: (text: string) => {
+      const match = text.match(azureDevOpsRegex);
+      return {
+        type: 'azureDevOps',
+        orgUrl: match[1],
+        project: match[2],
+        pipelineId: match[3],
       };
     },
   },
