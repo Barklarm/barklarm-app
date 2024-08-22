@@ -6,6 +6,7 @@ import { DatadogMonitor } from './datadog/component';
 import { Sentry } from './sentry/component';
 import { NewRelic } from './newRelic/component';
 import { Grafana } from './grafana/component';
+import { AzureDevOps } from './azureDevOps/component';
 
 export const observersComponentBuilderMap: MapType<
   (observable: any, index: number, updateFieldWithValue: any, translate: any) => JSX.Element
@@ -37,5 +38,13 @@ export const observersComponentBuilderMap: MapType<
   ),
   grafana: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
     <Grafana observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} translate={translate} />
+  ),
+  azureDevOps: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <AzureDevOps
+      observable={observable}
+      index={index}
+      updateFieldWithValue={updateFieldWithValue}
+      translate={translate}
+    />
   ),
 };

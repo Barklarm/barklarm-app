@@ -14,6 +14,8 @@ describe('observersComponentBuilderMap', () => {
     ['sentry', { organization: 'organization', project: 'project' }, 'Sentry: organization/project'],
     ['newRelic', {}, 'NewRelic: alerts'],
     ['newRelic', { alias: 'awesome alias' }, 'NewRelic: awesome alias'],
+    ['azureDevOps', { project: 'project', pipelineId: 'pipelineId' }, 'Azure DevOps: project/pipelineId'],
+    ['azureDevOps', { alias: 'awesome alias' }, 'Azure DevOps: awesome alias'],
   ])('%s with %s should return %s', (type: string, observable: any, expected: string) => {
     it('should have correct textfield attributes', () => {
       const result = observersTitleBuilderMap[type](observable);

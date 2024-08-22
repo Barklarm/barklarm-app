@@ -17,6 +17,7 @@ vi.mock('../../../extensions/observersComponentBuilderMap', () => ({
     datadogMonitor: vi.fn(),
     sentry: vi.fn(),
     newRelic: vi.fn(),
+    azureDevOps: vi.fn(),
   },
 }));
 vi.mock('../../../extensions/observersTitleBuilderMap', () => ({
@@ -27,6 +28,7 @@ vi.mock('../../../extensions/observersTitleBuilderMap', () => ({
     datadogMonitor: vi.fn(),
     sentry: vi.fn(),
     newRelic: vi.fn(),
+    azureDevOps: vi.fn(),
   },
 }));
 vi.mock('@mui/material/Stack', () => ({
@@ -179,13 +181,14 @@ describe('dropzone', () => {
     const select = within(detailsStack).getByTestId('select');
     expect(select).toHaveAttribute('label', 'Observer Type');
     const menuItems = within(select).getAllByTestId('menu-item');
-    expect(menuItems).toHaveLength(6);
+    expect(menuItems).toHaveLength(7);
     expect(menuItems[0]).toHaveAttribute('value', 'githubAction');
     expect(menuItems[1]).toHaveAttribute('value', 'ccTray');
     expect(menuItems[2]).toHaveAttribute('value', 'datadogMonitor');
     expect(menuItems[3]).toHaveAttribute('value', 'sentry');
     expect(menuItems[4]).toHaveAttribute('value', 'newRelic');
     expect(menuItems[5]).toHaveAttribute('value', 'grafana');
+    expect(menuItems[6]).toHaveAttribute('value', 'azureDevOps');
     expect(within(detailsStack).getByTestId('githubAction')).toBeInTheDocument();
     const alias = within(detailsStack).getByTestId('text-field');
     expect(alias).toHaveAttribute('label', 'Alias');
@@ -226,13 +229,14 @@ describe('dropzone', () => {
     const select = within(detailsStack).getByTestId('select');
     expect(select).toHaveAttribute('label', 'Observer Type');
     const menuItems = within(select).getAllByTestId('menu-item');
-    expect(menuItems).toHaveLength(6);
+    expect(menuItems).toHaveLength(7);
     expect(menuItems[0]).toHaveAttribute('value', 'githubAction');
     expect(menuItems[1]).toHaveAttribute('value', 'ccTray');
     expect(menuItems[2]).toHaveAttribute('value', 'datadogMonitor');
     expect(menuItems[3]).toHaveAttribute('value', 'sentry');
     expect(menuItems[4]).toHaveAttribute('value', 'newRelic');
     expect(menuItems[5]).toHaveAttribute('value', 'grafana');
+    expect(menuItems[6]).toHaveAttribute('value', 'azureDevOps');
     const alias = within(detailsStack).getByTestId('text-field');
     expect(alias).toHaveAttribute('label', 'Alias');
     expect(alias).toHaveAttribute('variant', 'standard');

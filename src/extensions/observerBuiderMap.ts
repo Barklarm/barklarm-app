@@ -6,6 +6,7 @@ import { Grafana } from './grafana/observer';
 import { GithubAction } from './github/observer';
 import { CCTray } from './cctray/observer';
 import { DatadogMonitor } from './datadog/observer';
+import { AzureDevOps } from './azureDevOps/observer';
 
 export const ObserversBuildersMap: MapType<(config: any) => Observer> = {
   githubAction: (configuration: any) => new GithubAction(configuration as any),
@@ -14,4 +15,5 @@ export const ObserversBuildersMap: MapType<(config: any) => Observer> = {
   sentry: (configuration: any) => new Sentry(configuration as any),
   newRelic: (configuration: any) => new NewRelic(configuration as any),
   grafana: (configuration: any) => new Grafana(configuration as any),
+  azureDevOps: (configuration: any) => new AzureDevOps(configuration as any),
 };

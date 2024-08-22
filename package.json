@@ -95,11 +95,12 @@
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-v8": "^2.0.5",
+    "azure-devops-node-api": "^14.0.2",
     "jsdom": "^24.1.1",
     "vite-plugin-static-copy": "^1.0.6"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.20.0",
-    "@rollup/rollup-win32-x64-msvc":"4.20.0"
+    "@rollup/rollup-win32-x64-msvc": "4.20.0"
   }
 }

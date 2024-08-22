@@ -8,4 +8,6 @@ export const observersTitleBuilderMap: MapType<(observable: any) => string> = {
   sentry: (observable: any) => `Sentry: ${observable.alias || `${observable.organization}/${observable.project}`}`,
   newRelic: (observable: any) => `NewRelic: ${observable.alias || `alerts`}`,
   grafana: (observable: any) => `Grafana: ${observable.alias || observable.url}`,
+  azureDevOps: (observable: any) =>
+    `Azure DevOps: ${observable.alias || `${observable.project}/${observable.pipelineId}`}`,
 };
