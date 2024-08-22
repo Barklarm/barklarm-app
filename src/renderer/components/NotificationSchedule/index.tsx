@@ -13,7 +13,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export const NotificationSchedule = ({ schedules, translate, updateSchedules }: any) => {
   const [localSchedule, setLocalSchedule] = useState(schedules);
   const update = (fieldName: string, index: number, value: any) => {
-    console.log(value);
     setLocalSchedule(
       localSchedule.map((schedule: NotificationConfiguration, currentIndex: number) =>
         currentIndex != index ? schedule : { ...schedule, [fieldName]: value }

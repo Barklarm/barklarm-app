@@ -14,7 +14,6 @@ export class AzureDevOps implements Observer {
   private alias: string;
 
   constructor({ authToken, orgUrl, project, pipelineId, alias }: AzureDevOpsConfiguration) {
-    console.log(authToken, orgUrl, project, pipelineId, alias);
     const authHandler = getPersonalAccessTokenHandler(authToken);
     this.connection = new WebApi(orgUrl, authHandler);
     this.orgUrl = orgUrl;
