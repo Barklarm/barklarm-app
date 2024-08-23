@@ -2,14 +2,14 @@
   "name": "barklarm",
   "productName": "barklarm",
   "version": "2.2.0",
-  "description": "Build Radiator supporting Github Actions",
+  "description": "Build & Obsevability Radiator",
   "main": ".vite/build/main.js",
   "repository": "https://github.com/barklarm/barklarm-app",
   "contributors": [
     {
-      "name": "kanekotic",
-      "email": "me@kanekotic.com",
-      "url": "https://github.com/kanekotic"
+      "name": "alvaro",
+      "email": "contact@alvarolorente.dev",
+      "url": "https://github.com/alvarolorentedev"
     }
   ],
   "scripts": {
