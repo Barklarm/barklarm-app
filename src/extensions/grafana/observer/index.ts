@@ -25,10 +25,10 @@ export class Grafana implements Observer {
         },
       });
       if (!response.ok) throw new Error('response is invalid');
-      const alerRules = await response.json();
+      const alertRules = await response.json();
       return {
         name: this.alias,
-        status: this.getStatus(alerRules),
+        status: this.getStatus(alertRules),
         link: this.site,
       };
     } catch (_) {

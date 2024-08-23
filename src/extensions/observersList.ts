@@ -3,6 +3,7 @@ import { MapType } from '../types/MapType';
 export const observersList: MapType<any> = [
   { value: 'githubAction', label: 'Github Action' },
   { value: 'azureDevOps', label: 'Azure DevOps' },
+  { value: 'bitbucket', label: 'Bitbucket Pipelines' },
   { value: 'ccTray', label: 'CCTray' },
   { value: 'datadogMonitor', label: 'Datadog Monitor' },
   { value: 'sentry', label: 'Sentry' },

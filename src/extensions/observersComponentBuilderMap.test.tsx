@@ -36,6 +36,10 @@ vi.mock('./opsgenie/component', () => ({
   __esModule: true,
   Opsgenie: (props: any) => <input data-testid={`opsgenie`} {...props} />,
 }));
+vi.mock('./bitbucket/component', () => ({
+  __esModule: true,
+  Bitbucket: (props: any) => <input data-testid={`bitbucket`} {...props} />,
+}));
 
 describe('observersComponentBuilderMap', () => {
   describe.each([
@@ -46,6 +50,7 @@ describe('observersComponentBuilderMap', () => {
     ['newRelic'],
     ['azureDevOps'],
     ['opsgenie'],
+    ['bitbucket'],
   ])('%s', (type: string) => {
     it('should have correct textfield attributes', () => {
       const expectedObservable = faker.string.uuid();

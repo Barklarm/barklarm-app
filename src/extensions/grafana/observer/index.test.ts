@@ -12,7 +12,7 @@ vi.mock('electron-fetch', () => {
   };
 });
 
-describe('NewRelic', () => {
+describe('Grafana', () => {
   describe('getState', () => {
     let config: GrafanaConfiguration;
     let observer: Grafana;
