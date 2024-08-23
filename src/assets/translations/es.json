@@ -30,5 +30,7 @@
   "Owner": "Dueño",
   "Repository": "Repositorio",
   "Workflow ID": "ID del Workflow",
-  "Drop Link Here": "Soltar Enlace Aqui"
+  "Drop Link Here": "Soltar Enlace Aqui",
+  "Branch": "Rama",
+  "Workspace": "Espacio de Trabajo"
 }
