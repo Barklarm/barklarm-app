@@ -1,7 +1,7 @@
 {
   "name": "barklarm",
   "productName": "barklarm",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Build & Obsevability Radiator",
   "main": ".vite/build/main.js",
   "repository": "https://github.com/barklarm/barklarm-app",
@@ -98,6 +98,7 @@
     "azure-devops-node-api": "^14.0.2",
     "jsdom": "^24.1.1",
     "opsgenie-sdk": "^0.5.1",
+    "request": "^2.88.2",
     "vite-plugin-static-copy": "^1.0.6"
   },
   "optionalDependencies": {
