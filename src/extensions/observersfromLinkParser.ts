@@ -7,6 +7,7 @@ const ccTrayRegex = /cc.xml/;
 const datadogRegex = /https:\/\/app.(.*datadog.*)\/monitors\/(.+)/;
 const sentryRegex = /https:\/\/sentry.io\/organizations\/(.+)\/projects\/(.+)\//;
 const azureDevOpsRegex = /(https:\/\/.*\.visualstudio\.com)\/(.+)\/_build\?definitionId=(.+)/;
+const opsgenieRegex = /https:\/\/.*app\.(eu\.opsgenie\.com|opsgenie\.com)\/alert\/detail\/(.+)\/details/;
 
 export const observersfromLinkParser: strategy[] = [
   {
@@ -70,6 +71,18 @@ export const observersfromLinkParser: strategy[] = [
         orgUrl: match[1],
         project: match[2],
         pipelineId: match[3],
+      };
+    },
+  },
+  {
+    canApply: (text: string) => opsgenieRegex.test(text),
+    apply: (text: string) => {
+      const match = text.match(opsgenieRegex);
+      console.log(match[1], match[2]);
+      return {
+        type: 'opsgenie',
+        host: match[1],
+        identifier: match[2],
       };
     },
   },

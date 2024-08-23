@@ -44,6 +44,14 @@ describe('observersfromLinkParser', () => {
         project: 'projectname',
       },
     ],
+    [
+      'https://some.app.eu.opsgenie.com/alert/detail/15ccd687fb8d-1724415135067/details',
+      {
+        type: 'opsgenie',
+        host: 'eu.opsgenie.com',
+        identifier: '15ccd687fb8d-1724415135067',
+      },
+    ],
   ])('%s parsed', (url: string, expectedParse: any) => {
     it('should have correct textfield attributes', () => {
       const result = observersfromLinkParser
