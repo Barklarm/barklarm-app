@@ -32,29 +32,38 @@ vi.mock('./azureDevOps/component', () => ({
   __esModule: true,
   AzureDevOps: (props: any) => <input data-testid={`azureDevOps`} {...props} />,
 }));
+vi.mock('./opsgenie/component', () => ({
+  __esModule: true,
+  Opsgenie: (props: any) => <input data-testid={`opsgenie`} {...props} />,
+}));
 
 describe('observersComponentBuilderMap', () => {
-  describe.each([['githubAction'], ['ccTray'], ['datadogMonitor'], ['sentry'], ['newRelic'], ['azureDevOps']])(
-    '%s',
-    (type: string) => {
-      it('should have correct textfield attributes', () => {
-        const expectedObservable = faker.string.uuid();
-        const expectedIndex = faker.number.int();
-        const expectedUpdateFn = faker.string.uuid();
-        const expectedTranslateFn = faker.string.uuid();
-        const component = observersComponentBuilderMap[type](
-          expectedObservable,
-          expectedIndex,
-          expectedUpdateFn,
-          expectedTranslateFn
-        );
-        render(component);
-        const textfield = screen.getByTestId(type);
-        expect(textfield).toHaveAttribute('observable', expectedObservable);
-        expect(textfield).toHaveAttribute('index', expectedIndex.toString());
-        expect(textfield).toHaveAttribute('updateFieldWithValue', expectedUpdateFn);
-        expect(textfield).toHaveAttribute('translate', expectedTranslateFn);
-      });
-    }
-  );
+  describe.each([
+    ['githubAction'],
+    ['ccTray'],
+    ['datadogMonitor'],
+    ['sentry'],
+    ['newRelic'],
+    ['azureDevOps'],
+    ['opsgenie'],
+  ])('%s', (type: string) => {
+    it('should have correct textfield attributes', () => {
+      const expectedObservable = faker.string.uuid();
+      const expectedIndex = faker.number.int();
+      const expectedUpdateFn = faker.string.uuid();
+      const expectedTranslateFn = faker.string.uuid();
+      const component = observersComponentBuilderMap[type](
+        expectedObservable,
+        expectedIndex,
+        expectedUpdateFn,
+        expectedTranslateFn
+      );
+      render(component);
+      const textfield = screen.getByTestId(type);
+      expect(textfield).toHaveAttribute('observable', expectedObservable);
+      expect(textfield).toHaveAttribute('index', expectedIndex.toString());
+      expect(textfield).toHaveAttribute('updateFieldWithValue', expectedUpdateFn);
+      expect(textfield).toHaveAttribute('translate', expectedTranslateFn);
+    });
+  });
 });

@@ -10,4 +10,5 @@ export const observersTitleBuilderMap: MapType<(observable: any) => string> = {
   grafana: (observable: any) => `Grafana: ${observable.alias || observable.url}`,
   azureDevOps: (observable: any) =>
     `Azure DevOps: ${observable.alias || `${observable.project}/${observable.pipelineId}`}`,
+  opsgenie: (observable: any) => `Opsgenie: ${observable.alias || `${observable.host}/${observable.identifier}`}`,
 };

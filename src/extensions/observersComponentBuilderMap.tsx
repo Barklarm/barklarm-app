@@ -7,6 +7,7 @@ import { Sentry } from './sentry/component';
 import { NewRelic } from './newRelic/component';
 import { Grafana } from './grafana/component';
 import { AzureDevOps } from './azureDevOps/component';
+import { Opsgenie } from './opsgenie/component';
 
 export const observersComponentBuilderMap: MapType<
   (observable: any, index: number, updateFieldWithValue: any, translate: any) => JSX.Element
@@ -46,5 +47,8 @@ export const observersComponentBuilderMap: MapType<
       updateFieldWithValue={updateFieldWithValue}
       translate={translate}
     />
+  ),
+  opsgenie: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <Opsgenie observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} translate={translate} />
   ),
 };

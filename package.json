@@ -97,6 +97,7 @@
     "@vitest/coverage-v8": "^2.0.5",
     "azure-devops-node-api": "^14.0.2",
     "jsdom": "^24.1.1",
+    "opsgenie-sdk": "^0.5.1",
     "vite-plugin-static-copy": "^1.0.6"
   },
   "optionalDependencies": {

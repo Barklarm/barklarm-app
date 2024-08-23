@@ -7,6 +7,7 @@ import { GithubAction } from './github/observer';
 import { CCTray } from './cctray/observer';
 import { DatadogMonitor } from './datadog/observer';
 import { AzureDevOps } from './azureDevOps/observer';
+import { Opsgenie } from './opsgenie/observer';
 
 export const ObserversBuildersMap: MapType<(config: any) => Observer> = {
   githubAction: (configuration: any) => new GithubAction(configuration as any),
@@ -16,4 +17,5 @@ export const ObserversBuildersMap: MapType<(config: any) => Observer> = {
   newRelic: (configuration: any) => new NewRelic(configuration as any),
   grafana: (configuration: any) => new Grafana(configuration as any),
   azureDevOps: (configuration: any) => new AzureDevOps(configuration as any),
+  opsgenie: (configuration: any) => new Opsgenie(configuration as any),
 };
