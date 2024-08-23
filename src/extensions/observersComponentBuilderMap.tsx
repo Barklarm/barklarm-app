@@ -8,6 +8,7 @@ import { NewRelic } from './newRelic/component';
 import { Grafana } from './grafana/component';
 import { AzureDevOps } from './azureDevOps/component';
 import { Opsgenie } from './opsgenie/component';
+import { Bitbucket } from './bitbucket/component';
 
 export const observersComponentBuilderMap: MapType<
   (observable: any, index: number, updateFieldWithValue: any, translate: any) => JSX.Element
@@ -50,5 +51,13 @@ export const observersComponentBuilderMap: MapType<
   ),
   opsgenie: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
     <Opsgenie observable={observable} index={index} updateFieldWithValue={updateFieldWithValue} translate={translate} />
+  ),
+  bitbucket: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
+    <Bitbucket
+      observable={observable}
+      index={index}
+      updateFieldWithValue={updateFieldWithValue}
+      translate={translate}
+    />
   ),
 };

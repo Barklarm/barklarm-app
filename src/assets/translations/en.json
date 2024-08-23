@@ -30,5 +30,7 @@
   "Owner": "Owner",
   "Repository": "Repository",
   "Workflow ID": "Workflow ID",
-  "Drop Link Here": "Drop Link Here"
+  "Drop Link Here": "Drop Link Here",
+  "Branch": "Branch",
+  "Workspace": "Workspace"
 }

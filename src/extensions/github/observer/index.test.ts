@@ -32,7 +32,7 @@ describe('Github Action', () => {
       observer = new GithubAction(config);
     });
 
-    it('shoulds return NA status if request return diferent value than 200', async () => {
+    it('shoulds return NA status if request return different value than 200', async () => {
       requestMock.mockReturnValue({
         status: 400,
         data: {
@@ -107,7 +107,7 @@ describe('Github Action', () => {
         link: expectedUrl,
       });
     });
-    it('shoulds return FAILURE status if conclusion is diferent to success', async () => {
+    it('shoulds return FAILURE status if conclusion is different to success', async () => {
       const expectedUrl = faker.internet.url();
       requestMock.mockReturnValue({
         status: 200,

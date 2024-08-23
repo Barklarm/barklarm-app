@@ -11,4 +11,5 @@ export const observersTitleBuilderMap: MapType<(observable: any) => string> = {
   azureDevOps: (observable: any) =>
     `Azure DevOps: ${observable.alias || `${observable.project}/${observable.pipelineId}`}`,
   opsgenie: (observable: any) => `Opsgenie: ${observable.alias || `${observable.host}/${observable.identifier}`}`,
+  bitbucket: (observable: any) => `Bitbucket: ${observable.alias || `${observable.repo}/${observable.branch}`}`,
 };
