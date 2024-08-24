@@ -2,7 +2,7 @@ import { Opsgenie } from '.';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
-import { OpsgenieConfiguration } from '../../../types/OpsGenieConfiguration';
+import { OpsgenieConfiguration } from '../../../types/OpsgenieConfiguration';
 
 const configureMock = vi.fn();
 const getAlertV2Mock = vi.fn();

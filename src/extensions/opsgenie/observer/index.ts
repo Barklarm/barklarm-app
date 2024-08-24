@@ -2,7 +2,7 @@ import { Observer } from '../../../types/Observer';
 import { State } from '../../../types/State';
 import { Status } from '../../../types/Status';
 import opsgenie from 'opsgenie-sdk';
-import { OpsgenieConfiguration } from '../../../types/OpsGenieConfiguration';
+import { OpsgenieConfiguration } from '../../../types/OpsgenieConfiguration';
 
 const promisify =
   (fun: any) =>
@@ -23,7 +23,7 @@ export class Opsgenie implements Observer {
     });
     this.host = host;
     this.identifier = identifier;
-    this.alias = alias || `OpsGenie: ${host}/${identifier}`;
+    this.alias = alias || `Opsgenie: ${host}/${identifier}`;
   }
 
   public async getState(): Promise<State> {
