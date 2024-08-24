@@ -18,7 +18,7 @@ describe('observersComponentBuilderMap', () => {
     ['azureDevOps', { alias: 'awesome alias' }, 'Azure DevOps: awesome alias'],
     ['opsgenie', { host: 'host', identifier: 'id' }, 'Opsgenie: host/id'],
     ['opsgenie', { alias: 'awesome alias' }, 'Opsgenie: awesome alias'],
-    ['bitbucket', { workspace: 'workspace', repo: 'repo', branch: 'branch' }, 'Bitbucket: repo/branch'],
+    ['bitbucket', { workspace: 'workspace', repo: 'repo', branch: 'branch' }, 'Bitbucket: workspace/repo/branch'],
     ['bitbucket', { alias: 'awesome alias' }, 'Bitbucket: awesome alias'],
   ])('%s with %s should return %s', (type: string, observable: any, expected: string) => {
     it('should have correct textfield attributes', () => {

@@ -65,24 +65,5 @@ describe('Azure DevOps', () => {
         });
       });
     });
-
-    it.skip('shoulds return Success status if request completed & succeded', async () => {
-      const ExpectedApiResult = {
-        state: RunState.Completed,
-        result: RunResult.Succeeded,
-        _links: {
-          web: {
-            href: faker.lorem.word(),
-          },
-        },
-      };
-      listRunsMock.mockReturnValue([ExpectedApiResult]);
-      const result = await observer.getState();
-      expect(result).toEqual({
-        name: config.alias,
-        status: Status.SUCCESS,
-        link: ExpectedApiResult._links.web.href,
-      });
-    });
   });
 });
