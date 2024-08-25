@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -16,6 +16,10 @@ export const Observers = () => {
   const [isDrag, setIsDrag] = useState(false);
   const { addObserver, removeObserver, updateObserver, parseDataransfer } = mutations(observables, setObservables);
   const { onDragEnter, onDragLeave, onDragOver, onDrop } = dragdrop(setIsDrag, parseDataransfer);
+
+  useEffect(() => {
+    saveObservers(observables);
+  }, [observables]);
   return (
     <>
       {isDrag ? (
