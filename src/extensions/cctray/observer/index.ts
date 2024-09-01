@@ -1,6 +1,6 @@
 import { State } from '../../../types/State';
 import { Observer } from '../../../types/Observer';
-import { CCTrayConfiguration } from '../../../types/CCTrayConfiguration';
+import { CCTrayConfiguration } from '../type';
 import { Status } from '../../../types/Status';
 import { XMLParser } from 'fast-xml-parser';
 import fetch from 'electron-fetch';

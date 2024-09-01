@@ -2,7 +2,7 @@ import { State } from '../../../types/State';
 import { Observer } from '../../../types/Observer';
 import { Status } from '../../../types/Status';
 import fetch from 'electron-fetch';
-import { BitbucketConfiguration } from '../../../types/BitbucketConfiguration';
+import { BitbucketConfiguration } from '../type';
 
 export class Bitbucket implements Observer {
   private readonly apiUrl: string;

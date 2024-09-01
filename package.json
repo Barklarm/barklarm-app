@@ -64,6 +64,7 @@
     "electron-squirrel-startup": "1.0.1",
     "electron-store": "8.1.0",
     "eslint": "^8.0.1",
+    "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.25.0",
     "fast-xml-parser": "4.4.1",
     "husky": "9.1.4",

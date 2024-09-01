@@ -1,4 +1,4 @@
-import { ObserverConfiguration } from './ObserverConfiguration';
+import { ObserverConfiguration } from '../../../types/ObserverConfiguration';
 
 export type AzureDevOpsConfiguration = ObserverConfiguration & {
   authToken: string;

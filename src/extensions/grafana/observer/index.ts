@@ -1,7 +1,7 @@
 import { State } from '../../../types/State';
 import { Observer } from '../../../types/Observer';
 import { Status } from '../../../types/Status';
-import { GrafanaConfiguration } from '../../../types/GrafanaConfiguration';
+import { GrafanaConfiguration } from '../type';
 import fetch from 'electron-fetch';
 
 export class Grafana implements Observer {

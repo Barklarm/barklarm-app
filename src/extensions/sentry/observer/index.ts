@@ -1,6 +1,6 @@
 import { State } from '../../../types/State';
 import { Observer } from '../../../types/Observer';
-import { SentryConfiguration } from '../../../types/SentryConfiguration';
+import { SentryConfiguration } from '../type';
 import { Status } from '../../../types/Status';
 import fetch from 'electron-fetch';
 

@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
-import { GrafanaConfiguration } from '../../../types/GrafanaConfiguration';
+import { GrafanaConfiguration } from '../type';
 import { Grafana } from './';
 
 const fetchtMock = vi.fn();

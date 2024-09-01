@@ -1,7 +1,7 @@
 import { CCTray } from './';
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
-import { CCTrayConfiguration } from '../../../types/CCTrayConfiguration';
+import { CCTrayConfiguration } from '../type';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
 
 const fetchtMock = vi.fn();

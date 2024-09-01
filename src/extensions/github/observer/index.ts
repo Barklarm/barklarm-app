@@ -1,7 +1,7 @@
 import { Octokit } from 'octokit';
 import { Observer } from '../../../types/Observer';
 import { State } from '../../../types/State';
-import { GithubActionConfiguration } from '../../../types/GithubActionConfiguration';
+import { GithubActionConfiguration } from '../type';
 import { Status } from '../../../types/Status';
 
 export class GithubAction implements Observer {

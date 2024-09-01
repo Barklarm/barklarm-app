@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
-import { NewRelicConfiguration } from '../../../types/NewRelicConfiguration';
+import { NewRelicConfiguration } from '../type';
 import { NewRelic } from '.';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
 

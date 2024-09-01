@@ -1,4 +1,4 @@
-import { GithubActionConfiguration } from '../../../types/GithubActionConfiguration';
+import { GithubActionConfiguration } from '../type';
 import { GithubAction } from '.';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
 import { faker } from '@faker-js/faker';

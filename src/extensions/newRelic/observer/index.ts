@@ -1,6 +1,6 @@
 import { State } from '../../../types/State';
 import { Observer } from '../../../types/Observer';
-import { NewRelicConfiguration } from '../../../types/NewRelicConfiguration';
+import { NewRelicConfiguration } from '../type';
 import { Status } from '../../../types/Status';
 import fetch from 'electron-fetch';
 

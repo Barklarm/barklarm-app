@@ -1,7 +1,7 @@
 import { Sentry } from '.';
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
-import { SentryConfiguration } from '../../../types/SentryConfiguration';
+import { SentryConfiguration } from '../type';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
 
 const fetchtMock = vi.fn();

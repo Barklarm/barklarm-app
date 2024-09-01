@@ -1,4 +1,4 @@
-import { AzureDevOpsConfiguration } from '../../../types/AzureDevOpsConfiguration';
+import { AzureDevOpsConfiguration } from '../type';
 import { AzureDevOps } from '.';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
 import { faker } from '@faker-js/faker';

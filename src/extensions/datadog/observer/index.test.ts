@@ -1,7 +1,7 @@
 import { DatadogMonitor } from '.';
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
-import { DetadogMonitorConfiguration } from '../../../types/DetadogMonitorConfiguration';
+import { DetadogMonitorConfiguration } from '../type';
 import { v1 } from '@datadog/datadog-api-client';
 import { ServerConfiguration } from '@datadog/datadog-api-client/dist/packages/datadog-api-client-common';
 import { expect, describe, it, vi, beforeEach } from 'vitest';

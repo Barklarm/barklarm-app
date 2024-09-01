@@ -1,6 +1,6 @@
 import { State } from '../../../types/State';
 import { Observer } from '../../../types/Observer';
-import { DetadogMonitorConfiguration } from '../../../types/DetadogMonitorConfiguration';
+import { DetadogMonitorConfiguration } from '../type';
 import { client, v1 } from '@datadog/datadog-api-client';
 import { Status } from '../../../types/Status';
 import { ServerConfiguration } from '@datadog/datadog-api-client/dist/packages/datadog-api-client-common';

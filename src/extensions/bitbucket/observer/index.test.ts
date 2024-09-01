@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Status } from '../../../types/Status';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
-import { BitbucketConfiguration } from '../../../types/BitbucketConfiguration';
+import { BitbucketConfiguration } from '../type';
 import { Bitbucket } from './';
 
 const fetchtMock = vi.fn();
