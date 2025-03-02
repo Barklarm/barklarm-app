@@ -13,4 +13,5 @@ export const observersTitleBuilderMap: MapType<(observable: any) => string> = {
   opsgenie: (observable: any) => `Opsgenie: ${observable.alias || `${observable.host}/${observable.identifier}`}`,
   bitbucket: (observable: any) =>
     `Bitbucket: ${observable.alias || `${observable.workspace}/${observable.repo}/${observable.branch}`}`,
+  graylog: (observable: any) => `Graylog: ${observable.alias || observable.url}`,
 };

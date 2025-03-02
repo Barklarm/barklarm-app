@@ -9,5 +9,6 @@ export const observersList: MapType<any> = [
   { value: 'sentry', label: 'Sentry' },
   { value: 'newRelic', label: 'New Relic' },
   { value: 'opsgenie', label: 'Opsgenie' },
+  { value: 'graylog', label: 'Graylog' },
   { value: 'grafana', label: 'Grafana (Alpha)' },
 ];

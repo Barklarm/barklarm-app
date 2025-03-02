@@ -20,6 +20,8 @@ describe('observersComponentBuilderMap', () => {
     ['opsgenie', { alias: 'awesome alias' }, 'Opsgenie: awesome alias'],
     ['bitbucket', { workspace: 'workspace', repo: 'repo', branch: 'branch' }, 'Bitbucket: workspace/repo/branch'],
     ['bitbucket', { alias: 'awesome alias' }, 'Bitbucket: awesome alias'],
+    ['graylog', { url: 'awesome url' }, 'Graylog: awesome url'],
+    ['graylog', { alias: 'awesome alias' }, 'Graylog: awesome alias'],
   ])('%s with %s should return %s', (type: string, observable: any, expected: string) => {
     it('should have correct textfield attributes', () => {
       const result = observersTitleBuilderMap[type](observable);

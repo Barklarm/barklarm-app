@@ -18,6 +18,7 @@ vi.mock('../../../extensions/observersComponentBuilderMap', () => ({
     sentry: vi.fn(),
     newRelic: vi.fn(),
     azureDevOps: vi.fn(),
+    graylog: vi.fn(),
   },
 }));
 vi.mock('../../../extensions/observersTitleBuilderMap', () => ({
@@ -29,6 +30,7 @@ vi.mock('../../../extensions/observersTitleBuilderMap', () => ({
     sentry: vi.fn(),
     newRelic: vi.fn(),
     azureDevOps: vi.fn(),
+    graylog: vi.fn(),
   },
 }));
 vi.mock('@mui/material/Stack', () => ({
@@ -181,7 +183,7 @@ describe('dropzone', () => {
     const select = within(detailsStack).getByTestId('select');
     expect(select).toHaveAttribute('label', 'Observer Type');
     const menuItems = within(select).getAllByTestId('menu-item');
-    expect(menuItems).toHaveLength(9);
+    expect(menuItems).toHaveLength(10);
     expect(menuItems[0]).toHaveAttribute('value', 'githubAction');
     expect(menuItems[1]).toHaveAttribute('value', 'azureDevOps');
     expect(menuItems[2]).toHaveAttribute('value', 'bitbucket');
@@ -190,7 +192,8 @@ describe('dropzone', () => {
     expect(menuItems[5]).toHaveAttribute('value', 'sentry');
     expect(menuItems[6]).toHaveAttribute('value', 'newRelic');
     expect(menuItems[7]).toHaveAttribute('value', 'opsgenie');
-    expect(menuItems[8]).toHaveAttribute('value', 'grafana');
+    expect(menuItems[8]).toHaveAttribute('value', 'graylog');
+    expect(menuItems[9]).toHaveAttribute('value', 'grafana');
     expect(within(detailsStack).getByTestId('githubAction')).toBeInTheDocument();
     const alias = within(detailsStack).getByTestId('text-field');
     expect(alias).toHaveAttribute('label', 'Alias');
@@ -231,7 +234,7 @@ describe('dropzone', () => {
     const select = within(detailsStack).getByTestId('select');
     expect(select).toHaveAttribute('label', 'Observer Type');
     const menuItems = within(select).getAllByTestId('menu-item');
-    expect(menuItems).toHaveLength(9);
+    expect(menuItems).toHaveLength(10);
     expect(menuItems[0]).toHaveAttribute('value', 'githubAction');
     expect(menuItems[1]).toHaveAttribute('value', 'azureDevOps');
     expect(menuItems[2]).toHaveAttribute('value', 'bitbucket');
@@ -240,7 +243,8 @@ describe('dropzone', () => {
     expect(menuItems[5]).toHaveAttribute('value', 'sentry');
     expect(menuItems[6]).toHaveAttribute('value', 'newRelic');
     expect(menuItems[7]).toHaveAttribute('value', 'opsgenie');
-    expect(menuItems[8]).toHaveAttribute('value', 'grafana');
+    expect(menuItems[8]).toHaveAttribute('value', 'graylog');
+    expect(menuItems[9]).toHaveAttribute('value', 'grafana');
     const alias = within(detailsStack).getByTestId('text-field');
     expect(alias).toHaveAttribute('label', 'Alias');
     expect(alias).toHaveAttribute('variant', 'standard');

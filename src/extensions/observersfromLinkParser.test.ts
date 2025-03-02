@@ -52,6 +52,13 @@ describe('observersfromLinkParser', () => {
         identifier: '15ccd687fb8d-1724415135067',
       },
     ],
+    [
+      'https://graylog.cloudtest/alerts',
+      {
+        type: 'graylog',
+        url: 'https://graylog.cloudtest',
+      },
+    ],
   ])('%s parsed', (url: string, expectedParse: any) => {
     it('should have correct textfield attributes', () => {
       const result = observersfromLinkParser

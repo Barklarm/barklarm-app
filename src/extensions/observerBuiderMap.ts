@@ -9,6 +9,7 @@ import { DatadogMonitor } from './datadog/observer';
 import { AzureDevOps } from './azureDevOps/observer';
 import { Opsgenie } from './opsgenie/observer';
 import { Bitbucket } from './bitbucket/observer';
+import { Graylog } from './graylog/observer';
 
 export const ObserversBuildersMap: MapType<(config: any) => Observer> = {
   githubAction: (configuration: any) => new GithubAction(configuration as any),
@@ -20,4 +21,5 @@ export const ObserversBuildersMap: MapType<(config: any) => Observer> = {
   azureDevOps: (configuration: any) => new AzureDevOps(configuration as any),
   opsgenie: (configuration: any) => new Opsgenie(configuration as any),
   bitbucket: (configuration: any) => new Bitbucket(configuration as any),
+  graylog: (configuration: any) => new Graylog(configuration as any),
 };
