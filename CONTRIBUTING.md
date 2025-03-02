@@ -9,11 +9,11 @@ Fork, then clone the repo:
 
 Install dependencies:
 
-    yarn install
+    npm i install
 
 Make your change. Add tests for your change. Make the tests pass:
 
-    yarn test
+    npm run test
 
 Push to your fork and [submit a pull request][pr].
 
