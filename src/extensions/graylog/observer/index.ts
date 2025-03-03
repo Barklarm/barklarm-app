@@ -12,7 +12,7 @@ export class Graylog implements Observer {
   private readonly password: string;
 
   constructor({ url, alias, username, password }: GraylogConfiguration) {
-    this.url = `${url}/streams/alerts/paginated`;
+    this.url = `${url}/api/streams/alerts/paginated`;
     this.site = `${url}/alerts`;
     this.alias = alias || `Graylog: ${url}`;
     this.username = username;
@@ -20,8 +20,6 @@ export class Graylog implements Observer {
   }
   public async getState(): Promise<State> {
     try {
-      const params = new URLSearchParams();
-      params.append('username', 'example');
       const response = await fetch(`${this.url}?skip=0&limit=300&state=unresolved`, {
         method: 'GET',
         headers: {

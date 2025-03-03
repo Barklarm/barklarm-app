@@ -29,7 +29,7 @@ describe('Graylog', () => {
         password: faker.lorem.word(),
         alias: faker.lorem.word(),
       };
-      expectedUrl = `${config.url}/streams/alerts/paginated?skip=0&limit=300&state=unresolved`;
+      expectedUrl = `${config.url}/api/streams/alerts/paginated?skip=0&limit=300&state=unresolved`;
       expectedSite = `${config.url}/alerts`;
       observer = new Graylog(config);
     });
