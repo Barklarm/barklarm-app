@@ -15,7 +15,8 @@ vi.mock('@mui/material/TextField', () => ({
 
 describe('Grafana Monitor', () => {
   const expectedObservable = {
-    apiKey: faker.lorem.word(),
+    url: faker.lorem.word(),
+    authToken: faker.lorem.word(),
   };
   const expectedIndex = faker.number.int();
   const updateFieldMock = vi.fn();

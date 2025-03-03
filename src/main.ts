@@ -5,7 +5,7 @@ import { AppWindow } from './main/AppWindow';
 import { ObserverManager } from './main/ObserverManager';
 import { NotificationManager } from './main/NotificationManager';
 import { dirname, resolve, basename, join } from 'path';
-import updateElectronApp from 'update-electron-app';
+import { updateElectronApp } from 'update-electron-app';
 import hasSquirrelStartupEvents from 'electron-squirrel-startup';
 import { store } from './store';
 import { initialize } from './i18n';

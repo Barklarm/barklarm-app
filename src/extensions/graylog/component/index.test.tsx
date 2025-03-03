@@ -15,7 +15,9 @@ vi.mock('@mui/material/TextField', () => ({
 
 describe('Graylog Monitor', () => {
   const expectedObservable = {
-    apiKey: faker.lorem.word(),
+    username: faker.lorem.word(),
+    password: faker.lorem.word(),
+    url: faker.lorem.word(),
   };
   const expectedIndex = faker.number.int();
   const updateFieldMock = vi.fn();

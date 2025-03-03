@@ -36,7 +36,7 @@ describe('Github Action', () => {
       requestMock.mockReturnValue({
         status: 400,
         data: {
-          total_count: faker.random.numeric(),
+          total_count: faker.number.int(),
         },
       });
       const result = await observer.getState();

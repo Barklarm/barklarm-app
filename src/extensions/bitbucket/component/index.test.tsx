@@ -15,9 +15,9 @@ vi.mock('@mui/material/TextField', () => ({
 
 describe('Bitbucket', () => {
   const expectedObservable = {
-    owner: faker.lorem.word(),
+    workspace: faker.lorem.word(),
     repo: faker.lorem.word(),
-    workflowId: faker.lorem.word(),
+    branch: faker.lorem.word(),
     authToken: faker.lorem.word(),
   };
   const expectedIndex = faker.number.int();

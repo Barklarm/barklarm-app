@@ -34,7 +34,7 @@ export class AppWindow {
     }
     if (!app.isPackaged) window.webContents.openDevTools();
     const hide = _hide(window);
-    window.on('minimize', hide);
+    window.on('minimize' as any, hide);
     window.on('close', hide);
     return window;
   }
