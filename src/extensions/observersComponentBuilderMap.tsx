@@ -12,7 +12,7 @@ import { Bitbucket } from './bitbucket/component';
 import { Graylog } from './graylog/component';
 
 export const observersComponentBuilderMap: MapType<
-  (observable: any, index: number, updateFieldWithValue: any, translate: any) => React.JSX.Element
+  (observable: any, index: number, updateFieldWithValue: any, translate: any) => JSX.Element
 > = {
   githubAction: (observable: any, index: number, updateFieldWithValue: any, translate: any) => (
     <GithubAction

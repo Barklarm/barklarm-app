@@ -51,7 +51,7 @@ const schema: any = {
   },
 };
 
-export const store: any = new Store({ schema });
+export const store = new Store({ schema });
 
 export const _ = {
   storeGet: (event: any, val: any) => {

@@ -5,5 +5,5 @@ export type DropZoneParams = {
   onDragOver: React.DragEventHandler<HTMLElement>;
   onDrop: React.DragEventHandler<HTMLElement>;
   onDragLeave: React.DragEventHandler<HTMLElement>;
-  children: React.JSX.Element;
+  children: JSX.Element;
 };

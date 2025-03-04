@@ -15,9 +15,9 @@ vi.mock('@mui/material/TextField', () => ({
 
 describe('Github Action', () => {
   const expectedObservable = {
-    orgUrl: faker.lorem.word(),
-    project: faker.lorem.word(),
-    pipelineId: faker.lorem.word(),
+    owner: faker.lorem.word(),
+    repo: faker.lorem.word(),
+    workflowId: faker.lorem.word(),
     authToken: faker.lorem.word(),
   };
   const expectedIndex = faker.number.int();

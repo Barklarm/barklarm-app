@@ -15,10 +15,9 @@ vi.mock('@mui/material/TextField', () => ({
 
 describe('Datadog Monitor', () => {
   const expectedObservable = {
-    site: faker.lorem.word(),
-    monitorId: faker.lorem.word(),
-    apiKey: faker.lorem.word(),
-    appKey: faker.lorem.word(),
+    organization: faker.lorem.word(),
+    project: faker.lorem.word(),
+    authToken: faker.lorem.word(),
   };
   const expectedIndex = faker.number.int();
   const updateFieldMock = vi.fn();
