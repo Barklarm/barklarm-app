@@ -1,14 +1,20 @@
 import { ipcMain } from 'electron';
-import { join } from 'path';
-import { existsSync, readFileSync } from 'fs';
-import { MapType } from './types/MapType';
+import es from './assets/translations/es.json';
+import en from './assets/translations/en.json';
 
-let loadedLanguage: MapType<string>;
+let loadedLanguage: any;
+
+const localeMap: any = {
+  es,
+  en,
+};
 
 export function initialize(locale: string) {
-  loadedLanguage = existsSync(join(__dirname, '..', 'assets', 'translations', locale.toLowerCase() + '.json'))
-    ? JSON.parse(readFileSync(join(__dirname, '..', 'assets', 'translations', locale + '.json'), 'utf8'))
-    : JSON.parse(readFileSync(join(__dirname, '..', 'assets', 'translations', 'en.json'), 'utf8'));
+  try {
+    loadedLanguage = localeMap[locale.toLowerCase()];
+  } catch (error) {
+    loadedLanguage = localeMap['en'];
+  }
 }
 
 export function translate(id: string): string {
