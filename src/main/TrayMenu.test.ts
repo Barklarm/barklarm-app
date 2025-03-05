@@ -1,10 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { State } from '../types/State';
 import { Status } from '../types/Status';
-import { join } from 'path';
 import { Tray, nativeImage, Menu } from 'electron';
 import { TrayMenu } from './TrayMenu';
 import { expect, describe, it, vi, beforeEach, Mock } from 'vitest';
+
+import naIcon from '../assets/na_icon.png';
+import okIcon from '../assets/ok_icon.png';
 
 vi.mock('../i18n', () => ({
   translate: (val: string): string => val,
@@ -12,7 +14,7 @@ vi.mock('../i18n', () => ({
 
 vi.mock('electron', () => ({
   nativeImage: {
-    createFromPath: vi.fn(),
+    createFromDataURL: vi.fn(),
   },
   Menu: {
     buildFromTemplate: vi.fn(),
@@ -22,7 +24,7 @@ vi.mock('electron', () => ({
 
 describe('TrayMenu', () => {
   const trayMock = Tray as any;
-  const createFromPathMock: Mock<any> = nativeImage.createFromPath as any;
+  const createFromDataURLMock: Mock<any> = nativeImage.createFromDataURL as any;
   const buildFromTemplateMock: Mock<any> = Menu.buildFromTemplate as any;
   const expectedImage = {
     setTemplateImage: vi.fn(),
@@ -36,19 +38,19 @@ describe('TrayMenu', () => {
   };
   beforeEach(() => {
     trayMock.mockClear();
-    createFromPathMock.mockClear();
+    createFromDataURLMock.mockClear();
     buildFromTemplateMock.mockClear();
     expectedImage.setTemplateImage.mockClear();
     expectedTray.setContextMenu.mockClear();
     expectedTray.setImage.mockClear();
-    createFromPathMock.mockReturnValue(expectedImage);
+    createFromDataURLMock.mockReturnValue(expectedImage);
     buildFromTemplateMock.mockReturnValue(expectedMenu);
     trayMock.mockReturnValue(expectedTray);
   });
   describe('Constructor', () => {
     it('generates correct instance', () => {
       const tray = new TrayMenu();
-      expect(createFromPathMock).toBeCalledWith(join(__dirname, '..', 'assets', 'na_icon.png'));
+      expect(createFromDataURLMock).toBeCalledWith(naIcon);
       expect(trayMock).toBeCalledWith(expectedImage);
       expect(buildFromTemplateMock).toHaveBeenCalledWith(tray.defaultMenuItems);
       expect(expectedTray.setContextMenu).toBeCalledWith(expectedMenu);
@@ -64,7 +66,7 @@ describe('TrayMenu', () => {
         link: faker.internet.url(),
       });
 
-      expect(createFromPathMock).toBeCalledWith(join(__dirname, '..', 'assets', 'ok_icon.png'));
+      expect(createFromDataURLMock).toBeCalledWith(okIcon);
       expect(expectedTray.setImage).toBeCalledWith(expectedImage);
     });
   });

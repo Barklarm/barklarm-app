@@ -1,10 +1,14 @@
 import { app, Tray, Menu, nativeImage, MenuItemConstructorOptions, shell } from 'electron';
 import { appManager } from './AppManager';
-import { join } from 'path';
 import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { MapType } from '../types/MapType';
 import { translate } from '../i18n';
+
+import okIcon from '../assets/ok_icon.png';
+import failIcon from '../assets/fail_icon.png';
+import runningIcon from '../assets/running_icon.png';
+import naIcon from '../assets/na_icon.png';
 
 export class TrayMenu {
   public readonly tray: Tray;
@@ -28,10 +32,10 @@ export class TrayMenu {
   ];
 
   public readonly statusToImagePathMap: MapType<string> = {
-    [Status.SUCCESS]: join(__dirname, '..', 'assets', 'ok_icon.png'),
-    [Status.FAILURE]: join(__dirname, '..', 'assets', 'fail_icon.png'),
-    [Status.CHECKING]: join(__dirname, '..', 'assets', 'running_icon.png'),
-    [Status.NA]: join(__dirname, '..', 'assets', 'na_icon.png'),
+    [Status.SUCCESS]: okIcon,
+    [Status.FAILURE]: failIcon,
+    [Status.CHECKING]: runningIcon,
+    [Status.NA]: naIcon,
   };
 
   constructor() {
@@ -40,7 +44,7 @@ export class TrayMenu {
   }
 
   public updateTrayImage(state: State) {
-    const image = nativeImage.createFromPath(this.getIconForState(state));
+    const image = nativeImage.createFromDataURL(this.getIconForState(state));
     this.tray.setImage(image);
   }
 
@@ -49,7 +53,7 @@ export class TrayMenu {
       return {
         label: observerState.name,
         submenu: [{ label: translate('Link'), click: () => shell.openExternal(observerState.link) }],
-        icon: nativeImage.createFromPath(this.getIconForState(observerState)),
+        icon: nativeImage.createFromDataURL(this.getIconForState(observerState)),
       };
     });
     this.tray.setContextMenu(
@@ -62,7 +66,7 @@ export class TrayMenu {
   }
 
   private createNativeImage() {
-    const image = nativeImage.createFromPath(this.statusToImagePathMap[Status.NA]);
+    const image = nativeImage.createFromDataURL(this.statusToImagePathMap[Status.NA]);
     return image;
   }
 
