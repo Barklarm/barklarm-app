@@ -12,6 +12,8 @@ export const General = () => {
   const {
     getAutoupdate,
     saveAutoupdate,
+    getSslDisabled,
+    saveSslDisabled,
     getAutostart,
     saveAutostart,
     getNotificationSchedule,
@@ -20,6 +22,7 @@ export const General = () => {
     exportConfig,
   } = storage(window.electron);
   const [autoupdate, setAutoupdate] = useState(getAutoupdate());
+  const [sslDisabled, setsslDisabled] = useState(getSslDisabled());
   const [autostart, setAutostart] = useState(getAutostart());
   const [notificationSchedule, setNotificationSchedule] = useState(getNotificationSchedule());
   const updateNotificationSchedule = (notificationSchedule: any) => {
@@ -68,6 +71,19 @@ export const General = () => {
           {translate('Export')}
         </Button>
       </Stack>
+      <Divider sx={{ my: 2 }}>{translate('Advanced')}</Divider>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={sslDisabled}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              saveSslDisabled(event.target.checked);
+              setsslDisabled(event.target.checked);
+            }}
+          />
+        }
+        label={translate('Disable SSL Check')}
+      />
     </Stack>
   );
 };

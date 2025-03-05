@@ -13,6 +13,10 @@ const schema: any = {
     type: 'boolean',
     default: true,
   },
+  sslDisabled: {
+    type: 'boolean',
+    default: false,
+  },
   autostart: {
     type: 'boolean',
     default: true,

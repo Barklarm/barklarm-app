@@ -18,6 +18,12 @@ if (store.get('autoupdate')) {
   updateElectronApp();
 }
 
+if (store.get('sslDisabled')) {
+  global.process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+} else {
+  global.process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1';
+}
+
 if (hasSquirrelStartupEvents) {
   app.quit();
 }

@@ -7,6 +7,12 @@ export const storage = (electron: any) => ({
   getAutoupdate: (): boolean => {
     return electron.store.get('autoupdate');
   },
+  saveSslDisabled: (sslDisabled: boolean): void => {
+    electron.store.set('sslDisabled', sslDisabled);
+  },
+  getSslDisabled: (): boolean => {
+    return electron.store.get('sslDisabled');
+  },
   saveAutostart: (autostart: boolean): void => {
     electron.store.set('autostart', autostart);
   },
