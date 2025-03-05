@@ -38,10 +38,10 @@ export class NotificationManager {
 
   public updateNotifications(old: State[], actual: State[]) {
     if (!this.areActive()) return;
-    actual.forEach((current) => {
+    return actual.forEach((current) => {
       const previous = old.find(({ name }) => name === current.name) || ({ status: Status.NA } as any);
       if (current.status === previous.status) return;
-      return new Notification(this.notificationMap[current.status](current));
+      new Notification(this.notificationMap[current.status](current)).show();
     });
   }
 
