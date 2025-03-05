@@ -4,4 +4,5 @@ export type GraylogConfiguration = ObserverConfiguration & {
   url: string;
   username: string;
   password: string;
+  streamId?: string;
 };

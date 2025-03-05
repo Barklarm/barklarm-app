@@ -10,6 +10,14 @@ export const Graylog = ({ observable, index, updateFieldWithValue, translate }: 
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFieldWithValue('url', index, event.target.value)}
     />
     <TextField
+      label={translate('Stream Id')}
+      variant="standard"
+      value={observable.streamId}
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+        updateFieldWithValue('streamId', index, event.target.value)
+      }
+    />
+    <TextField
       label={translate('Username')}
       variant="standard"
       value={observable.username}

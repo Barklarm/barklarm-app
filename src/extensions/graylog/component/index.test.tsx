@@ -33,6 +33,7 @@ describe('Graylog Monitor', () => {
   });
   describe.each([
     ['URL', 'url', undefined],
+    ['Stream Id', 'streamId', undefined],
     ['Username', 'username', undefined],
     ['Password', 'password', 'password'],
   ])('%s', (label: string, value: string, type: string) => {
