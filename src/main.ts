@@ -48,7 +48,8 @@ app.on('ready', () => {
   const notification = new NotificationManager({
     datetime: store.get('notificationSchedule') as Array<NotificationConfiguration>,
   });
-  const observerManager = new ObserverManager(tray, notification);
+
+  const observerManager = new ObserverManager(tray, notification, true, store.get('refreshInterval') as number);
   observerManager.refershObservers();
   appManager.setTray(tray);
 

@@ -13,6 +13,12 @@ export const storage = (electron: any) => ({
   getSslDisabled: (): boolean => {
     return electron.store.get('sslDisabled');
   },
+  saveRefreshInterval: (refreshInterval: number): void => {
+    electron.store.set('refreshInterval', refreshInterval);
+  },
+  getRefreshInterval: (): number => {
+    return electron.store.get('refreshInterval');
+  },
   saveAutostart: (autostart: boolean): void => {
     electron.store.set('autostart', autostart);
   },

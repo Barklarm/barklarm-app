@@ -21,6 +21,10 @@ const schema: any = {
     type: 'boolean',
     default: true,
   },
+  refreshInterval: {
+    type: 'number',
+    default: 60000,
+  },
   notificationSchedule: {
     type: 'array',
     items: {

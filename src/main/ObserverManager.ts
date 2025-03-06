@@ -15,9 +15,10 @@ export class ObserverManager {
   constructor(
     private tray: TrayMenu,
     private notifications: NotificationManager,
-    enableRefresh = true
+    enableRefresh = true,
+    refreshInterval = 60000
   ) {
-    enableRefresh && setInterval(this.refreshState.bind(this), 60000);
+    enableRefresh && setInterval(this.refreshState.bind(this), refreshInterval);
   }
 
   private calculateGlobalStatus(states: State[]) {

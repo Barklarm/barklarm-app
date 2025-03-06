@@ -6,6 +6,7 @@ import Switch from '@mui/material/Switch';
 import Divider from '@mui/material/Divider';
 import { storage } from './helpers/storage';
 import { NotificationSchedule } from '../../components/NotificationSchedule';
+import TextField from '@mui/material/TextField';
 
 export const General = () => {
   const { translate } = window.electron.translations;
@@ -14,6 +15,8 @@ export const General = () => {
     saveAutoupdate,
     getSslDisabled,
     saveSslDisabled,
+    getRefreshInterval,
+    saveRefreshInterval,
     getAutostart,
     saveAutostart,
     getNotificationSchedule,
@@ -23,6 +26,7 @@ export const General = () => {
   } = storage(window.electron);
   const [autoupdate, setAutoupdate] = useState(getAutoupdate());
   const [sslDisabled, setsslDisabled] = useState(getSslDisabled());
+  const [refreshInterval, setRefreshInterval] = useState(getRefreshInterval());
   const [autostart, setAutostart] = useState(getAutostart());
   const [notificationSchedule, setNotificationSchedule] = useState(getNotificationSchedule());
   const updateNotificationSchedule = (notificationSchedule: any) => {
@@ -83,6 +87,18 @@ export const General = () => {
           />
         }
         label={translate('Disable SSL Check')}
+      />
+      <TextField
+        label={translate('Refresh Interval (Minutes)')}
+        type="number"
+        variant="standard"
+        value={refreshInterval / 60000}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          const targetInterval: number = (event.target.value as any) * 60000;
+          if (targetInterval < 60000) return;
+          saveRefreshInterval(targetInterval);
+          setRefreshInterval(targetInterval);
+        }}
       />
     </Stack>
   );
