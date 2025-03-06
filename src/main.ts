@@ -9,7 +9,6 @@ import updateElectronApp from 'update-electron-app';
 import hasSquirrelStartupEvents from 'electron-squirrel-startup';
 import { store } from './store';
 import { initialize } from './i18n';
-import { NotificationConfiguration } from './types/NotificationEnabled';
 
 declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
@@ -45,9 +44,7 @@ app.setLoginItemSettings({
 app.on('ready', () => {
   initialize(app.getLocale()?.slice(0, 2) || 'en');
   const tray = new TrayMenu();
-  const notification = new NotificationManager({
-    datetime: store.get('notificationSchedule') as Array<NotificationConfiguration>,
-  });
+  const notification = new NotificationManager();
 
   const observerManager = new ObserverManager(tray, notification, true, store.get('refreshInterval') as number);
   observerManager.refershObservers();

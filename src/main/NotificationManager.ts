@@ -4,7 +4,6 @@ import { Status } from '../types/Status';
 import { State } from '../types/State';
 import { MapType } from '../types/MapType';
 import { translate } from '../i18n';
-import { NotificationsConfiguration, NotificationConfiguration } from '../types/NotificationEnabled';
 
 export class NotificationManager {
   private readonly notificationMap: MapType<(name: State) => NotificationConstructorOptions> = {
@@ -30,32 +29,11 @@ export class NotificationManager {
     }),
   };
 
-  private config: NotificationsConfiguration;
-
-  constructor(config: NotificationsConfiguration) {
-    this.config = config;
-  }
-
   public updateNotifications(old: State[], actual: State[]) {
-    if (!this.areActive()) return;
     return actual.forEach((current) => {
       const previous = old.find(({ name }) => name === current.name) || ({ status: Status.NA } as any);
       if (current.status === previous.status) return;
       new Notification(this.notificationMap[current.status](current)).show();
     });
-  }
-
-  private areActive() {
-    const now: Date = new Date();
-    return this.config.datetime
-      .map((dayconfig: NotificationConfiguration) => {
-        if (dayconfig.weekday !== now.getDay()) return false;
-        const begin: Date = new Date();
-        begin.setHours(dayconfig.enableTime.hour, dayconfig.enableTime.minute);
-        const end: Date = new Date();
-        end.setHours(dayconfig.disableTime.hour, dayconfig.disableTime.minute);
-        return now >= begin && now <= end;
-      })
-      .includes(true);
   }
 }

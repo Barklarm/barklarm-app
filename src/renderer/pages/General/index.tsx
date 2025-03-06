@@ -5,7 +5,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Divider from '@mui/material/Divider';
 import { storage } from './helpers/storage';
-import { NotificationSchedule } from '../../components/NotificationSchedule';
 import TextField from '@mui/material/TextField';
 
 export const General = () => {
@@ -19,8 +18,6 @@ export const General = () => {
     saveRefreshInterval,
     getAutostart,
     saveAutostart,
-    getNotificationSchedule,
-    saveNotificationSchedule,
     importConfig,
     exportConfig,
   } = storage(window.electron);
@@ -28,11 +25,6 @@ export const General = () => {
   const [sslDisabled, setsslDisabled] = useState(getSslDisabled());
   const [refreshInterval, setRefreshInterval] = useState(getRefreshInterval());
   const [autostart, setAutostart] = useState(getAutostart());
-  const [notificationSchedule, setNotificationSchedule] = useState(getNotificationSchedule());
-  const updateNotificationSchedule = (notificationSchedule: any) => {
-    saveNotificationSchedule(notificationSchedule);
-    setNotificationSchedule(notificationSchedule);
-  };
   return (
     <Stack>
       <Divider sx={{ mb: 2 }}>{translate('Update')}</Divider>
@@ -59,12 +51,6 @@ export const General = () => {
           />
         }
         label={translate('Auto Update')}
-      />
-      <Divider sx={{ my: 2 }}>{translate('Notification Enabled Schedule')}</Divider>
-      <NotificationSchedule
-        schedules={notificationSchedule}
-        translate={translate}
-        updateSchedules={updateNotificationSchedule}
       />
       <Divider sx={{ my: 2 }}>{translate('Backup')}</Divider>
       <Stack spacing={2} direction="row">
