@@ -25,6 +25,9 @@ const schema: any = {
     type: 'number',
     default: 60000,
   },
+  issuesSystemUrl: {
+    type: 'string',
+  },
 };
 
 export const store = new Store({ schema });

@@ -43,7 +43,7 @@ app.setLoginItemSettings({
 
 app.on('ready', () => {
   initialize(app.getLocale()?.slice(0, 2) || 'en');
-  const tray = new TrayMenu();
+  const tray = new TrayMenu(store.get('issuesSystemUrl') as string);
   const notification = new NotificationManager();
 
   const observerManager = new ObserverManager(tray, notification, true, store.get('refreshInterval') as number);

@@ -16,6 +16,8 @@ export const General = () => {
     saveSslDisabled,
     getRefreshInterval,
     saveRefreshInterval,
+    getIssuesSystemUrl,
+    saveIssuesSystemUrl,
     getAutostart,
     saveAutostart,
     importConfig,
@@ -24,10 +26,33 @@ export const General = () => {
   const [autoupdate, setAutoupdate] = useState(getAutoupdate());
   const [sslDisabled, setsslDisabled] = useState(getSslDisabled());
   const [refreshInterval, setRefreshInterval] = useState(getRefreshInterval());
+  const [issuesSystemUrl, setIssuesSystemUrl] = useState(getIssuesSystemUrl());
   const [autostart, setAutostart] = useState(getAutostart());
   return (
     <Stack>
-      <Divider sx={{ mb: 2 }}>{translate('Update')}</Divider>
+      <Divider sx={{ my: 2 }}>{translate('General')}</Divider>
+      <TextField
+        label={translate('Refresh Interval (Minutes)')}
+        type="number"
+        variant="standard"
+        value={refreshInterval / 60000}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          const targetInterval: number = (event.target.value as any) * 60000;
+          if (targetInterval < 60000) return;
+          saveRefreshInterval(targetInterval);
+          setRefreshInterval(targetInterval);
+        }}
+      />
+      <TextField
+        label={translate('Issues System URL')}
+        type="text"
+        variant="standard"
+        value={issuesSystemUrl}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          saveIssuesSystemUrl(event.target.value);
+          setIssuesSystemUrl(event.target.value);
+        }}
+      />
       <FormControlLabel
         control={
           <Switch
@@ -73,18 +98,6 @@ export const General = () => {
           />
         }
         label={translate('Disable SSL Check')}
-      />
-      <TextField
-        label={translate('Refresh Interval (Minutes)')}
-        type="number"
-        variant="standard"
-        value={refreshInterval / 60000}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          const targetInterval: number = (event.target.value as any) * 60000;
-          if (targetInterval < 60000) return;
-          saveRefreshInterval(targetInterval);
-          setRefreshInterval(targetInterval);
-        }}
       />
     </Stack>
   );

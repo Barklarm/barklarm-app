@@ -17,6 +17,12 @@ export const storage = (electron: any) => ({
   getRefreshInterval: (): number => {
     return electron.store.get('refreshInterval');
   },
+  saveIssuesSystemUrl: (issuesSystemUrl?: string): void => {
+    electron.store.set('issuesSystemUrl', issuesSystemUrl);
+  },
+  getIssuesSystemUrl: (): string => {
+    return electron.store.get('issuesSystemUrl');
+  },
   saveAutostart: (autostart: boolean): void => {
     electron.store.set('autostart', autostart);
   },

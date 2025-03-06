@@ -33,10 +33,12 @@ export class TrayMenu {
     [Status.CHECKING]: join(__dirname, '..', 'assets', 'running_icon.png'),
     [Status.NA]: join(__dirname, '..', 'assets', 'na_icon.png'),
   };
+  private issuesSystemUrl: string;
 
-  constructor() {
+  constructor(issuesSystemUrl?: string) {
     this.tray = new Tray(this.createNativeImage());
     this.tray.setContextMenu(this.createMenu());
+    this.issuesSystemUrl = issuesSystemUrl;
   }
 
   public updateTrayImage(state: State) {
@@ -46,9 +48,16 @@ export class TrayMenu {
 
   public updateObserverMenu(observersState: State[]) {
     const observersStateMenuItems: MenuItemConstructorOptions[] = observersState.map((observerState) => {
+      const submenuBase = [{ label: translate('Link'), click: () => shell.openExternal(observerState.link) }];
       return {
         label: observerState.name,
-        submenu: [{ label: translate('Link'), click: () => shell.openExternal(observerState.link) }],
+        submenu:
+          observerState.status === Status.FAILURE && this.issuesSystemUrl
+            ? [
+                ...submenuBase,
+                { label: translate('Open Issue'), click: () => shell.openExternal(this.issuesSystemUrl) },
+              ]
+            : submenuBase,
         icon: nativeImage.createFromPath(this.getIconForState(observerState)),
       };
     });
