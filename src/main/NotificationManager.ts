@@ -31,6 +31,7 @@ export class NotificationManager {
 
   public updateNotifications(old: State[], actual: State[]) {
     return actual.forEach((current) => {
+      if (current.muted) return;
       const previous = old.find(({ name }) => name === current.name) || ({ status: Status.NA } as any);
       if (current.status === previous.status) return;
       new Notification(this.notificationMap[current.status](current)).show();

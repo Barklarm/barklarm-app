@@ -4,16 +4,15 @@ import { Status } from '../../../types/Status';
 import { GrafanaConfiguration } from '../type';
 import fetch from 'electron-fetch';
 
-export class Grafana implements Observer {
+export class Grafana extends Observer {
   private readonly url: string;
   private readonly site: string;
-  private readonly alias: string;
   private readonly authToken: string;
 
-  constructor({ url, alias, authToken }: GrafanaConfiguration) {
+  constructor({ url, alias, authToken, backlogUrl, muted }: GrafanaConfiguration) {
+    super(alias || `Grafana: ${url}`, backlogUrl, muted);
     this.url = `${url}/api/v1/provisioning/alert-rules`;
     this.site = `${url}/alerting`;
-    this.alias = alias || `Grafana: ${url}`;
     this.authToken = authToken;
   }
   public async getState(): Promise<State> {
@@ -30,12 +29,16 @@ export class Grafana implements Observer {
         name: this.alias,
         status: this.getStatus(alertRules),
         link: this.site,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (_) {
       return {
         name: this.alias,
         status: Status.NA,
         link: this.site,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

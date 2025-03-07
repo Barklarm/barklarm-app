@@ -4,17 +4,16 @@ import { Status } from '../../../types/Status';
 import { GraylogConfiguration } from '../type';
 import fetch from 'electron-fetch';
 
-export class Graylog implements Observer {
+export class Graylog extends Observer {
   private readonly url: string;
   private readonly site: string;
-  private readonly alias: string;
   private readonly username: string;
   private readonly password: string;
 
-  constructor({ url, alias, username, password, streamId }: GraylogConfiguration) {
+  constructor({ url, alias, username, password, streamId, backlogUrl, muted }: GraylogConfiguration) {
+    super(alias || `Graylog: ${url}`, backlogUrl, muted);
     this.url = `${url}/api/streams${streamId ? `/${streamId}` : ''}/alerts/paginated?skip=0&limit=5&state=unresolved`;
     this.site = `${url}/alerts${streamId ? `/${streamId}` : ''}`;
-    this.alias = alias || `Graylog: ${url}`;
     this.username = username;
     this.password = password;
   }
@@ -32,12 +31,16 @@ export class Graylog implements Observer {
         name: this.alias,
         status: alertRules.total > 0 ? Status.FAILURE : Status.SUCCESS,
         link: this.site,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (_) {
       return {
         name: this.alias,
         status: Status.NA,
         link: this.site,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

@@ -4,16 +4,15 @@ import { SentryConfiguration } from '../type';
 import { Status } from '../../../types/Status';
 import fetch from 'electron-fetch';
 
-export class Sentry implements Observer {
+export class Sentry extends Observer {
   private readonly url: string;
   private readonly site: string;
-  private readonly alias: string;
   private readonly authToken: string;
 
-  constructor({ organization, project, authToken, alias }: SentryConfiguration) {
+  constructor({ organization, project, authToken, alias, backlogUrl, muted }: SentryConfiguration) {
+    super(alias || `Sentry: ${organization}/${project}`, backlogUrl, muted);
     this.url = `https://sentry.io/api/0/projects/${organization}/${project}/issues/`;
     this.site = `https://sentry.io/organizations/${organization}/projects/${project}`;
-    this.alias = alias || `Sentry: ${organization}/${project}`;
     this.authToken = authToken;
   }
 
@@ -31,12 +30,16 @@ export class Sentry implements Observer {
         name: this.alias,
         status: body.length === 0 ? Status.SUCCESS : Status.FAILURE,
         link: this.site,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (_) {
       return {
         name: this.alias,
         status: Status.NA,
         link: this.site,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

@@ -5,21 +5,19 @@ import { getPersonalAccessTokenHandler, WebApi } from 'azure-devops-node-api';
 import { AzureDevOpsConfiguration } from '../type';
 import { RunResult, RunState } from 'azure-devops-node-api/interfaces/PipelinesInterfaces';
 
-export class AzureDevOps implements Observer {
+export class AzureDevOps extends Observer {
   private connection: WebApi;
   private project: string;
   private pipelineId: number;
   private orgUrl: string;
 
-  private alias: string;
-
-  constructor({ authToken, orgUrl, project, pipelineId, alias }: AzureDevOpsConfiguration) {
+  constructor({ authToken, orgUrl, project, pipelineId, alias, backlogUrl, muted }: AzureDevOpsConfiguration) {
+    super(alias || `Azure DevOps: ${orgUrl}/${project}`, backlogUrl, muted);
     const authHandler = getPersonalAccessTokenHandler(authToken);
     this.connection = new WebApi(orgUrl, authHandler);
     this.orgUrl = orgUrl;
     this.project = project;
     this.pipelineId = pipelineId;
-    this.alias = alias || `Azure DevOps: ${orgUrl}/${this.project}`;
   }
 
   public async getState(): Promise<State> {
@@ -30,6 +28,8 @@ export class AzureDevOps implements Observer {
         name: this.alias,
         status: this.getStatus(results[0].state, results[0].result),
         link: results[0]._links.web.href,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (error) {
       console.error(error);
@@ -37,6 +37,8 @@ export class AzureDevOps implements Observer {
         name: this.alias,
         status: Status.NA,
         link: this.orgUrl,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

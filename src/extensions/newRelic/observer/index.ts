@@ -4,16 +4,15 @@ import { NewRelicConfiguration } from '../type';
 import { Status } from '../../../types/Status';
 import fetch from 'electron-fetch';
 
-export class NewRelic implements Observer {
+export class NewRelic extends Observer {
   private readonly url: string;
   private readonly site: string;
-  private readonly alias: string;
   private readonly apiKey: string;
 
-  constructor({ site, apiKey, alias }: NewRelicConfiguration) {
+  constructor({ site, apiKey, alias, backlogUrl, muted }: NewRelicConfiguration) {
+    super(alias || `New Relic: alerts`, backlogUrl, muted);
     this.url = `https://api.${site}/v2/alerts_violations.json`;
     this.site = `https://one.${site}/nrai`;
-    this.alias = alias || `New Relic: alerts`;
     this.apiKey = apiKey;
   }
 
@@ -31,12 +30,16 @@ export class NewRelic implements Observer {
         name: this.alias,
         status: body.violations.length === 0 ? Status.SUCCESS : Status.FAILURE,
         link: this.site,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (_) {
       return {
         name: this.alias,
         status: Status.NA,
         link: this.site,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

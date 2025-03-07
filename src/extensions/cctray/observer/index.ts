@@ -5,9 +5,8 @@ import { Status } from '../../../types/Status';
 import { XMLParser } from 'fast-xml-parser';
 import fetch from 'electron-fetch';
 
-export class CCTray implements Observer {
+export class CCTray extends Observer {
   private readonly url: string;
-  private readonly alias: string;
   private readonly projectName: string;
   private readonly parser: XMLParser;
   private readonly statusMap: any = {
@@ -17,9 +16,9 @@ export class CCTray implements Observer {
     Unknown: Status.NA,
   };
 
-  constructor({ url, alias, name }: CCTrayConfiguration) {
+  constructor({ url, alias, name, backlogUrl, muted }: CCTrayConfiguration) {
+    super(alias || `CCTray: ${name || url}`, backlogUrl, muted);
     this.url = url;
-    this.alias = alias || `CCTray: ${name || url}`;
     this.projectName = name;
     this.parser = new XMLParser({
       ignoreAttributes: false,
@@ -45,12 +44,16 @@ export class CCTray implements Observer {
         name: this.alias,
         status: this.getStatus(activity, lastBuildStatus),
         link: webUrl,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (_) {
       return {
         name: this.alias,
         status: Status.NA,
         link: this.url,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

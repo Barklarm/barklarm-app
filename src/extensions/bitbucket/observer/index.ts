@@ -4,17 +4,16 @@ import { Status } from '../../../types/Status';
 import fetch from 'electron-fetch';
 import { BitbucketConfiguration } from '../type';
 
-export class Bitbucket implements Observer {
+export class Bitbucket extends Observer {
   private readonly apiUrl: string;
   private readonly pipelinesUrl: string;
   private readonly branch: string;
-  private readonly alias: string;
   private readonly authToken: string;
 
-  constructor({ workspace, repo, branch, authToken, alias }: BitbucketConfiguration) {
+  constructor({ workspace, repo, branch, authToken, alias, backlogUrl, muted }: BitbucketConfiguration) {
+    super(alias || `Bitbucket: ${repo}/${branch}`, backlogUrl, muted);
     this.apiUrl = `https://api.bitbucket.org/2.0/repositories/${workspace}/${repo}/pipelines?target.ref_name=${branch}&sort=-created_on`;
     this.pipelinesUrl = `https://bitbucket.org/${workspace}/${repo}/pipelines/results`;
-    this.alias = alias || `Bitbucket: ${repo}/${branch}`;
     this.authToken = authToken;
     this.branch = branch;
   }
@@ -34,12 +33,16 @@ export class Bitbucket implements Observer {
         name: this.alias,
         status: this.getStatusFromPipelineResult(lastPipeline.state.name, lastPipeline.state.result?.name),
         link: `${this.pipelinesUrl}/${lastPipeline.build_number}`,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (_) {
       return {
         name: this.alias,
         status: Status.NA,
         link: `${this.pipelinesUrl}/branch/${this.branch}/page/1`,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

@@ -4,23 +4,21 @@ import { State } from '../../../types/State';
 import { GithubActionConfiguration } from '../type';
 import { Status } from '../../../types/Status';
 
-export class GithubAction implements Observer {
+export class GithubAction extends Observer {
   private octokit: Octokit;
   private owner: string;
   private repo: string;
   private workflowId: string;
-
-  private alias: string;
   private baseLink: string;
 
-  constructor({ authToken, owner, repo, workflowId, alias }: GithubActionConfiguration) {
+  constructor({ authToken, owner, repo, workflowId, alias, backlogUrl, muted }: GithubActionConfiguration) {
+    super(alias || `Github: ${owner}/${repo}/${workflowId}`, backlogUrl, muted);
     this.octokit = new Octokit({
       auth: authToken,
     });
     this.owner = owner;
     this.repo = repo;
     this.workflowId = workflowId;
-    this.alias = alias || `Github: ${this.owner}/${this.repo}/${this.workflowId}`;
     this.baseLink = `https://github.com/${owner}/${repo}/actions/`;
   }
 
@@ -37,6 +35,8 @@ export class GithubAction implements Observer {
         name: this.alias,
         status: this.getStatus(conclusion),
         link: html_url,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (error) {
       console.error(error);
@@ -44,6 +44,8 @@ export class GithubAction implements Observer {
         name: this.alias,
         status: Status.NA,
         link: this.baseLink,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

@@ -155,10 +155,12 @@ describe('dropzone', () => {
     const expectedComponent = <div data-testid={'githubAction'} />;
     const expectedTitle = faker.string.uuid();
     const expectedAlias = faker.string.uuid();
+    const expectedBacklogUrl = faker.string.uuid();
     const observables: any[] = [
       {
         type: 'githubAction',
         alias: expectedAlias,
+        backlogUrl: expectedBacklogUrl,
       },
     ];
     observersComponentBuilderMapMock['githubAction'].mockReturnValue(expectedComponent);
@@ -195,17 +197,24 @@ describe('dropzone', () => {
     expect(menuItems[8]).toHaveAttribute('value', 'graylog');
     expect(menuItems[9]).toHaveAttribute('value', 'grafana');
     expect(within(detailsStack).getByTestId('githubAction')).toBeInTheDocument();
-    const alias = within(detailsStack).getByTestId('text-field');
+    const textField = within(detailsStack).getAllByTestId('text-field');
+    const alias = textField[0];
     expect(alias).toHaveAttribute('label', 'Alias');
     expect(alias).toHaveAttribute('variant', 'standard');
     expect(alias).toHaveAttribute('value', expectedAlias);
+    const backlogUrl = textField[1];
+    expect(backlogUrl).toHaveAttribute('label', 'Backlog URL');
+    expect(backlogUrl).toHaveAttribute('variant', 'standard');
+    expect(backlogUrl).toHaveAttribute('value', expectedBacklogUrl);
   });
   it('renders empty type observables correctly', () => {
     const expectedAlias = faker.string.uuid();
+    const expectedBacklogUrl = faker.string.uuid();
     const observables: any[] = [
       {
         type: 'githubAction',
         alias: expectedAlias,
+        backlogUrl: expectedBacklogUrl,
       },
     ];
     observersComponentBuilderMapMock['githubAction'].mockImplementation(() => {
@@ -245,9 +254,14 @@ describe('dropzone', () => {
     expect(menuItems[7]).toHaveAttribute('value', 'opsgenie');
     expect(menuItems[8]).toHaveAttribute('value', 'graylog');
     expect(menuItems[9]).toHaveAttribute('value', 'grafana');
-    const alias = within(detailsStack).getByTestId('text-field');
+    const textField = within(detailsStack).getAllByTestId('text-field');
+    const alias = textField[0];
     expect(alias).toHaveAttribute('label', 'Alias');
     expect(alias).toHaveAttribute('variant', 'standard');
     expect(alias).toHaveAttribute('value', expectedAlias);
+    const backlogUrl = textField[1];
+    expect(backlogUrl).toHaveAttribute('label', 'Backlog URL');
+    expect(backlogUrl).toHaveAttribute('variant', 'standard');
+    expect(backlogUrl).toHaveAttribute('value', expectedBacklogUrl);
   });
 });

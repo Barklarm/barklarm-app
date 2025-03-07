@@ -21,6 +21,8 @@ import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -115,6 +117,25 @@ export const Observers = ({ observables, add, remove, update, save, translate }:
                 variant="standard"
                 value={observable.alias}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => update('alias', index, event.target.value)}
+              />
+              <TextField
+                label={translate('Backlog URL')}
+                variant="standard"
+                value={observable.backlogUrl}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  update('backlogUrl', index, event.target.value)
+                }
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={observable.muted}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      update('muted', index, event.target.checked)
+                    }
+                  />
+                }
+                label={translate('Muted')}
               />
             </Stack>
           </AccordionDetails>

@@ -14,8 +14,7 @@ import {
   UNKNOWN,
 } from '@datadog/datadog-api-client/dist/packages/datadog-api-client-v1/models/MonitorOverallStates';
 
-export class DatadogMonitor implements Observer {
-  private readonly alias: string;
+export class DatadogMonitor extends Observer {
   private readonly site: string;
   private readonly monitorId: number;
   private readonly apiInstance: v1.MonitorsApi;
@@ -29,8 +28,8 @@ export class DatadogMonitor implements Observer {
     [SKIPPED]: Status.NA,
     [UNKNOWN]: Status.NA,
   };
-  constructor({ alias, site, apiKey, appKey, monitorId }: DetadogMonitorConfiguration) {
-    this.alias = alias || `Datadog: ${monitorId}`;
+  constructor({ alias, site, apiKey, appKey, monitorId, backlogUrl, muted }: DetadogMonitorConfiguration) {
+    super(alias || `Datadog: ${monitorId}`, backlogUrl, muted);
     this.site = site;
     this.monitorId = monitorId;
     const configuration: client.Configuration = client.createConfiguration({
@@ -55,6 +54,8 @@ export class DatadogMonitor implements Observer {
         name: this.alias,
         status: this.overalStateMap[data.overallState as any],
         link,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (error) {
       console.error(error);
@@ -62,6 +63,8 @@ export class DatadogMonitor implements Observer {
         name: this.alias,
         status: Status.NA,
         link,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

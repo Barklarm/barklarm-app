@@ -11,19 +11,18 @@ const promisify =
       fun(...args, (error: any, result: any) => (error ? reject(error) : resolve(result)))
     );
 
-export class Opsgenie implements Observer {
-  private alias: string;
+export class Opsgenie extends Observer {
   private host: string;
   private identifier: any;
 
-  constructor({ apiKey, host, identifier, alias }: OpsgenieConfiguration) {
+  constructor({ apiKey, host, identifier, alias, backlogUrl, muted }: OpsgenieConfiguration) {
+    super(alias || `Opsgenie: ${host}/${identifier}`, backlogUrl, muted);
     opsgenie.configure({
       api_key: apiKey,
       host: `https://api.${host}`,
     });
     this.host = host;
     this.identifier = identifier;
-    this.alias = alias || `Opsgenie: ${host}/${identifier}`;
   }
 
   public async getState(): Promise<State> {
@@ -35,6 +34,8 @@ export class Opsgenie implements Observer {
         name: this.alias,
         status: result.data.status === 'open' ? Status.FAILURE : Status.SUCCESS,
         link: `https://app.${this.host}/alert/detail/${this.identifier}/details`,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     } catch (error) {
       console.error(error);
@@ -42,6 +43,8 @@ export class Opsgenie implements Observer {
         name: this.alias,
         status: Status.NA,
         link: `https://app.${this.host}/alert/detail/${this.identifier}/details`,
+        muted: this.muted,
+        backlogUrl: this.backlogUrl,
       };
     }
   }

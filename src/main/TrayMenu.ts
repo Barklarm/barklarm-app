@@ -49,14 +49,12 @@ export class TrayMenu {
   public updateObserverMenu(observersState: State[]) {
     const observersStateMenuItems: MenuItemConstructorOptions[] = observersState.map((observerState) => {
       const submenuBase = [{ label: translate('Link'), click: () => shell.openExternal(observerState.link) }];
+      const issueUrl = observerState.backlogUrl || this.issuesSystemUrl;
       return {
         label: observerState.name,
         submenu:
-          observerState.status === Status.FAILURE && this.issuesSystemUrl
-            ? [
-                ...submenuBase,
-                { label: translate('Open Issue'), click: () => shell.openExternal(this.issuesSystemUrl) },
-              ]
+          observerState.status === Status.FAILURE && issueUrl
+            ? [...submenuBase, { label: translate('Open Issue'), click: () => shell.openExternal(issueUrl) }]
             : submenuBase,
         icon: nativeImage.createFromPath(this.getIconForState(observerState)),
       };
