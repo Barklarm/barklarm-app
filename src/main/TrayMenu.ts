@@ -1,10 +1,11 @@
-import { app, Tray, Menu, nativeImage, MenuItemConstructorOptions, shell } from 'electron';
+import { app, Tray, Menu, nativeImage, MenuItemConstructorOptions, shell, Notification } from 'electron';
 import { appManager } from './AppManager';
 import { join } from 'path';
 import { State } from '../types/State';
 import { Status } from '../types/Status';
 import { MapType } from '../types/MapType';
 import { translate } from '../i18n';
+import fetch from 'electron-fetch';
 
 export class TrayMenu {
   public readonly tray: Tray;
@@ -54,7 +55,32 @@ export class TrayMenu {
         label: observerState.name,
         submenu:
           observerState.status === Status.FAILURE && issueUrl
-            ? [...submenuBase, { label: translate('Open Issue'), click: () => shell.openExternal(issueUrl) }]
+            ? [
+                ...submenuBase,
+                {
+                  label: translate('Open Issue'),
+                  click: async () => {
+                    try {
+                      const result = await fetch(issueUrl, {
+                        method: 'POST',
+                        body: JSON.stringify(observerState),
+                        headers: { 'Content-Type': 'application/json' },
+                      });
+                      new Notification({
+                        title: translate('Issue Open: Success'),
+                        body: `${observerState.name} ${translate('Issue Open Succeded')}`,
+                        icon: nativeImage.createFromPath(join(__dirname, '..', 'assets', 'ok_icon_big.png')),
+                      }).show();
+                    } catch (error) {
+                      new Notification({
+                        title: translate('Issue Open: Failed'),
+                        body: `${observerState.name} ${translate('Issue Open Failed')}`,
+                        icon: nativeImage.createFromPath(join(__dirname, '..', 'assets', 'fail_icon_big.png')),
+                      }).show();
+                    }
+                  },
+                },
+              ]
             : submenuBase,
         icon: nativeImage.createFromPath(this.getIconForState(observerState)),
       };
