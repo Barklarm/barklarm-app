@@ -1,7 +1,7 @@
 {
   "name": "barklarm",
   "productName": "barklarm",
-  "version": "2.4.7",
+  "version": "2.4.8",
   "description": "Build & Obsevability Radiator",
   "main": ".vite/build/main.js",
   "repository": "https://github.com/barklarm/barklarm-app",
