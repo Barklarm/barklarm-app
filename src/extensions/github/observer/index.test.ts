@@ -108,6 +108,8 @@ describe('Github Action', () => {
       });
     });
     it('shoulds return FAILURE status if conclusion is different to success', async () => {
+      const expectedName = faker.lorem.sentence();
+      const expectedId = faker.lorem.word();
       const expectedUrl = faker.internet.url();
       requestMock.mockReturnValue({
         status: 200,
@@ -115,6 +117,8 @@ describe('Github Action', () => {
           total_count: 100,
           workflow_runs: [
             {
+              id: expectedId,
+              name: expectedName,
               conclusion: faker.lorem.word(),
               html_url: expectedUrl,
             },
@@ -126,6 +130,10 @@ describe('Github Action', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectedUrl,
+        error: {
+          description: `${expectedName} Workflow Failed`,
+          id: expectedId,
+        },
       });
     });
     it('shoulds return NA status if exception thrown', async () => {
