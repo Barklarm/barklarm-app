@@ -50,12 +50,20 @@ export class DatadogMonitor extends Observer {
       const data: v1.Monitor = await this.apiInstance.getMonitor({
         monitorId: this.monitorId,
       });
+      const status = this.overalStateMap[data.overallState as any];
       return {
         name: this.alias,
-        status: this.overalStateMap[data.overallState as any],
+        status,
         link,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                id: data.id.toString(),
+                description: data.message,
+              }
+            : undefined,
       };
     } catch (error) {
       console.error(error);

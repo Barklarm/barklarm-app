@@ -99,7 +99,11 @@ describe('Datadog', () => {
     });
 
     it('shoulds return FAILURE status if response overall_state is Alert', async () => {
+      const expectedMessage = faker.lorem.sentence();
+      const expectedId = faker.number.int();
       getMonitorMock.mockResolvedValue({
+        id: expectedId,
+        message: expectedMessage,
         overallState: 'Alert',
       });
       const result = await observer.getState();
@@ -107,11 +111,21 @@ describe('Datadog', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectLink,
+        muted: undefined,
+        issueEndpoint: undefined,
+        error: {
+          description: expectedMessage,
+          id: expectedId.toString(),
+        },
       });
     });
 
     it('shoulds return FAILURE status if response overall_state is Warn', async () => {
+      const expectedMessage = faker.lorem.sentence();
+      const expectedId = faker.number.int();
       getMonitorMock.mockResolvedValue({
+        id: expectedId,
+        message: expectedMessage,
         overallState: 'Warn',
       });
       const result = await observer.getState();
@@ -119,6 +133,12 @@ describe('Datadog', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectLink,
+        muted: undefined,
+        issueEndpoint: undefined,
+        error: {
+          description: expectedMessage,
+          id: expectedId.toString(),
+        },
       });
     });
 
