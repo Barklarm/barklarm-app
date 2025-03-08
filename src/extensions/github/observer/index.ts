@@ -31,9 +31,10 @@ export class GithubAction extends Observer {
       });
       if (response.status != 200 || response.data.total_count == 0) throw new Error('response is invalid');
       const { conclusion, html_url } = response.data.workflow_runs[0];
+      const status = this.getStatus(conclusion);
       return {
         name: this.alias,
-        status: this.getStatus(conclusion),
+        status,
         link: html_url,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,

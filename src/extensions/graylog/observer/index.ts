@@ -27,12 +27,20 @@ export class Graylog extends Observer {
       });
       if (!response.ok) throw new Error('response is invalid');
       const alertRules = await response.json();
+      const status = alertRules.total > 0 ? Status.FAILURE : Status.SUCCESS;
       return {
         name: this.alias,
-        status: alertRules.total > 0 ? Status.FAILURE : Status.SUCCESS,
+        status,
         link: this.site,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                description: alertRules.alerts[0].description,
+                id: alertRules.alerts[0].id,
+              }
+            : undefined,
       };
     } catch (_) {
       return {

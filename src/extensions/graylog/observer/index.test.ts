@@ -75,11 +75,18 @@ describe('Graylog', () => {
       });
     });
     it('shoulds return FAILURE status if request have active alarms', async () => {
+      const expectedDescription = faker.lorem.sentence();
+      const expectedId = faker.lorem.word();
       fetchtMock.mockResolvedValue({
         json: () =>
           Promise.resolve({
             total: 1,
-            alerts: [],
+            alerts: [
+              {
+                description: expectedDescription,
+                id: expectedId,
+              },
+            ],
           }),
         ok: true,
       });
@@ -94,6 +101,10 @@ describe('Graylog', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectedSite,
+        error: {
+          description: expectedDescription,
+          id: expectedId,
+        },
       });
     });
   });
@@ -160,11 +171,18 @@ describe('Graylog', () => {
       });
     });
     it('shoulds return FAILURE status if request have active alarms', async () => {
+      const expectedDescription = faker.lorem.sentence();
+      const expectedId = faker.lorem.word();
       fetchtMock.mockResolvedValue({
         json: () =>
           Promise.resolve({
             total: 1,
-            alerts: [],
+            alerts: [
+              {
+                description: expectedDescription,
+                id: expectedId,
+              },
+            ],
           }),
         ok: true,
       });
@@ -179,6 +197,12 @@ describe('Graylog', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectedSite,
+        muted: undefined,
+        issueEndpoint: undefined,
+        error: {
+          description: expectedDescription,
+          id: expectedId,
+        },
       });
     });
   });

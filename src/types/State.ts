@@ -1,3 +1,4 @@
+import { Error } from './Error';
 import { Status } from './Status';
 
 export type State = {
@@ -6,4 +7,5 @@ export type State = {
   link: string;
   muted?: boolean;
   issueEndpoint?: string;
+  error?: Error;
 };
