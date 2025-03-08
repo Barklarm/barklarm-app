@@ -119,11 +119,11 @@ export const Observers = ({ observables, add, remove, update, save, translate }:
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => update('alias', index, event.target.value)}
               />
               <TextField
-                label={translate('Backlog URL')}
+                label={translate('Issue Creation Endpoint')}
                 variant="standard"
-                value={observable.backlogUrl}
+                value={observable.issueEndpoint}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  update('backlogUrl', index, event.target.value)
+                  update('issueEndpoint', index, event.target.value)
                 }
               />
               <FormControlLabel

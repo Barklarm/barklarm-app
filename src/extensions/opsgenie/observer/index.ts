@@ -15,8 +15,8 @@ export class Opsgenie extends Observer {
   private host: string;
   private identifier: any;
 
-  constructor({ apiKey, host, identifier, alias, backlogUrl, muted }: OpsgenieConfiguration) {
-    super(alias || `Opsgenie: ${host}/${identifier}`, backlogUrl, muted);
+  constructor({ apiKey, host, identifier, alias, issueEndpoint, muted }: OpsgenieConfiguration) {
+    super(alias || `Opsgenie: ${host}/${identifier}`, issueEndpoint, muted);
     opsgenie.configure({
       api_key: apiKey,
       host: `https://api.${host}`,
@@ -35,7 +35,7 @@ export class Opsgenie extends Observer {
         status: result.data.status === 'open' ? Status.FAILURE : Status.SUCCESS,
         link: `https://app.${this.host}/alert/detail/${this.identifier}/details`,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (error) {
       console.error(error);
@@ -44,7 +44,7 @@ export class Opsgenie extends Observer {
         status: Status.NA,
         link: `https://app.${this.host}/alert/detail/${this.identifier}/details`,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

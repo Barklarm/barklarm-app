@@ -10,8 +10,8 @@ export class Bitbucket extends Observer {
   private readonly branch: string;
   private readonly authToken: string;
 
-  constructor({ workspace, repo, branch, authToken, alias, backlogUrl, muted }: BitbucketConfiguration) {
-    super(alias || `Bitbucket: ${repo}/${branch}`, backlogUrl, muted);
+  constructor({ workspace, repo, branch, authToken, alias, issueEndpoint, muted }: BitbucketConfiguration) {
+    super(alias || `Bitbucket: ${repo}/${branch}`, issueEndpoint, muted);
     this.apiUrl = `https://api.bitbucket.org/2.0/repositories/${workspace}/${repo}/pipelines?target.ref_name=${branch}&sort=-created_on`;
     this.pipelinesUrl = `https://bitbucket.org/${workspace}/${repo}/pipelines/results`;
     this.authToken = authToken;
@@ -34,7 +34,7 @@ export class Bitbucket extends Observer {
         status: this.getStatusFromPipelineResult(lastPipeline.state.name, lastPipeline.state.result?.name),
         link: `${this.pipelinesUrl}/${lastPipeline.build_number}`,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (_) {
       return {
@@ -42,7 +42,7 @@ export class Bitbucket extends Observer {
         status: Status.NA,
         link: `${this.pipelinesUrl}/branch/${this.branch}/page/1`,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

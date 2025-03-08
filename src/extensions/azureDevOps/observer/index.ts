@@ -11,8 +11,8 @@ export class AzureDevOps extends Observer {
   private pipelineId: number;
   private orgUrl: string;
 
-  constructor({ authToken, orgUrl, project, pipelineId, alias, backlogUrl, muted }: AzureDevOpsConfiguration) {
-    super(alias || `Azure DevOps: ${orgUrl}/${project}`, backlogUrl, muted);
+  constructor({ authToken, orgUrl, project, pipelineId, alias, issueEndpoint, muted }: AzureDevOpsConfiguration) {
+    super(alias || `Azure DevOps: ${orgUrl}/${project}`, issueEndpoint, muted);
     const authHandler = getPersonalAccessTokenHandler(authToken);
     this.connection = new WebApi(orgUrl, authHandler);
     this.orgUrl = orgUrl;
@@ -29,7 +29,7 @@ export class AzureDevOps extends Observer {
         status: this.getStatus(results[0].state, results[0].result),
         link: results[0]._links.web.href,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (error) {
       console.error(error);
@@ -38,7 +38,7 @@ export class AzureDevOps extends Observer {
         status: Status.NA,
         link: this.orgUrl,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

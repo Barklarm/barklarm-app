@@ -9,8 +9,8 @@ export class Sentry extends Observer {
   private readonly site: string;
   private readonly authToken: string;
 
-  constructor({ organization, project, authToken, alias, backlogUrl, muted }: SentryConfiguration) {
-    super(alias || `Sentry: ${organization}/${project}`, backlogUrl, muted);
+  constructor({ organization, project, authToken, alias, issueEndpoint, muted }: SentryConfiguration) {
+    super(alias || `Sentry: ${organization}/${project}`, issueEndpoint, muted);
     this.url = `https://sentry.io/api/0/projects/${organization}/${project}/issues/`;
     this.site = `https://sentry.io/organizations/${organization}/projects/${project}`;
     this.authToken = authToken;
@@ -31,7 +31,7 @@ export class Sentry extends Observer {
         status: body.length === 0 ? Status.SUCCESS : Status.FAILURE,
         link: this.site,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (_) {
       return {
@@ -39,7 +39,7 @@ export class Sentry extends Observer {
         status: Status.NA,
         link: this.site,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

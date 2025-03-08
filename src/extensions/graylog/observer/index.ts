@@ -10,8 +10,8 @@ export class Graylog extends Observer {
   private readonly username: string;
   private readonly password: string;
 
-  constructor({ url, alias, username, password, streamId, backlogUrl, muted }: GraylogConfiguration) {
-    super(alias || `Graylog: ${url}`, backlogUrl, muted);
+  constructor({ url, alias, username, password, streamId, issueEndpoint, muted }: GraylogConfiguration) {
+    super(alias || `Graylog: ${url}`, issueEndpoint, muted);
     this.url = `${url}/api/streams${streamId ? `/${streamId}` : ''}/alerts/paginated?skip=0&limit=5&state=unresolved`;
     this.site = `${url}/alerts${streamId ? `/${streamId}` : ''}`;
     this.username = username;
@@ -32,7 +32,7 @@ export class Graylog extends Observer {
         status: alertRules.total > 0 ? Status.FAILURE : Status.SUCCESS,
         link: this.site,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (_) {
       return {
@@ -40,7 +40,7 @@ export class Graylog extends Observer {
         status: Status.NA,
         link: this.site,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

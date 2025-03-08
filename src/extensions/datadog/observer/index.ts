@@ -28,8 +28,8 @@ export class DatadogMonitor extends Observer {
     [SKIPPED]: Status.NA,
     [UNKNOWN]: Status.NA,
   };
-  constructor({ alias, site, apiKey, appKey, monitorId, backlogUrl, muted }: DetadogMonitorConfiguration) {
-    super(alias || `Datadog: ${monitorId}`, backlogUrl, muted);
+  constructor({ alias, site, apiKey, appKey, monitorId, issueEndpoint, muted }: DetadogMonitorConfiguration) {
+    super(alias || `Datadog: ${monitorId}`, issueEndpoint, muted);
     this.site = site;
     this.monitorId = monitorId;
     const configuration: client.Configuration = client.createConfiguration({
@@ -55,7 +55,7 @@ export class DatadogMonitor extends Observer {
         status: this.overalStateMap[data.overallState as any],
         link,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (error) {
       console.error(error);
@@ -64,7 +64,7 @@ export class DatadogMonitor extends Observer {
         status: Status.NA,
         link,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

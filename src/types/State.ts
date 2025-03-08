@@ -5,5 +5,5 @@ export type State = {
   status: Status;
   link: string;
   muted?: boolean;
-  backlogUrl?: string;
+  issueEndpoint?: string;
 };

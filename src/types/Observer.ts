@@ -2,12 +2,12 @@ import { State } from './State';
 
 export abstract class Observer {
   protected alias: string;
-  protected backlogUrl: string;
+  protected issueEndpoint: string;
   protected muted: boolean;
 
-  constructor(alias: string, backlogUrl: string, muted: boolean) {
+  constructor(alias: string, issueEndpoint: string, muted: boolean) {
     this.alias = alias;
-    this.backlogUrl = backlogUrl;
+    this.issueEndpoint = issueEndpoint;
     this.muted = muted;
   }
 

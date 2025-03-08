@@ -34,12 +34,12 @@ export class TrayMenu {
     [Status.CHECKING]: join(__dirname, '..', 'assets', 'running_icon.png'),
     [Status.NA]: join(__dirname, '..', 'assets', 'na_icon.png'),
   };
-  private issuesSystemUrl: string;
+  private issueGlobalEndpoint: string;
 
-  constructor(issuesSystemUrl?: string) {
+  constructor(issueGlobalEndpoint?: string) {
     this.tray = new Tray(this.createNativeImage());
     this.tray.setContextMenu(this.createMenu());
-    this.issuesSystemUrl = issuesSystemUrl;
+    this.issueGlobalEndpoint = issueGlobalEndpoint;
   }
 
   public updateTrayImage(state: State) {
@@ -50,18 +50,18 @@ export class TrayMenu {
   public updateObserverMenu(observersState: State[]) {
     const observersStateMenuItems: MenuItemConstructorOptions[] = observersState.map((observerState) => {
       const submenuBase = [{ label: translate('Link'), click: () => shell.openExternal(observerState.link) }];
-      const issueUrl = observerState.backlogUrl || this.issuesSystemUrl;
+      const issueEndpoint = observerState.issueEndpoint || this.issueGlobalEndpoint;
       return {
         label: observerState.name,
         submenu:
-          observerState.status === Status.FAILURE && issueUrl
+          observerState.status === Status.FAILURE && issueEndpoint
             ? [
                 ...submenuBase,
                 {
                   label: translate('Open Issue'),
                   click: async () => {
                     try {
-                      const result = await fetch(issueUrl, {
+                      const result = await fetch(issueEndpoint, {
                         method: 'POST',
                         body: JSON.stringify(observerState),
                         headers: { 'Content-Type': 'application/json' },

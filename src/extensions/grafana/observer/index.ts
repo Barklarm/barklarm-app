@@ -9,8 +9,8 @@ export class Grafana extends Observer {
   private readonly site: string;
   private readonly authToken: string;
 
-  constructor({ url, alias, authToken, backlogUrl, muted }: GrafanaConfiguration) {
-    super(alias || `Grafana: ${url}`, backlogUrl, muted);
+  constructor({ url, alias, authToken, issueEndpoint, muted }: GrafanaConfiguration) {
+    super(alias || `Grafana: ${url}`, issueEndpoint, muted);
     this.url = `${url}/api/v1/provisioning/alert-rules`;
     this.site = `${url}/alerting`;
     this.authToken = authToken;
@@ -30,7 +30,7 @@ export class Grafana extends Observer {
         status: this.getStatus(alertRules),
         link: this.site,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (_) {
       return {
@@ -38,7 +38,7 @@ export class Grafana extends Observer {
         status: Status.NA,
         link: this.site,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

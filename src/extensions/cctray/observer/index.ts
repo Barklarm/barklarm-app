@@ -16,8 +16,8 @@ export class CCTray extends Observer {
     Unknown: Status.NA,
   };
 
-  constructor({ url, alias, name, backlogUrl, muted }: CCTrayConfiguration) {
-    super(alias || `CCTray: ${name || url}`, backlogUrl, muted);
+  constructor({ url, alias, name, issueEndpoint, muted }: CCTrayConfiguration) {
+    super(alias || `CCTray: ${name || url}`, issueEndpoint, muted);
     this.url = url;
     this.projectName = name;
     this.parser = new XMLParser({
@@ -45,7 +45,7 @@ export class CCTray extends Observer {
         status: this.getStatus(activity, lastBuildStatus),
         link: webUrl,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (_) {
       return {
@@ -53,7 +53,7 @@ export class CCTray extends Observer {
         status: Status.NA,
         link: this.url,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

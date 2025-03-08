@@ -17,11 +17,11 @@ export const storage = (electron: any) => ({
   getRefreshInterval: (): number => {
     return electron.store.get('refreshInterval');
   },
-  saveIssuesSystemUrl: (issuesSystemUrl?: string): void => {
-    electron.store.set('issuesSystemUrl', issuesSystemUrl);
+  saveissueGlobalEndpoint: (issueGlobalEndpoint?: string): void => {
+    electron.store.set('issueGlobalEndpoint', issueGlobalEndpoint);
   },
-  getIssuesSystemUrl: (): string => {
-    return electron.store.get('issuesSystemUrl');
+  getissueGlobalEndpoint: (): string => {
+    return electron.store.get('issueGlobalEndpoint');
   },
   saveAutostart: (autostart: boolean): void => {
     electron.store.set('autostart', autostart);

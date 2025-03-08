@@ -16,8 +16,8 @@ export const General = () => {
     saveSslDisabled,
     getRefreshInterval,
     saveRefreshInterval,
-    getIssuesSystemUrl,
-    saveIssuesSystemUrl,
+    getissueGlobalEndpoint,
+    saveissueGlobalEndpoint,
     getAutostart,
     saveAutostart,
     importConfig,
@@ -26,7 +26,7 @@ export const General = () => {
   const [autoupdate, setAutoupdate] = useState(getAutoupdate());
   const [sslDisabled, setsslDisabled] = useState(getSslDisabled());
   const [refreshInterval, setRefreshInterval] = useState(getRefreshInterval());
-  const [issuesSystemUrl, setIssuesSystemUrl] = useState(getIssuesSystemUrl());
+  const [issueGlobalEndpoint, setissueGlobalEndpoint] = useState(getissueGlobalEndpoint());
   const [autostart, setAutostart] = useState(getAutostart());
   return (
     <Stack>
@@ -44,13 +44,13 @@ export const General = () => {
         }}
       />
       <TextField
-        label={translate('Issues System URL')}
+        label={translate('issues Global Endpoint')}
         type="text"
         variant="standard"
-        value={issuesSystemUrl}
+        value={issueGlobalEndpoint}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          saveIssuesSystemUrl(event.target.value);
-          setIssuesSystemUrl(event.target.value);
+          saveissueGlobalEndpoint(event.target.value);
+          setissueGlobalEndpoint(event.target.value);
         }}
       />
       <FormControlLabel

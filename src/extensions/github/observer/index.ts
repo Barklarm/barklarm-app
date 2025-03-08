@@ -11,8 +11,8 @@ export class GithubAction extends Observer {
   private workflowId: string;
   private baseLink: string;
 
-  constructor({ authToken, owner, repo, workflowId, alias, backlogUrl, muted }: GithubActionConfiguration) {
-    super(alias || `Github: ${owner}/${repo}/${workflowId}`, backlogUrl, muted);
+  constructor({ authToken, owner, repo, workflowId, alias, issueEndpoint, muted }: GithubActionConfiguration) {
+    super(alias || `Github: ${owner}/${repo}/${workflowId}`, issueEndpoint, muted);
     this.octokit = new Octokit({
       auth: authToken,
     });
@@ -36,7 +36,7 @@ export class GithubAction extends Observer {
         status: this.getStatus(conclusion),
         link: html_url,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     } catch (error) {
       console.error(error);
@@ -45,7 +45,7 @@ export class GithubAction extends Observer {
         status: Status.NA,
         link: this.baseLink,
         muted: this.muted,
-        backlogUrl: this.backlogUrl,
+        issueEndpoint: this.issueEndpoint,
       };
     }
   }

@@ -1,6 +1,6 @@
 export type ObserverConfiguration = {
   type: string;
   alias?: string;
-  backlogUrl?: string;
+  issueEndpoint?: string;
   muted?: boolean;
 };

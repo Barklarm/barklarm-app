@@ -25,7 +25,7 @@ const schema: any = {
     type: 'number',
     default: 60000,
   },
-  issuesSystemUrl: {
+  issueGlobalEndpoint: {
     type: 'string',
   },
 };

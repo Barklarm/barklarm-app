@@ -155,12 +155,12 @@ describe('dropzone', () => {
     const expectedComponent = <div data-testid={'githubAction'} />;
     const expectedTitle = faker.string.uuid();
     const expectedAlias = faker.string.uuid();
-    const expectedBacklogUrl = faker.string.uuid();
+    const expectedissueEndpoint = faker.string.uuid();
     const observables: any[] = [
       {
         type: 'githubAction',
         alias: expectedAlias,
-        backlogUrl: expectedBacklogUrl,
+        issueEndpoint: expectedissueEndpoint,
       },
     ];
     observersComponentBuilderMapMock['githubAction'].mockReturnValue(expectedComponent);
@@ -202,19 +202,19 @@ describe('dropzone', () => {
     expect(alias).toHaveAttribute('label', 'Alias');
     expect(alias).toHaveAttribute('variant', 'standard');
     expect(alias).toHaveAttribute('value', expectedAlias);
-    const backlogUrl = textField[1];
-    expect(backlogUrl).toHaveAttribute('label', 'Backlog URL');
-    expect(backlogUrl).toHaveAttribute('variant', 'standard');
-    expect(backlogUrl).toHaveAttribute('value', expectedBacklogUrl);
+    const issueEndpoint = textField[1];
+    expect(issueEndpoint).toHaveAttribute('label', 'Issue Creation Endpoint');
+    expect(issueEndpoint).toHaveAttribute('variant', 'standard');
+    expect(issueEndpoint).toHaveAttribute('value', expectedissueEndpoint);
   });
   it('renders empty type observables correctly', () => {
     const expectedAlias = faker.string.uuid();
-    const expectedBacklogUrl = faker.string.uuid();
+    const expectedissueEndpoint = faker.string.uuid();
     const observables: any[] = [
       {
         type: 'githubAction',
         alias: expectedAlias,
-        backlogUrl: expectedBacklogUrl,
+        issueEndpoint: expectedissueEndpoint,
       },
     ];
     observersComponentBuilderMapMock['githubAction'].mockImplementation(() => {
@@ -259,9 +259,9 @@ describe('dropzone', () => {
     expect(alias).toHaveAttribute('label', 'Alias');
     expect(alias).toHaveAttribute('variant', 'standard');
     expect(alias).toHaveAttribute('value', expectedAlias);
-    const backlogUrl = textField[1];
-    expect(backlogUrl).toHaveAttribute('label', 'Backlog URL');
-    expect(backlogUrl).toHaveAttribute('variant', 'standard');
-    expect(backlogUrl).toHaveAttribute('value', expectedBacklogUrl);
+    const issueEndpoint = textField[1];
+    expect(issueEndpoint).toHaveAttribute('label', 'Issue Creation Endpoint');
+    expect(issueEndpoint).toHaveAttribute('variant', 'standard');
+    expect(issueEndpoint).toHaveAttribute('value', expectedissueEndpoint);
   });
 });
