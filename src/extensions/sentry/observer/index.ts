@@ -26,12 +26,20 @@ export class Sentry extends Observer {
       });
       if (!response.ok) throw new Error('response is invalid');
       const body = await response.json();
+      const status = body.length === 0 ? Status.SUCCESS : Status.FAILURE;
       return {
         name: this.alias,
-        status: body.length === 0 ? Status.SUCCESS : Status.FAILURE,
+        status,
         link: this.site,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                id: body[0].id,
+                description: body[0].title,
+              }
+            : undefined,
       };
     } catch (_) {
       return {

@@ -81,11 +81,15 @@ describe('Grafana', () => {
       });
     });
     it('shoulds return FAILURE status if request have active alarms', async () => {
+      const expectedId = 'expectedId';
+      const expectedTitle = 'expectedTitle';
       fetchtMock.mockResolvedValue({
         json: () =>
           Promise.resolve([
             {
               execErrState: 'Error',
+              uid: expectedId,
+              title: expectedTitle,
             },
             {
               execErrState: 'Success',
@@ -107,6 +111,10 @@ describe('Grafana', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectedSite,
+        error: {
+          description: expectedTitle,
+          id: expectedId,
+        },
       });
     });
   });

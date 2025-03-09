@@ -202,6 +202,10 @@ describe('CCTray', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectUrl,
+        error: {
+          description: 'selected-test Build Failed',
+          id: 'selected-test_2005-09-28T10:30:34.6362160+01:00',
+        },
       });
     });
     it('shoulds return Failure status if request return xml with last build status Exception and activity equal to Sleeping', async () => {
@@ -228,6 +232,10 @@ describe('CCTray', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectUrl,
+        error: {
+          description: 'selected-test Build Failed',
+          id: 'selected-test_2005-09-28T10:30:34.6362160+01:00',
+        },
       });
     });
 

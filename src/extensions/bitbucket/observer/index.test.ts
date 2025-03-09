@@ -110,13 +110,14 @@ describe('Bitbucket', () => {
 
     it('shoulds return FAILURE status if state is COMPLETED and result FAILED', async () => {
       const buildNumber = faker.number.int();
+      const buildUUID = faker.lorem.word();
       fetchtMock.mockResolvedValue({
         json: () =>
           Promise.resolve({
             page: 1,
             values: [
               {
-                uuid: faker.lorem.word(),
+                uuid: buildUUID,
                 build_number: buildNumber,
                 state: {
                   name: 'COMPLETED',
@@ -142,18 +143,23 @@ describe('Bitbucket', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: `https://bitbucket.org/${config.workspace}/${config.repo}/pipelines/results/${buildNumber}`,
+        error: {
+          description: 'Pipeline Failed',
+          id: buildUUID,
+        },
       });
     });
 
     it('shoulds return FAILURE status if state is COMPLETED and result ERROR', async () => {
       const buildNumber = faker.number.int();
+      const buildUUID = faker.lorem.word();
       fetchtMock.mockResolvedValue({
         json: () =>
           Promise.resolve({
             page: 1,
             values: [
               {
-                uuid: faker.lorem.word(),
+                uuid: buildUUID,
                 build_number: buildNumber,
                 state: {
                   name: 'COMPLETED',
@@ -179,6 +185,10 @@ describe('Bitbucket', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: `https://bitbucket.org/${config.workspace}/${config.repo}/pipelines/results/${buildNumber}`,
+        error: {
+          description: 'Pipeline Failed',
+          id: buildUUID,
+        },
       });
     });
 

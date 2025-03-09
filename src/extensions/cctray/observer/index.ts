@@ -39,13 +39,24 @@ export class CCTray extends Observer {
       });
       if (!response.ok) throw new Error('response is invalid');
       const projects = this.parser.parse(await response.text()).Projects;
-      const { activity, lastBuildStatus, webUrl } = this.getProject(projects.Project, this.projectName);
+      const { activity, lastBuildStatus, webUrl, name, lastBuildTime } = this.getProject(
+        projects.Project,
+        this.projectName
+      );
+      const status = this.getStatus(activity, lastBuildStatus);
       return {
         name: this.alias,
-        status: this.getStatus(activity, lastBuildStatus),
+        status,
         link: webUrl,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                id: `${name}_${lastBuildTime}`,
+                description: `${name} Build Failed`,
+              }
+            : undefined,
       };
     } catch (_) {
       return {

@@ -34,24 +34,42 @@ describe('Opsgenie', () => {
       observer = new Opsgenie(config);
     });
 
+    const expectedId = 'expectedId';
+    const expectedMessage = 'expectedMessage';
+
     describe.each([
-      ['closed', Status.SUCCESS],
-      ['open', Status.FAILURE],
-    ])('%s', (status: string, expected: Status) => {
+      ['closed', Status.SUCCESS, undefined],
+      [
+        'open',
+        Status.FAILURE,
+        {
+          description: expectedMessage,
+          id: expectedId,
+        },
+      ],
+    ])('%s', (status: string, expected: Status, error: any) => {
       it(`should return ${expected} when status is ${status}`, async () => {
         const ExpectedApiResult = {
           status,
+          id: expectedId,
+          message: expectedMessage,
         };
         getAlertV2Mock.mockImplementation((_, cb) => cb(undefined, { data: ExpectedApiResult }));
         const resultCall = await observer.getState();
         expect(getAlertV2Mock).toBeCalledWith(
-          { identifier: config.identifier, identifierType: 'id' },
+          {
+            identifier: config.identifier,
+            identifierType: 'id',
+          },
           expect.anything()
         );
         expect(resultCall).toEqual({
           name: config.alias,
           status: expected,
           link: `https://app.${config.host}/alert/detail/${config.identifier}/details`,
+          muted: undefined,
+          issueEndpoint: undefined,
+          error,
         });
       });
     });

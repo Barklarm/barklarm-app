@@ -24,12 +24,20 @@ export class AzureDevOps extends Observer {
     try {
       const buildApi = await this.connection.getPipelinesApi();
       const results = await buildApi.listRuns(this.project, this.pipelineId);
+      const status = this.getStatus(results[0].state, results[0].result);
       return {
         name: this.alias,
-        status: this.getStatus(results[0].state, results[0].result),
+        status,
         link: results[0]._links.web.href,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                id: results[0].id.toString(),
+                description: `${results[0].name} Workflow Failed`,
+              }
+            : undefined,
       };
     } catch (error) {
       console.error(error);

@@ -25,12 +25,20 @@ export class Grafana extends Observer {
       });
       if (!response.ok) throw new Error('response is invalid');
       const alertRules = await response.json();
+      const status = this.getStatus(alertRules);
       return {
         name: this.alias,
-        status: this.getStatus(alertRules),
+        status,
         link: this.site,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                id: alertRules[0].uid,
+                description: alertRules[0].title,
+              }
+            : undefined,
       };
     } catch (_) {
       return {

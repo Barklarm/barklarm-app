@@ -70,8 +70,18 @@ describe('NewRelic', () => {
       });
     });
     it('shoulds return FAILURE status if request return non empty violations array', async () => {
+      const expectedId = 'expectedId';
+      const expectedMessage = 'expectedMessage';
       fetchtMock.mockResolvedValue({
-        json: () => Promise.resolve({ violations: [{}] }),
+        json: () =>
+          Promise.resolve({
+            violations: [
+              {
+                id: expectedId,
+                condition_name: expectedMessage,
+              },
+            ],
+          }),
         ok: true,
       });
       const result = await observer.getState();
@@ -85,6 +95,10 @@ describe('NewRelic', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectedSite,
+        error: {
+          description: expectedMessage,
+          id: expectedId,
+        },
       });
     });
   });

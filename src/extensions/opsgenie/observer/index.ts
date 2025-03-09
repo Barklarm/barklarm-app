@@ -30,12 +30,20 @@ export class Opsgenie extends Observer {
       process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
       const getAlert = promisify(opsgenie.alertV2.get);
       const result: any = await getAlert({ identifier: this.identifier, identifierType: 'id' });
+      const status = result.data.status === 'open' ? Status.FAILURE : Status.SUCCESS;
       return {
         name: this.alias,
-        status: result.data.status === 'open' ? Status.FAILURE : Status.SUCCESS,
+        status,
         link: `https://app.${this.host}/alert/detail/${this.identifier}/details`,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                id: result.data.id,
+                description: result.data.message,
+              }
+            : undefined,
       };
     } catch (error) {
       console.error(error);

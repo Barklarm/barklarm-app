@@ -37,19 +37,32 @@ describe('Azure DevOps', () => {
       observer = new AzureDevOps(config);
     });
 
+    const expectedId = faker.lorem.word();
+    const expectedName = faker.lorem.word();
+
     describe.each([
-      [RunState.Completed, RunResult.Succeeded, Status.SUCCESS],
-      [RunState.Completed, RunResult.Failed, Status.FAILURE],
-      [RunState.Completed, RunResult.Canceled, Status.NA],
-      [RunState.Completed, RunResult.Unknown, Status.NA],
-      [RunState.Canceling, RunResult.Succeeded, Status.CHECKING],
-      [RunState.InProgress, RunResult.Succeeded, Status.CHECKING],
-      [RunState.Unknown, RunResult.Succeeded, Status.CHECKING],
-    ])('%s', (state: RunState, result: RunResult, expected: Status) => {
+      [RunState.Completed, RunResult.Succeeded, Status.SUCCESS, undefined],
+      [
+        RunState.Completed,
+        RunResult.Failed,
+        Status.FAILURE,
+        {
+          id: expectedId,
+          description: `${expectedName} Workflow Failed`,
+        },
+      ],
+      [RunState.Completed, RunResult.Canceled, Status.NA, undefined],
+      [RunState.Completed, RunResult.Unknown, Status.NA, undefined],
+      [RunState.Canceling, RunResult.Succeeded, Status.CHECKING, undefined],
+      [RunState.InProgress, RunResult.Succeeded, Status.CHECKING, undefined],
+      [RunState.Unknown, RunResult.Succeeded, Status.CHECKING, undefined],
+    ])('%s', (state: RunState, result: RunResult, expected: Status, error: any) => {
       it(`should return ${expected} when state ${state} and result ${result}`, async () => {
         const ExpectedApiResult = {
           state: state,
           result: result,
+          id: expectedId,
+          name: expectedName,
           _links: {
             web: {
               href: faker.lorem.word(),
@@ -62,6 +75,7 @@ describe('Azure DevOps', () => {
           name: config.alias,
           status: expected,
           link: ExpectedApiResult._links.web.href,
+          error,
         });
       });
     });

@@ -26,12 +26,20 @@ export class NewRelic extends Observer {
       });
       if (!response.ok) throw new Error('response is invalid');
       const body = await response.json();
+      const status = body.violations.length === 0 ? Status.SUCCESS : Status.FAILURE;
       return {
         name: this.alias,
-        status: body.violations.length === 0 ? Status.SUCCESS : Status.FAILURE,
+        status,
         link: this.site,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                id: body.violations[0].id,
+                description: body.violations[0].condition_name,
+              }
+            : undefined,
       };
     } catch (_) {
       return {

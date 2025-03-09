@@ -71,8 +71,16 @@ describe('Sentry', () => {
       });
     });
     it('shoulds return FAILURE status if request return non empty array', async () => {
+      const expectedId = 'expectedId';
+      const expectedTitle = 'expectedTitle';
       fetchtMock.mockResolvedValue({
-        json: () => Promise.resolve([{}]),
+        json: () =>
+          Promise.resolve([
+            {
+              id: expectedId,
+              title: expectedTitle,
+            },
+          ]),
         ok: true,
       });
       const result = await observer.getState();
@@ -86,6 +94,10 @@ describe('Sentry', () => {
         name: config.alias,
         status: Status.FAILURE,
         link: expectedSite,
+        error: {
+          description: expectedTitle,
+          id: expectedId,
+        },
       });
     });
   });

@@ -28,13 +28,20 @@ export class Bitbucket extends Observer {
       if (!response.ok) throw new Error('response is invalid');
       const pipelines = await response.json();
       const lastPipeline = pipelines.values[0];
-
+      const status = this.getStatusFromPipelineResult(lastPipeline.state.name, lastPipeline.state.result?.name);
       return {
         name: this.alias,
-        status: this.getStatusFromPipelineResult(lastPipeline.state.name, lastPipeline.state.result?.name),
+        status,
         link: `${this.pipelinesUrl}/${lastPipeline.build_number}`,
         muted: this.muted,
         issueEndpoint: this.issueEndpoint,
+        error:
+          status === Status.FAILURE
+            ? {
+                id: lastPipeline.uuid,
+                description: `Pipeline Failed`,
+              }
+            : undefined,
       };
     } catch (_) {
       return {
